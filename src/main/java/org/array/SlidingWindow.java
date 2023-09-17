@@ -12,20 +12,22 @@ public class SlidingWindow {
      * @return
      */
     public int minSubArrayLen(int target, int[] nums) {
-        int windowSize = 0;
-        int windowSum = nums[0];
+        int result = 0;
+        int windowSize;
+        int windowSum = 0;
         int start = 0;
-        int end = 0;
-        while (nums.length >= windowSize) {
-            if (windowSum < target) {
-                end++;
-                windowSum+=nums[end];
-            } else {
-                windowSize = Math.min(end - start + 1, windowSize);
-                windowSum-=nums[start];
+        for (int end = 0; end < nums.length; end++) {
+            windowSum += nums[end];
+            while (target <= windowSum) {
+                if (result == 0) {
+                    result = nums.length;
+                }
+                windowSize = end - start + 1;
+                result = Math.min(windowSize, result);
+                windowSum -= nums[start];
                 start++;
             }
         }
-        return windowSize;
+        return result;
     }
 }
