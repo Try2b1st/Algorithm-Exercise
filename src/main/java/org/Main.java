@@ -1,6 +1,11 @@
 package org;
 
 
+import org.array.Matrix;
+import org.array.SlidingWindow;
+
+import java.util.Arrays;
+
 /**
  * @author 下水道的小老鼠
  */
