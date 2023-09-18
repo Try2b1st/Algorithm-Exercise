@@ -1,5 +1,7 @@
 package org.array;
 
+import java.util.HashMap;
+
 public class SlidingWindow {
     public SlidingWindow() {
     }
@@ -78,5 +80,29 @@ public class SlidingWindow {
             }
         }
         return result;
+    }
+
+    /**
+     * 76. 最小覆盖子串
+     *
+     * @param s
+     * @param t
+     * @return
+     */
+    public String minWindow(String s, String t) {
+        if (s.length() < t.length()) {
+            return "";
+        }
+        HashMap<Integer, String> sMap = new HashMap<>(s.length());
+        for(int i = 0;i<s.length();i++){
+            sMap.put(i, String.valueOf(s.charAt(i)));
+        }
+
+        HashMap<Integer, String> tMap = new HashMap<>(s.length());
+        for(int i = 0;i<t.length();i++){
+            tMap.put(i, String.valueOf(t.charAt(i)));
+        }
+        System.out.println(sMap);
+        return "";
     }
 }

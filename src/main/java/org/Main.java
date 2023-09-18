@@ -12,5 +12,7 @@ import java.util.Arrays;
 public class Main {
     public static void main(String[] args) {
         System.out.println("Hello world");
+        SlidingWindow slidingWindow = new SlidingWindow();
+        slidingWindow.minWindow("ASDFFF","QASE");
     }
 }
