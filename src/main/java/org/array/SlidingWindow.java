@@ -93,16 +93,21 @@ public class SlidingWindow {
         if (s.length() < t.length()) {
             return "";
         }
-        HashMap<Integer, String> sMap = new HashMap<>(s.length());
-        for(int i = 0;i<s.length();i++){
-            sMap.put(i, String.valueOf(s.charAt(i)));
-        }
 
-        HashMap<Integer, String> tMap = new HashMap<>(s.length());
-        for(int i = 0;i<t.length();i++){
-            tMap.put(i, String.valueOf(t.charAt(i)));
+//        HashMap<Character, Integer> tMap = new HashMap<>(t.length());
+        HashMap<Character, Integer> sMap = new HashMap<>(t.length());
+
+        for (int i = 0; i < t.length(); i++) {
+//            tMap.put(t.charAt(i), 1);
+            sMap.put(t.charAt(i), 0);
         }
-        System.out.println(sMap);
+        int start = 0;
+        int minSize= s.length();
+        for (int end = 0; end < s.length(); end++) {
+            if (sMap.containsKey(s.charAt(end))) {
+                sMap.put(s.charAt(end), (sMap.get(s.charAt(end))) + 1);
+            }
+        }
         return "";
     }
 }
