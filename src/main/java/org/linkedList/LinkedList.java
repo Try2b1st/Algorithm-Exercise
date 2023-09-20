@@ -189,7 +189,7 @@ public class LinkedList {
             right.next = left;
             left.next = temp;
 
-            if(temp == null || temp.next == null){
+            if (temp == null || temp.next == null) {
                 break;
             }
 
@@ -199,5 +199,25 @@ public class LinkedList {
             right = temp.next;
         }
         return nonHead.next;
+    }
+
+
+    /**
+     * 19. 删除链表的倒数第 N 个结点
+     * 用反转链表方法
+     *
+     * @param head
+     * @param n
+     * @return
+     */
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode reverseList = reverse(null, head);
+        ListNode start = new ListNode(-1, reverseList);
+        ListNode temp = start;
+        for (int i = 1; i < n; i++) {
+            start = start.next;
+        }
+        start.next = start.next.next;
+        return reverse(null, temp.next);
     }
 }
