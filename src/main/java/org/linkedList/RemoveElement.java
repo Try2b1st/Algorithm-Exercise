@@ -148,6 +148,7 @@ public class RemoveElement {
     /**
      * 206. 反转链表
      * 递归算法
+     *
      * @param pred
      * @param cur
      * @return
