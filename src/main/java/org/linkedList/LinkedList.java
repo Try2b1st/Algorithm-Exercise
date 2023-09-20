@@ -210,7 +210,7 @@ public class LinkedList {
      * @param n
      * @return
      */
-    public ListNode removeNthFromEnd(ListNode head, int n) {
+    public ListNode removeNthFromEndByReverse(ListNode head, int n) {
         ListNode reverseList = reverse(null, head);
         ListNode start = new ListNode(-1, reverseList);
         ListNode temp = start;
@@ -219,5 +219,31 @@ public class LinkedList {
         }
         start.next = start.next.next;
         return reverse(null, temp.next);
+    }
+
+    /**
+     * 19. 删除链表的倒数第 N 个结点
+     * 用双指针法
+     *
+     * @param head
+     * @param n
+     * @return
+     */
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode nonHead = new ListNode(-1, head);
+        ListNode fast = nonHead;
+        ListNode slow = nonHead;
+
+        for (int i = 0; i < n; i++) {
+            fast = fast.next;
+        }
+
+        while (fast.next != null) {
+            fast = fast.next;
+            slow = slow.next;
+        }
+        slow.next = slow.next.next;
+
+        return nonHead.next;
     }
 }
