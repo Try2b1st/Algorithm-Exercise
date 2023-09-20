@@ -3,7 +3,7 @@ package org.linkedList;
 /**
  * @author 下水道的小老鼠
  */
-public class RemoveElement {
+public class LinkedList {
     /**
      * 基本定义
      */
@@ -163,4 +163,13 @@ public class RemoveElement {
         }
         return pred;
     }
-}
+
+    /**
+     * 24. 两两交换链表中的节点
+     *
+     * @param head
+     * @return
+     */
+    public ListNode swapPairs(ListNode head) {
+
+    }
