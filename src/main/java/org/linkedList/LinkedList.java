@@ -16,6 +16,7 @@ public class LinkedList {
 
         ListNode(int val) {
             this.val = val;
+            this.next = null;
         }
 
         ListNode(int val, ListNode next) {
@@ -245,5 +246,58 @@ public class LinkedList {
         slow.next = slow.next.next;
 
         return nonHead.next;
+    }
+
+
+    /**
+     * 面试题 02.07. 链表相交
+     *
+     * @param headA
+     * @param headB
+     * @return
+     */
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        ListNode curA = headA;
+        ListNode curB = headB;
+
+        int lenA = 0, lenB = 0;
+
+        while (curA != null) {
+            lenA++;
+            curA = curA.next;
+        }
+        while (curB != null) {
+            lenB++;
+            curB = curB.next;
+        }
+
+
+        if (lenA > lenB) {
+            for (int i = 0; i < lenA - lenB; i++) {
+                headA = headA.next;
+            }
+            while (headA != headB && headA != null && headB != null) {
+                headA = headA.next;
+                headB = headB.next;
+            }
+            if (headA == headB) {
+                return headA;
+            } else {
+                return null;
+            }
+        } else {
+            for (int i = 0; i < lenB - lenA; i++) {
+                headB = headB.next;
+            }
+            while (headA != headB && headA != null && headB != null) {
+                headA = headA.next;
+                headB = headB.next;
+            }
+            if (headA == headB) {
+                return headB;
+            } else {
+                return null;
+            }
+        }
     }
 }
