@@ -123,4 +123,23 @@ public class RemoveElement {
             pred.next = pred.next.next;
         }
     }
+
+    /**
+     * 206. 反转链表
+     * @param head
+     * @return
+     */
+    public ListNode reverseList(ListNode head) {
+        ListNode temp;
+        ListNode cur = head;
+        ListNode pred = null;
+
+        while(cur != null){
+            temp = cur.next;
+            cur.next = pred;
+            pred = cur;
+            cur = temp;
+        }
+        return pred;
+    }
 }
