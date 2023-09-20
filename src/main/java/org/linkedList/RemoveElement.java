@@ -126,6 +126,7 @@ public class RemoveElement {
 
     /**
      * 206. 反转链表
+     * 双指针法
      * @param head
      * @return
      */
