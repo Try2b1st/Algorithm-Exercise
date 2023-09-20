@@ -127,6 +127,7 @@ public class RemoveElement {
     /**
      * 206. 反转链表
      * 双指针法
+     *
      * @param head
      * @return
      */
@@ -135,11 +136,29 @@ public class RemoveElement {
         ListNode cur = head;
         ListNode pred = null;
 
-        while(cur != null){
+        while (cur != null) {
             temp = cur.next;
             cur.next = pred;
             pred = cur;
             cur = temp;
+        }
+        return pred;
+    }
+
+    /**
+     * 206. 反转链表
+     * 递归算法
+     * @param pred
+     * @param cur
+     * @return
+     */
+    public ListNode reverse(ListNode pred, ListNode cur) {
+        if (cur != null) {
+            ListNode temp = cur.next;
+            cur.next = pred;
+            pred = cur;
+            cur = temp;
+            return reverse(pred, cur);
         }
         return pred;
     }
