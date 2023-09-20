@@ -171,5 +171,33 @@ public class LinkedList {
      * @return
      */
     public ListNode swapPairs(ListNode head) {
+        if (head == null) {
+            return null;
+        }
+        if (head.next == null) {
+            return head;
+        }
 
+        ListNode nonHead = new ListNode(-1, head);
+        ListNode pred = nonHead;
+        ListNode left = head;
+        ListNode right = head.next;
+
+        while (true) {
+            ListNode temp = right.next;
+            pred.next = right;
+            right.next = left;
+            left.next = temp;
+
+            if(temp == null || temp.next == null){
+                break;
+            }
+
+            //更新状态
+            pred = left;
+            left = temp;
+            right = temp.next;
+        }
+        return nonHead.next;
     }
+}
