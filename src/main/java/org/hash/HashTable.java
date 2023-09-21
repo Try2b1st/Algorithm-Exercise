@@ -44,25 +44,39 @@ public class HashTable {
      * @return
      */
     public boolean canConstruct(String ransomNote, String magazine) {
-        HashMap<Character, Integer> hashMap = new HashMap<>();
-        char temp;
+//        HashMap<Character, Integer> hashMap = new HashMap<>();
+//        for (int i = 0; i < magazine.length(); i++) {
+//            if (!hashMap.containsKey(magazine.charAt(i))) {
+//                hashMap.put(magazine.charAt(i), 1);
+//            } else {
+//                hashMap.put(magazine.charAt(i), hashMap.get(magazine.charAt(i)) + 1);
+//            }
+//        }
+//
+//        for (int i = 0; i < ransomNote.length(); i++) {
+//            if (hashMap.containsKey(ransomNote.charAt(i))) {
+//                if (hashMap.get(ransomNote.charAt(i)) == 0) {
+//                    return false;
+//                } else {
+//                    hashMap.put(ransomNote.charAt(i), hashMap.get(ransomNote.charAt(i)) - 1);
+//                }
+//            } else {
+//                return false;
+//            }
+//        }
+//        return true;
+        if (ransomNote.length() > magazine.length()) {
+            return false;
+        }
+        int[] array = new int[26];
+
         for (int i = 0; i < magazine.length(); i++) {
-            temp = magazine.charAt(i);
-            if (!hashMap.containsKey(temp)) {
-                hashMap.put(temp, 1);
-            } else {
-                hashMap.put(temp, hashMap.get(temp) + 1);
-            }
+            array[magazine.charAt(i) - 'a']++;
         }
 
         for (int i = 0; i < ransomNote.length(); i++) {
-            temp = ransomNote.charAt(i);
-            if (hashMap.containsKey(temp)) {
-                if (hashMap.get(temp) == 0) {
-                    return false;
-                } else {
-                    hashMap.put(temp, hashMap.get(temp) - 1);
-                }
+            if (array[ransomNote.charAt(i) - 'a'] > 0) {
+                array[ransomNote.charAt(i) - 'a']--;
             } else {
                 return false;
             }
