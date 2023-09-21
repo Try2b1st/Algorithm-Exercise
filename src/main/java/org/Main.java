@@ -14,6 +14,6 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Hello world");
         HashTable hashTable = new HashTable();
-        System.out.println(hashTable.isAnagram("anagram","nagaram"));
+        System.out.println(hashTable.canConstruct("aa","aab"));
     }
 }
