@@ -1,5 +1,7 @@
 package org.linkedList;
 
+import java.util.HashMap;
+
 /**
  * @author 下水道的小老鼠
  */
@@ -299,5 +301,43 @@ public class LinkedList {
                 return null;
             }
         }
+    }
+
+    /**
+     * 142. 环形链表 II
+     * 双指针法
+     * 相遇时： slow指针走过的节点数为: x + y，
+     * fast指针走过的节点数：x + y + n (y + z)，
+     * n为fast指针在环内走了n圈才遇到slow指针，
+     * （y+z）为 一圈内节点的个数A。
+     * <p>
+     * (x + y) * 2 = x + y + n (y + z)
+     * x = (n - 1)(y+z)+z
+     *
+     * @param head
+     * @return
+     */
+    public ListNode detectCycle(ListNode head) {
+        if(head == null){
+            return null;
+        }
+
+        ListNode fast = head;
+        ListNode slow = head;
+
+        while (fast.next != null && fast.next.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+            //判断该链表有环
+            if (fast == slow) {
+                fast = head;
+                while (fast != slow) {
+                    fast = fast.next;
+                    slow = slow.next;
+                }
+                return fast;
+            }
+        }
+        return null;
     }
 }
