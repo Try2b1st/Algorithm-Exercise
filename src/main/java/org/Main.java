@@ -3,6 +3,7 @@ package org;
 
 import org.array.Matrix;
 import org.array.SlidingWindow;
+import org.hash.HashTable;
 
 import java.util.Arrays;
 
@@ -12,7 +13,7 @@ import java.util.Arrays;
 public class Main {
     public static void main(String[] args) {
         System.out.println("Hello world");
-        SlidingWindow slidingWindow = new SlidingWindow();
-        System.out.println(slidingWindow.minWindow("abcabdebac","cea"));
+        HashTable hashTable = new HashTable();
+        System.out.println(hashTable.isAnagram("anagram","nagaram"));
     }
 }
