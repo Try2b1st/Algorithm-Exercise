@@ -15,6 +15,6 @@ public class Main {
         System.out.println("Hello world");
         HashTable hashTable = new HashTable();
         String[] strings = new String[]{"dis","sid","sid"};
-        System.out.println(hashTable.groupAnagrams(strings));
+        System.out.println(hashTable.findAnagrams("cbaebabacd","abc"));
     }
 }

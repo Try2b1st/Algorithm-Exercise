@@ -2,10 +2,7 @@ package org.hash;
 
 import org.linkedList.LinkedList;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * 当我们遇到了要快速判断一个元素是否出现集合里的时候，就要考虑哈希法。
@@ -132,5 +129,33 @@ public class HashTable {
             }
         }
         return lists;
+    }
+
+    /**
+     * 438. 找到字符串中所有字母异位词
+     *
+     * @param s
+     * @param p
+     * @return
+     */
+    public List<Integer> findAnagrams(String s, String p) {
+        List<Integer> list = new ArrayList<>();
+        int[] arrayP = new int[26];
+
+        for (int i = 0; i < p.length(); i++) {
+            arrayP[p.charAt(i) - 'a']++;
+        }
+        for (int i=0; i < s.length() - p.length() + 1; i++) {
+            String c = s.substring(i,i+p.length());
+            int[] arrayC = new int[26];
+
+            for (int j = 0; j < c.length(); j++) {
+                arrayC[c.charAt(j) - 'a']++;
+            }
+            if(Arrays.equals(arrayP,arrayC)){
+                list.add(i);
+            }
+        }
+        return list;
     }
 }
