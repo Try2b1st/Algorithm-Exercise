@@ -1,6 +1,11 @@
 package org.hash;
 
+import org.linkedList.LinkedList;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * 当我们遇到了要快速判断一个元素是否出现集合里的时候，就要考虑哈希法。
@@ -82,5 +87,50 @@ public class HashTable {
             }
         }
         return true;
+    }
+
+    /**
+     * 49. 字母异位词分组
+     *
+     * @param strs
+     * @return
+     */
+    public List<List<String>> groupAnagrams(String[] strs) {
+        if (strs == null) {
+            return null;
+        }
+
+        List<List<String>> lists = new ArrayList<>();
+        if (strs.length == 1) {
+            List<String> stringList = new ArrayList<>();
+            stringList.add(strs[0]);
+            lists.add(stringList);
+            return lists;
+        }
+
+        HashMap<String, Integer> hashMap = new HashMap<>();
+
+        for (int i = 0; i < strs.length; i++) {
+            List<String> stringList = new ArrayList<>();
+            if (!hashMap.containsKey(strs[i])) {
+                hashMap.put(strs[i], 1);
+                stringList.add(strs[i]);
+                for (int j = i + 1; j < strs.length; j++) {
+                    if (isAnagram(strs[i], strs[j])) {
+                        if (!hashMap.containsKey(strs[j])) {
+                            hashMap.put(strs[j], 1);
+                            stringList.add(strs[j]);
+                        } else if (isAnagram(strs[i], strs[j])) {
+                            stringList.add(strs[j]);
+                        }
+                    }
+
+                }
+                if (stringList.size() > 0) {
+                    lists.add(stringList);
+                }
+            }
+        }
+        return lists;
     }
 }

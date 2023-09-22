@@ -14,6 +14,7 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Hello world");
         HashTable hashTable = new HashTable();
-        System.out.println(hashTable.canConstruct("aa","aab"));
+        String[] strings = new String[]{"dis","sid","sid"};
+        System.out.println(hashTable.groupAnagrams(strings));
     }
 }
