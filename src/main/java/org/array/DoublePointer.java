@@ -2,6 +2,7 @@ package org.array;
 
 /**
  * 双指针法
+ * @author 下水道的小老鼠
  */
 public class DoublePointer {
     public DoublePointer() {
