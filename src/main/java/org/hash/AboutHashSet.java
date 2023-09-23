@@ -80,7 +80,9 @@ public class AboutHashSet {
         Arrays.sort(nums1);
         Arrays.sort(nums2);
 
-        List<Integer> list = new ArrayList<>();
+        int length1 = nums1.length, length2 = nums2.length;
+        int[] array = new int[Math.min(length1, length2)];
+        int index=0;
         int slow = 0;
 
         for (int i : nums1) {
@@ -88,11 +90,11 @@ public class AboutHashSet {
                 slow++;
             }
             if (slow < nums2.length && nums2[slow] == i) {
-                list.add(i);
+                array[index++] = i;
                 slow++;
             }
         }
-        return list.stream().mapToInt(x -> x).toArray();
+        return Arrays.copyOfRange(array, 0, index);
     }
 
 }
