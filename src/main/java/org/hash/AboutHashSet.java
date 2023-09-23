@@ -1,7 +1,6 @@
 package org.hash;
 
-import java.util.Arrays;
-import java.util.HashSet;
+import java.util.*;
 
 /**
  * @author 下水道的小老鼠
@@ -28,11 +27,6 @@ public class AboutHashSet {
         return hashSet.stream().mapToInt(x -> x).toArray();
     }
 
-    /**
-     * @param nums1
-     * @param nums2
-     * @return
-     */
     public int[] intersection(int[] nums1, int[] nums2) {
         HashSet<Integer> resultSet = new HashSet<>();
         HashSet<Integer> nums1Set = new HashSet<>();
@@ -47,6 +41,38 @@ public class AboutHashSet {
         }
         return resultSet.stream().mapToInt(x -> x).toArray();
     }
+
+    /**
+     * 350. 两个数组的交集 II
+     * 暴力解法
+     *
+     * @param nums1
+     * @param nums2
+     * @return
+     */
+    public int[] intersectBad(int[] nums1, int[] nums2) {
+        HashMap<Integer, Integer> hashMap1 = new HashMap<>();
+        List<Integer> list = new ArrayList<>();
+
+        for (int i : nums1) {
+            if (!hashMap1.containsKey(i)) {
+                hashMap1.put(i, 1);
+            } else {
+                hashMap1.put(i, hashMap1.get(i) + 1);
+            }
+        }
+        for (int i : nums2) {
+            if (hashMap1.containsKey(i)) {
+                hashMap1.put(i, hashMap1.get(i) - 1);
+                list.add(i);
+                if (hashMap1.get(i) == 0) {
+                    hashMap1.remove(i);
+                }
+            }
+        }
+        return list.stream().mapToInt(x -> x).toArray();
+    }
+
 
 
 }
