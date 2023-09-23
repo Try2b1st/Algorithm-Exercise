@@ -3,6 +3,7 @@ package org;
 
 import org.array.Matrix;
 import org.array.SlidingWindow;
+import org.hash.AboutHashSet;
 import org.hash.HashTable;
 
 import java.util.Arrays;
@@ -13,8 +14,11 @@ import java.util.Arrays;
 public class Main {
     public static void main(String[] args) {
         System.out.println("Hello world");
-        HashTable hashTable = new HashTable();
-        String[] strings = new String[]{"dis","sid","sid"};
-        System.out.println(hashTable.findAnagrams("cbaebabacd","abc"));
+        AboutHashSet aboutHashSet = new AboutHashSet();
+        int[] nums1 = new int[]{1, 2};
+        int[] nums2 = new int[]{1, 1};
+
+        System.out.println(Arrays.toString(aboutHashSet.intersect(nums1, nums2)));
+
     }
 }

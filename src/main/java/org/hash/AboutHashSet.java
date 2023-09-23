@@ -73,6 +73,26 @@ public class AboutHashSet {
         return list.stream().mapToInt(x -> x).toArray();
     }
 
+    /**
+     * 双指针
+     */
+    public int[] intersect(int[] nums1, int[] nums2) {
+        Arrays.sort(nums1);
+        Arrays.sort(nums2);
 
+        List<Integer> list = new ArrayList<>();
+        int slow = 0;
+
+        for (int i : nums1) {
+            while (slow < nums2.length && nums2[slow] < i) {
+                slow++;
+            }
+            if (slow < nums2.length && nums2[slow] == i) {
+                list.add(i);
+                slow++;
+            }
+        }
+        return list.stream().mapToInt(x -> x).toArray();
+    }
 
 }
