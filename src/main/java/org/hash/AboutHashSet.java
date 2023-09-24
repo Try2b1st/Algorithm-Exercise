@@ -82,7 +82,7 @@ public class AboutHashSet {
 
         int length1 = nums1.length, length2 = nums2.length;
         int[] array = new int[Math.min(length1, length2)];
-        int index=0;
+        int index = 0;
         int slow = 0;
 
         for (int i : nums1) {
@@ -95,6 +95,35 @@ public class AboutHashSet {
             }
         }
         return Arrays.copyOfRange(array, 0, index);
+    }
+
+
+    /**
+     * 202. 快乐数
+     *
+     * @param n
+     * @return
+     */
+    public boolean isHappy(int n) {
+        HashSet<Integer> hashSet = new HashSet<>();
+        int sum = 0;
+        while (true) {
+            while (n > 0) {
+                sum += Math.pow(n % 10, 2);
+                n /= 10;
+            }
+            if (sum == 1) {
+                break;
+            } else {
+                if (hashSet.contains(sum)) {
+                    return false;
+                }
+                hashSet.add(sum);
+                n = sum;
+                sum = 0;
+            }
+        }
+        return true;
     }
 
 }
