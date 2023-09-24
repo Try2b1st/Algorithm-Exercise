@@ -100,11 +100,12 @@ public class AboutHashSet {
 
     /**
      * 202. 快乐数
+     * 哈希表探测
      *
      * @param n
      * @return
      */
-    public boolean isHappy(int n) {
+    public boolean isHappyByHash(int n) {
         HashSet<Integer> hashSet = new HashSet<>();
         int sum = 0;
         while (true) {
@@ -124,6 +125,42 @@ public class AboutHashSet {
             }
         }
         return true;
+    }
+
+    /**
+     * 202. 快乐数
+     * 快慢指针
+     *
+     * @param n
+     * @return
+     */
+    public boolean isHappy(int n) {
+        int slow = n;
+        int fast = n;
+
+        do {
+            for (int i = 0; i < 1; i++) {
+                int sum = 0;
+                while (slow > 0) {
+                    sum += Math.pow(slow % 10, 2);
+                    slow /= 10;
+                }
+                slow = sum;
+            }
+            for (int i = 0; i < 2; i++) {
+                int sum = 0;
+                while (fast > 0) {
+                    sum += Math.pow(fast % 10, 2);
+                    fast /= 10;
+                }
+                if (sum == 1) {
+                    return true;
+                } else {
+                    fast = sum;
+                }
+            }
+        }while(fast != slow);
+        return false;
     }
 
 }
