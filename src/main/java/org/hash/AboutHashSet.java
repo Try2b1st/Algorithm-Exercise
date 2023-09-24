@@ -159,8 +159,28 @@ public class AboutHashSet {
                     fast = sum;
                 }
             }
-        }while(fast != slow);
+        } while (fast != slow);
         return false;
+    }
+
+    /**
+     * 1. 两数之和
+     *
+     * @param nums
+     * @param target
+     * @return
+     */
+    public int[] twoSum(int[] nums, int target){
+        HashMap<Integer, Integer> hashMap = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            int j = target - nums[i];
+            if (hashMap.containsKey(j) && hashMap.get(j) != i) {
+                return new int[]{i, hashMap.get(j)};
+            }
+            hashMap.put(nums[i], i);
+        }
+
+        throw new IllegalArgumentException("No two sum solution");
     }
 
 }
