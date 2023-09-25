@@ -80,6 +80,7 @@ public class AboutHashMap {
             if (i > 0 && nums[i] == nums[i - 1]) {
                 continue;
             }
+
             int left = i + 1;
             int right = nums.length - 1;
             while (left < right) {
@@ -106,6 +107,61 @@ public class AboutHashMap {
                     left++;
                 }
             }
+        }
+        return lists;
+    }
+
+    /**
+     * 18. 四数之和
+     *
+     * @param nums
+     * @param target
+     * @return
+     */
+    public List<List<Integer>> fourSum(int[] nums, int target) {
+        List<List<Integer>> lists = new ArrayList<>();
+        Arrays.sort(nums);
+        int end = nums.length - 1;
+        while (0 < end) {
+            for (int i = 0; i < nums.length; i++) {
+                //对第一个元素去重
+                if (i > 0 && nums[i] == nums[i - 1]) {
+                    continue;
+                }
+
+                int left = i + 1;
+                int right = end - 1;
+                while (left < right) {
+                    // int值会产生溢出，导致程序运行错误
+                    long sum = (long) nums[i] + nums[left] + nums[right] + nums[end];
+                    if (sum > target) {
+                        right--;
+                    } else if (sum < target) {
+                        left++;
+                    } else {
+                        List<Integer> list = new ArrayList<>();
+                        list.add(nums[i]);
+                        list.add(nums[left]);
+                        list.add(nums[right]);
+                        list.add(nums[end]);
+                        lists.add(list);
+
+                        //对 left 和 right 去重
+                        while (right > left && nums[right] == nums[right - 1]) {
+                            right--;
+                        }
+                        while (right > left && nums[left] == nums[left + 1]) {
+                            left++;
+                        }
+                        right--;
+                        left++;
+                    }
+                }
+            }
+            while (end > 0 && nums[end - 1] == nums[end]) {
+                end--;
+            }
+            end--;
         }
         return lists;
     }
