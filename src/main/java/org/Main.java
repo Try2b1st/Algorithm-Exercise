@@ -2,6 +2,7 @@ package org;
 
 
 import org.hash.AboutHashMap;
+import org.string.AboutString;
 
 /**
  * @author 下水道的小老鼠
@@ -9,10 +10,9 @@ import org.hash.AboutHashMap;
 public class Main {
     public static void main(String[] args) {
         System.out.println("Hello world");
-        AboutHashMap aboutHashMap = new AboutHashMap();
-        int[] array = new int[]{1000000000,1000000000,1000000000,1000000000};
+        AboutString aboutString =new AboutString();
 
-        System.out.println(aboutHashMap.fourSum(array,-294967296));
+        System.out.println(aboutString.reverseStr("abcdefg",3));
 
     }
 }
