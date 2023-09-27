@@ -11,8 +11,9 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Hello world");
         AboutString aboutString =new AboutString();
+        String s="F R  I   E    N     D      S      ";
 
-        System.out.println(aboutString.reverseStr("abcdefg",3));
+        System.out.println(aboutString.reverseWords(s));
 
     }
 }

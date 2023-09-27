@@ -52,13 +52,63 @@ public class AboutString {
         return stringBuilder.toString();
     }
 
+    /**
+     * 151. 反转字符串中的单词
+     *
+     * @param s
+     * @return
+     */
+    public String reverseWords(String s) {
+        s = removeSpaces(s);
+        char[] c = s.toCharArray();
+        reverseString(c);
+        char space = ' ';
+        int start = 0;
+        int end = 0;
+        for (; end < c.length; end++) {
+            if (c[end] == space) {
+                int spaceNum = end--;
+                while (start < end) {
+                    char temp = c[start];
+                    c[start] = c[end];
+                    c[end] = temp;
+                    start++;
+                    end--;
+                }
+                start = ++spaceNum;
+                end = spaceNum;
+            }
+        }
+        end--;
+        while (start < end) {
+            char temp = c[start];
+            c[start] = c[end];
+            c[end] = temp;
+            start++;
+            end--;
+        }
+        return String.valueOf(c);
+    }
 
+    public String removeSpaces(String s) {
+        char[] c = s.toCharArray();
+        char space = ' ';
+        int slow = 0;
+        for (int i = 0; i < c.length; i++) {
+            if (c[i] != space) {
+                if (slow != 0) {
+                    c[slow++] = space;
+                }
+                while (i < c.length && c[i] != space) {
+                    c[slow++] = c[i++];
+                }
+            }
+        }
+        return String.valueOf(c).substring(0, slow);
+    }
 
+    public String dynamicPassword(String password, int target) {
 
-
-
-
-
-
+    }
 
 }
