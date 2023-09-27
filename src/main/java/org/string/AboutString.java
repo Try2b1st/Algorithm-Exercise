@@ -107,8 +107,30 @@ public class AboutString {
         return String.valueOf(c).substring(0, slow);
     }
 
+    /**
+     * LCR 182. 动态口令
+     * 通过局部反转+整体反转 达到左旋转的目的。
+     *
+     * @param password
+     * @param target
+     * @return
+     */
     public String dynamicPassword(String password, int target) {
+        char[] array = password.toCharArray();
+        reverseByNumber(array, 0, target - 1);
+        reverseByNumber(array, target, array.length - 1);
+        reverseString(array);
+        return String.valueOf(array);
+    }
 
+    public void reverseByNumber(char[] s, int start, int end) {
+        while (start < end) {
+            char temp = s[start];
+            s[start] = s[end];
+            s[end] = temp;
+            start++;
+            end--;
+        }
     }
 
 }
