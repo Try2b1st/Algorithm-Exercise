@@ -119,7 +119,7 @@ public class AboutString {
         char[] array = password.toCharArray();
         reverseByNumber(array, 0, target - 1);
         reverseByNumber(array, target, array.length - 1);
-        reverseString(array);
+        reverseByNumber(array, 0, array.length - 1);
         return String.valueOf(array);
     }
 
@@ -131,6 +131,39 @@ public class AboutString {
             start++;
             end--;
         }
+    }
+
+
+    /**
+     * 28. 找出字符串中第一个匹配项的下标
+     * 暴力解法
+     *
+     * @param haystack
+     * @param needle
+     * @return
+     */
+    public int strStr(String haystack, String needle) {
+        if (haystack.length() < needle.length()) {
+            return -1;
+        }
+        if (needle.length() == 0) {
+            return 0;
+        }
+        int flag = 0;
+        for (int i = 0; i < haystack.length() - needle.length() + 1; i++) {
+            for (int j = 0; j < needle.length(); j++) {
+                if (haystack.charAt(i + j) != needle.charAt(j)) {
+                    flag = -1;
+                    break;
+                }
+            }
+            if (flag == 0) {
+                return i;
+            }else{
+                flag = 0;
+            }
+        }
+        return -1;
     }
 
 }
