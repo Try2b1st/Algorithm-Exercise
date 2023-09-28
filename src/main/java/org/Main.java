@@ -10,10 +10,10 @@ import org.string.AboutString;
 public class Main {
     public static void main(String[] args) {
         System.out.println("Hello world");
-        AboutString aboutString =new AboutString();
-        String s="F R  I   E    N     D      S      ";
+        AboutString aboutString = new AboutString();
+        String s = "F R  I   E    N     D      S      ";
 
-        System.out.println(aboutString.reverseWords(s));
+        System.out.println(aboutString.strStr("leetcode", "leeto"));
 
     }
 }

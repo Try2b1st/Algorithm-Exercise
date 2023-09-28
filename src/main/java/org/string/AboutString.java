@@ -142,7 +142,7 @@ public class AboutString {
      * @param needle
      * @return
      */
-    public int strStr(String haystack, String needle) {
+    public int strStrBad(String haystack, String needle) {
         if (haystack.length() < needle.length()) {
             return -1;
         }
@@ -159,11 +159,68 @@ public class AboutString {
             }
             if (flag == 0) {
                 return i;
-            }else{
+            } else {
                 flag = 0;
             }
         }
         return -1;
+    }
+
+    /**
+     * 28. 找出字符串中第一个匹配项的下标
+     * KPM
+     *
+     * @param haystack
+     * @param needle
+     * @return
+     */
+    public int strStr(String haystack, String needle) {
+        if (needle.length() == 0) {
+            return 0;
+        }
+        if (needle.length() > haystack.length()) {
+            return -1;
+        }
+
+        int[] next = new int[needle.length()];
+        next = getNext(next, needle);
+        int j = 0;
+
+        for (int i = 0; i < haystack.length(); i++) {
+            while (j > 0 && haystack.charAt(i) != needle.charAt(j)) {
+                j = next[j - 1];
+            }
+            if (haystack.charAt(i) == needle.charAt(j)) {
+                j++;
+            }
+            if (j == needle.length()) {
+                return i - j + 1;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * 获取模板字符串的next数组
+     *
+     * @param next
+     * @param s
+     */
+    public int[] getNext(int[] next, String s) {
+        //初始化
+        int j = 0;
+        next[0] = 0;
+
+        for (int i = 1; i < s.length(); i++) {
+            while (j > 0 && s.charAt(i) != s.charAt(j)) {
+                j = next[j - 1];
+            }
+            if (s.charAt(i) == s.charAt(j)) {
+                j++;
+            }
+            next[i] = j;
+        }
+        return next;
     }
 
 }
