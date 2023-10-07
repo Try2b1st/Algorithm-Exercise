@@ -223,4 +223,17 @@ public class AboutString {
         return next;
     }
 
+
+    /**
+     * 459. 重复的子字符串
+     *
+     * @param s
+     * @return
+     */
+    public boolean repeatedSubstringPattern(String s) {
+        int[] next = new int[s.length()];
+        next = getNext(next, s);
+        return next[s.length() - 1] > 0 && s.length() % (s.length() - next[s.length() - 1]) == 0;
+    }
+
 }
