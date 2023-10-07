@@ -236,4 +236,22 @@ public class AboutString {
         return next[s.length() - 1] > 0 && s.length() % (s.length() - next[s.length() - 1]) == 0;
     }
 
+    /**
+     * LCR 122. 路径加密
+     *
+     * @param path
+     * @return
+     */
+    public String pathEncryption(String path) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < path.length(); i++) {
+            if (path.charAt(i) == '.') {
+                stringBuilder.append(" ");
+            } else {
+                stringBuilder.append(path.charAt(i));
+            }
+        }
+        return stringBuilder.toString();
+    }
+
 }
