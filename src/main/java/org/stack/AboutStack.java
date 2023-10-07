@@ -1,5 +1,7 @@
 package org.stack;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 /**
@@ -43,6 +45,42 @@ public class AboutStack {
 
         public boolean empty() {
             return stackOut.isEmpty() && stackIn.isEmpty();
+        }
+    }
+
+    /**
+     * 225. 用队列实现栈
+     */
+    public class MyStack {
+
+        Queue<Integer> queue;
+
+        public MyStack() {
+            queue = new LinkedList<>();
+        }
+
+        public void push(int x) {
+            if (queue.isEmpty()) {
+                queue.offer(x);
+            } else {
+                queue.offer(x);
+                int size = queue.size();
+                while (size --> 1) {
+                    queue.offer(queue.poll());
+                }
+            }
+        }
+
+        public int pop() {
+            return queue.isEmpty() ? 0 : queue.poll();
+        }
+
+        public int top() {
+            return queue.isEmpty() ? 0 : queue.peek();
+        }
+
+        public boolean empty() {
+            return queue.isEmpty();
         }
     }
 }
