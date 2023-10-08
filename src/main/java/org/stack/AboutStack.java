@@ -190,4 +190,16 @@ public class AboutStack {
     }
 
 
+    /**
+     * 239. 滑动窗口最大值
+     *
+     * @param nums
+     * @param k
+     * @return
+     */
+    public int[] maxSlidingWindow(int[] nums, int k) {
+
+    }
+
+
 }
