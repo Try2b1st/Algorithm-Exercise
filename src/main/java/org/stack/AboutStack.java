@@ -12,7 +12,7 @@ public class AboutStack {
     /**
      * 232. 用栈实现队列
      */
-    public class MyQueue {
+    public static class MyQueue {
         Stack<Integer> stackIn;
         Stack<Integer> stackOut;
 
@@ -51,7 +51,7 @@ public class AboutStack {
     /**
      * 225. 用队列实现栈
      */
-    public class MyStack {
+    public static class MyStack {
 
         Queue<Integer> queue;
 
@@ -65,7 +65,7 @@ public class AboutStack {
             } else {
                 queue.offer(x);
                 int size = queue.size();
-                while (size --> 1) {
+                while (size-- > 1) {
                     queue.offer(queue.poll());
                 }
             }
@@ -82,5 +82,38 @@ public class AboutStack {
         public boolean empty() {
             return queue.isEmpty();
         }
+    }
+
+
+    /**
+     * 20. 有效的括号
+     *
+     * @param s
+     * @return
+     */
+    public boolean isValid(String s) {
+        if (s.length() == 1) {
+            return false;
+        }
+        Stack<Character> stack = new Stack<>();
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c == '(' || c == '{' || c == '[') {
+                stack.push(c);
+            } else if (!stack.isEmpty()) {
+                if (c == ')' && stack.peek() == '(') {
+                    stack.pop();
+                } else if (c == '}' && stack.peek() == '{') {
+                    stack.pop();
+                } else if (c == ']' && stack.peek() == '[') {
+                    stack.pop();
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+        return stack.isEmpty();
     }
 }
