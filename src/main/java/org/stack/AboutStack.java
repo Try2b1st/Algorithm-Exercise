@@ -192,13 +192,61 @@ public class AboutStack {
 
     /**
      * 239. 滑动窗口最大值
+     * 那么维护元素单调递减的队列就叫做单调队列，即单调递减或单调递增的队列。
      *
      * @param nums
      * @param k
      * @return
      */
     public int[] maxSlidingWindow(int[] nums, int k) {
+        if (nums.length == 1) {
+            return nums;
+        }
+        MyDeque myDeque = new MyDeque();
+        int size = nums.length - k + 1;
+        int[] result = new int[size];
 
+        for (int i = 0; i < k; i++) {
+            myDeque.add(nums[i]);
+        }
+
+        int count = 0;
+        result[count] = myDeque.peek();
+
+        for (int i = k; i < nums.length; i++) {
+            myDeque.pop(nums[count++]);
+            myDeque.add(nums[i]);
+            result[count] = myDeque.peek();
+        }
+        return result;
+    }
+
+    /**
+     * 维护一个单调栈
+     */
+    public static class MyDeque {
+        Deque<Integer> deque;
+
+        public MyDeque() {
+            deque = new LinkedList<>();
+        }
+
+        public void add(int x) {
+            while (!deque.isEmpty() && x > deque.getLast()) {
+                deque.removeLast();
+            }
+            deque.add(x);
+        }
+
+        public void pop(int x) {
+            if (!deque.isEmpty() && x == deque.getFirst()) {
+                deque.pop();
+            }
+        }
+
+        public int peek() {
+            return deque.peek();
+        }
     }
 
 
