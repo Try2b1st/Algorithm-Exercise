@@ -1,9 +1,6 @@
 package org.stack;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * @author 下水道的小老鼠
@@ -145,6 +142,7 @@ public class AboutStack {
         }
         return stringBuilder.toString();
     }
+
     public void reverseString(char[] s) {
         int start = 0;
         int end = s.length - 1;
@@ -165,24 +163,31 @@ public class AboutStack {
      * @return
      */
     public int evalRPN(String[] tokens) {
-
+        Stack<Integer> stack = new Stack<>();
+        int tempX = 0;
+        int tempY = 0;
+        int result = 0;
+        for (String s : tokens) {
+            if (Objects.equals(s, "+")) {
+                stack.push(stack.pop() + stack.pop());
+            } else if (Objects.equals(s, "-")) {
+                tempX = stack.pop();
+                tempY = stack.pop();
+                result = tempY - tempX;
+                stack.push(result);
+            } else if (Objects.equals(s, "*")) {
+                stack.push(stack.pop() * stack.pop());
+            } else if (Objects.equals(s, "/")) {
+                tempX = stack.pop();
+                tempY = stack.pop();
+                result = tempY / tempX;
+                stack.push(result);
+            } else {
+                stack.push(Integer.valueOf(s));
+            }
+        }
+        return stack.pop();
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }
