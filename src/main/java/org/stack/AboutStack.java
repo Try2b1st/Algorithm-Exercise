@@ -145,7 +145,6 @@ public class AboutStack {
         }
         return stringBuilder.toString();
     }
-
     public void reverseString(char[] s) {
         int start = 0;
         int end = s.length - 1;
@@ -158,6 +157,32 @@ public class AboutStack {
             end--;
         }
     }
+
+    /**
+     * 150. 逆波兰表达式求值
+     *
+     * @param tokens
+     * @return
+     */
+    public int evalRPN(String[] tokens) {
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }
