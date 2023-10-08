@@ -14,7 +14,7 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Hello world");
         AboutStack aboutStack = new AboutStack();
-        System.out.println(aboutStack.isValid("()"));
+        System.out.println(aboutStack.removeDuplicates("abbaca"));
 
     }
 }
