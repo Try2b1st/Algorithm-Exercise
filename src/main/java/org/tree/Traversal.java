@@ -263,6 +263,37 @@ public class Traversal {
         }
         return result;
     }
+
+    /**
+     * 637. 二叉树的层平均值
+     *
+     * @param root
+     * @return
+     */
+    public List<Double> averageOfLevels(TreeNode root) {
+        List<Double> result = new ArrayList<>();
+        if (root == null) {
+            return result;
+        }
+        Deque<TreeNode> deque = new LinkedList<>();
+        deque.add(root);
+        while (!deque.isEmpty()) {
+            int size = deque.size();
+            double sum = 0;
+            for (int i = 0; i < size; i++) {
+                TreeNode current = deque.pop();
+                sum += current.val;
+                if (current.left != null) {
+                    deque.add(current.left);
+                }
+                if (current.right != null) {
+                    deque.add(current.right);
+                }
+            }
+            result.add(sum / size);
+        }
+        return result;
+    }
 }
 
 
