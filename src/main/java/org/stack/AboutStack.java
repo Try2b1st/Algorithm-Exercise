@@ -250,4 +250,49 @@ public class AboutStack {
     }
 
 
+    /**
+     * 347. 前 K 个高频元素
+     *
+     * @param nums
+     * @param k
+     * @return
+     */
+    public int[] topKFrequent(int[] nums, int k) {
+        //记录元素和元素出现次数
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int num : nums) {
+            if (map.containsKey(num)) {
+                map.put(num, map.get(num) + 1);
+            } else {
+                map.put(num, 1);
+            }
+        }
+
+        //使用优先级队列来对出现频率排序
+        //构建小顶堆
+        //为什么不用快排呢， 使用快排要将map转换为其他结构
+        PriorityQueue<int[]> priorityQueue = new PriorityQueue<>((o1, o2) -> o1[1] - o2[1]);
+
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            int key = entry.getKey();
+            int value = entry.getValue();
+            if (priorityQueue.size() < k) {
+                priorityQueue.add(new int[]{key, value});
+            } else {
+                if (priorityQueue.peek() != null && priorityQueue.peek()[1] < value) {
+                    priorityQueue.poll();
+                    priorityQueue.add(new int[]{key, value});
+                }
+            }
+        }
+
+        int[] result = new int[k];
+        k -= 1;
+        while (!priorityQueue.isEmpty()) {
+            result[k--] = priorityQueue.poll()[0];
+        }
+        return result;
+    }
+
+
 }
