@@ -1,9 +1,6 @@
 package org.tree;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * @author 下水道的小老鼠
@@ -169,6 +166,70 @@ public class Traversal {
         postorder(root.left, list);
         postorder(root.right, list);
         list.add(root.val);
+    }
+
+
+    /**
+     * 102. 二叉树的层序遍历
+     *
+     * @param root
+     * @return
+     */
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> result = new ArrayList<>();
+        if (root == null) {
+            return result;
+        }
+        Deque<TreeNode> deque = new LinkedList<>();
+        deque.add(root);
+        while (!deque.isEmpty()) {
+            int size = deque.size();
+            List<Integer> list = new ArrayList<>();
+            for (int i = 0; i < size; i++) {
+                TreeNode current = deque.pop();
+                list.add(current.val);
+                if (current.left != null) {
+                    deque.add(current.left);
+                }
+                if (current.right != null) {
+                    deque.add(current.right);
+                }
+            }
+            result.add(list);
+        }
+        return result;
+    }
+
+    /**
+     * 107. 二叉树的层序遍历 II
+     *
+     * @param root
+     * @return
+     */
+    public List<List<Integer>> levelOrderBottom(TreeNode root) {
+        List<List<Integer>> result = new ArrayList<>();
+        if (root == null) {
+            return result;
+        }
+        Deque<TreeNode> deque = new LinkedList<>();
+        deque.add(root);
+        while (!deque.isEmpty()) {
+            int size = deque.size();
+            List<Integer> list = new ArrayList<>();
+            for (int i = 0; i < size; i++) {
+                TreeNode current = deque.pop();
+                list.add(current.val);
+                if (current.left != null) {
+                    deque.add(current.left);
+                }
+                if (current.right != null) {
+                    deque.add(current.right);
+                }
+            }
+            result.add(list);
+        }
+        Collections.reverse(result);
+        return result;
     }
 
 
