@@ -333,13 +333,45 @@ public class Traversal {
             for (int i = 0; i < size; i++) {
                 Node current = deque.pop();
                 list.add(current.val);
-                if(current.children != null){
-                    for(Node temp : current.children){
+                if (current.children != null) {
+                    for (Node temp : current.children) {
                         deque.addLast(temp);
                     }
                 }
             }
             result.add(list);
+        }
+        return result;
+    }
+
+
+    /**
+     * 515. 在每个树行中找最大值
+     *
+     * @param root
+     * @return
+     */
+    public List<Integer> largestValues(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        if (root == null) {
+            return result;
+        }
+        Deque<TreeNode> deque = new LinkedList<>();
+        deque.add(root);
+        while (!deque.isEmpty()) {
+            int size = deque.size();
+            int max = deque.peek().val;
+            for (int i = 0; i < size; i++) {
+                TreeNode current = deque.pop();
+                max = Math.max(max, current.val);
+                if (current.left != null) {
+                    deque.add(current.left);
+                }
+                if (current.right != null) {
+                    deque.add(current.right);
+                }
+            }
+            result.add(max);
         }
         return result;
     }
