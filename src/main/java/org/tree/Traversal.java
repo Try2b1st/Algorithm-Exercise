@@ -233,6 +233,36 @@ public class Traversal {
     }
 
 
+    /**
+     * 199. 二叉树的右视图
+     *
+     * @param root
+     * @return
+     */
+    public List<Integer> rightSideView(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        if (root == null) {
+            return result;
+        }
+        Deque<TreeNode> deque = new LinkedList<>();
+        deque.add(root);
+        while (!deque.isEmpty()) {
+            int size = deque.size();
+            for (int i = 0; i < size; i++) {
+                TreeNode current = deque.pop();
+                if (i == size - 1) {
+                    result.add(current.val);
+                }
+                if (current.left != null) {
+                    deque.add(current.left);
+                }
+                if (current.right != null) {
+                    deque.add(current.right);
+                }
+            }
+        }
+        return result;
+    }
 }
 
 
