@@ -1,6 +1,7 @@
 package org.tree;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
 
@@ -144,24 +145,21 @@ public class Traversal {
         if (root == null) {
             return result;
         }
-        TreeNode current = root;
         stack.push(root);
         while (!stack.isEmpty()) {
+            TreeNode current = stack.pop();
+            result.add(current.val);
             if (current != null) {
-                while (current.left != null) {
+                if (current.left != null) {
                     stack.push(current.left);
-                    current = current.left;
                 }
-                current = stack.pop();
-                result.add(current.val);
-
                 if (current.right != null) {
                     stack.push(current.right);
                 }
             }
         }
+        Collections.reverse(result);
         return result;
-
     }
 
     public void postorder(TreeNode root, List<Integer> list) {
