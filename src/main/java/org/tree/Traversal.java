@@ -413,7 +413,29 @@ public class Traversal {
      * @return
      */
     public int minDepth(TreeNode root) {
-
+        int result = 0;
+        if (root == null) {
+            return result;
+        }
+        Deque<TreeNode> deque = new LinkedList<>();
+        deque.add(root);
+        while (!deque.isEmpty()) {
+            int size = deque.size();
+            result++;
+            for (int i = 0; i < size; i++) {
+                TreeNode current = deque.pop();
+                if(current.left == null && current.right == null){
+                    return result;
+                }
+                if (current.left != null) {
+                    deque.add(current.left);
+                }
+                if (current.right != null) {
+                    deque.add(current.right);
+                }
+            }
+        }
+        return result;
     }
 }
 
