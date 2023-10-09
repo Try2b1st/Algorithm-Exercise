@@ -376,6 +376,45 @@ public class Traversal {
         return result;
     }
 
+
+    /**
+     * 104. 二叉树的最大深度
+     *
+     * @param root
+     * @return
+     */
+    public int maxDepth(TreeNode root) {
+        int result = 0;
+        if (root == null) {
+            return result;
+        }
+        Deque<TreeNode> deque = new LinkedList<>();
+        deque.add(root);
+        while (!deque.isEmpty()) {
+            int size = deque.size();
+            result++;
+            for (int i = 0; i < size; i++) {
+                TreeNode current = deque.pop();
+                if (current.left != null) {
+                    deque.add(current.left);
+                }
+                if (current.right != null) {
+                    deque.add(current.right);
+                }
+            }
+        }
+        return result;
+    }
+
+    /**
+     * 111. 二叉树的最小深度
+     *
+     * @param root
+     * @return
+     */
+    public int minDepth(TreeNode root) {
+
+    }
 }
 
 
