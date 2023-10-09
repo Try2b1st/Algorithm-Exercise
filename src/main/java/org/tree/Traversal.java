@@ -294,6 +294,55 @@ public class Traversal {
         }
         return result;
     }
+
+
+    public class Node {
+        public int val;
+        public List<Node> children;
+
+        public Node() {
+        }
+
+        public Node(int _val) {
+            val = _val;
+        }
+
+        public Node(int _val, List<Node> _children) {
+            val = _val;
+            children = _children;
+        }
+    }
+
+    /**
+     * 429. N 叉树的层序遍历
+     *
+     * @param root
+     * @return
+     */
+    public List<List<Integer>> levelOrder(Node root) {
+        List<List<Integer>> result = new ArrayList<>();
+        if (root == null) {
+            return result;
+        }
+        Deque<Node> deque = new LinkedList<>();
+        deque.add(root);
+
+        while (!deque.isEmpty()) {
+            int size = deque.size();
+            List<Integer> list = new ArrayList<>();
+            for (int i = 0; i < size; i++) {
+                Node current = deque.pop();
+                list.add(current.val);
+                if(current.children != null){
+                    for(Node temp : current.children){
+                        deque.addLast(temp);
+                    }
+                }
+            }
+            result.add(list);
+        }
+        return result;
+    }
 }
 
 
