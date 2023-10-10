@@ -6,7 +6,7 @@ import java.util.LinkedList;
 /**
  * @author 下水道的小老鼠
  */
-public class Temp {
+public class TempTraversal {
     public class Node {
         public int val;
         public Node left;
