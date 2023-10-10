@@ -84,4 +84,34 @@ public class BinaryTree {
         return leftFlag && rightFlag;
     }
 
+    /**
+     * 572. 另一棵树的子树
+     *
+     * @param root
+     * @param subRoot
+     * @return
+     */
+    public boolean isSubtree(TreeNode root, TreeNode subRoot) {
+        List<TreeNode> list = new ArrayList<>();
+        find(root,list,subRoot.val);
+        for (TreeNode temp : list){
+            //经过修改的compare 不是代码上方发compare
+            if(compare(temp,subRoot)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void find(TreeNode root, List<TreeNode> list, int val) {
+        if (root == null) {
+            return;
+        }
+        if (root.val == val) {
+            list.add(root);
+        }
+        find(root.left, list, val);
+        find(root.right, list, val);
+    }
+
 }
