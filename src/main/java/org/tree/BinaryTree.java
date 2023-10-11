@@ -93,10 +93,10 @@ public class BinaryTree {
      */
     public boolean isSubtree(TreeNode root, TreeNode subRoot) {
         List<TreeNode> list = new ArrayList<>();
-        find(root,list,subRoot.val);
-        for (TreeNode temp : list){
+        find(root, list, subRoot.val);
+        for (TreeNode temp : list) {
             //经过修改的compare 不是代码上方发compare
-            if(compare(temp,subRoot)){
+            if (compare(temp, subRoot)) {
                 return true;
             }
         }
@@ -114,6 +114,51 @@ public class BinaryTree {
         find(root.right, list, val);
     }
 
+    /**
+     * 222. 完全二叉树的节点个数
+     *
+     * @param root
+     * @return
+     */
+    public int countNodes(TreeNode root) {
+        /*
+          针对完全二叉树的解法
+         */
+        if (root == null) {
+            return 0;
+        }
+        TreeNode left = root.left;
+        TreeNode right = root.right;
+        int leftDepth = 0;
+        int rightDepth = 0;
 
+        while (left != null) {
+            left = left.left;
+            leftDepth++;
+        }
+        while (right != null) {
+            right = right.right;
+            rightDepth++;
+        }
+        if (leftDepth == rightDepth) {
+            return (int) (Math.pow(2, leftDepth + 1) - 1);
+        }
+
+        return countNodes(root.left) + countNodes(root.right) + 1;
+
+        /*
+          针对普通二叉树的普遍方法
+         */
+        //return getCount(root);
+    }
+
+    public int getCount(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int left = getCount(root.left);
+        int right = getCount(root.right);
+        return left + right + 1;
+    }
 
 }
