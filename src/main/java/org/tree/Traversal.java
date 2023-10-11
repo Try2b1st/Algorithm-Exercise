@@ -424,7 +424,7 @@ public class Traversal {
             result++;
             for (int i = 0; i < size; i++) {
                 TreeNode current = deque.pop();
-                if(current.left == null && current.right == null){
+                if (current.left == null && current.right == null) {
                     return result;
                 }
                 if (current.left != null) {
@@ -436,6 +436,24 @@ public class Traversal {
             }
         }
         return result;
+    }
+
+
+    /**
+     * 559. N 叉树的最大深度
+     *
+     * @param root
+     * @return
+     */
+    public int maxDepth(Node root) {
+        if (root == null) {
+            return 0;
+        }
+        int max = 0;
+        for (Node node : root.children) {
+            max = Math.max(max, maxDepth(node));
+        }
+        return max + 1;
     }
 }
 
