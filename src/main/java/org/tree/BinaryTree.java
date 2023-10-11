@@ -161,4 +161,15 @@ public class BinaryTree {
         return left + right + 1;
     }
 
+
+    /**
+     * 110. 平衡二叉树
+     *
+     * @param root
+     * @return
+     */
+    public boolean isBalanced(TreeNode root) {
+
+    }
+
 }
