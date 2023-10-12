@@ -191,4 +191,39 @@ public class BinaryTree {
         return Math.abs(leftHeight - rightHeight);
     }
 
+    /**
+     * 257. 二叉树的所有路径
+     *
+     * @param root
+     * @return
+     */
+    public List<String> binaryTreePaths(TreeNode root) {
+        List<String> result = new ArrayList<>();
+        List<String> path = new ArrayList<>();
+        traversal(root,path,result);
+        return result;
+    }
+
+    public void traversal(TreeNode root, List<String> path, List<String> result) {
+        path.add(String.valueOf(root.val));
+        if (root.left == null && root.right == null) {
+            StringBuilder stringBuilder = new StringBuilder();
+            for (int i = 0; i < path.size() - 1; i++) {
+                stringBuilder.append(path.get(i));
+                stringBuilder.append("->");
+            }
+            stringBuilder.append(path.get(path.size() - 1));
+            result.add(stringBuilder.toString());
+            return;
+        }
+        if (root.left != null) {
+            traversal(root.left, path, result);
+            path.remove(path.size() - 1);
+        }
+        if (root.right != null) {
+            traversal(root.right, path, result);
+            path.remove(path.size() - 1);
+        }
+    }
+
 }
