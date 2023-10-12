@@ -1,6 +1,8 @@
 package org.tree;
 
 import java.util.ArrayList;
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -234,17 +236,17 @@ public class BinaryTree {
      */
 
     public int sumOfLeftLeaves(TreeNode root) {
-        if (root == null){
+        if (root == null) {
             return 0;
         }
-        int leftValue = sumOfLeftLeaves(root.left);    // 左
-        int rightValue = sumOfLeftLeaves(root.right);  // 右
+        int leftValue = sumOfLeftLeaves(root.left);
+        int rightValue = sumOfLeftLeaves(root.right);
 
         int midValue = 0;
         if (root.left != null && root.left.left == null && root.left.right == null) {
             midValue = root.left.val;
         }
-        int sum = midValue + leftValue + rightValue;  // 中
+        int sum = midValue + leftValue + rightValue;
         return sum;
     }
 
@@ -255,7 +257,26 @@ public class BinaryTree {
      * @return
      */
     public int findBottomLeftValue(TreeNode root) {
+        Deque<TreeNode> deque = new LinkedList<>();
+        deque.add(root);
 
+        int result = 0;
+        while(!deque.isEmpty()){
+            int size = deque.size();
+            for (int i = 0; i < size; i++) {
+                TreeNode temp = deque.pop();
+                if (i == 0) {
+                    result = temp.val;
+                }
+                if (temp.left != null) {
+                    deque.add(temp.left);
+                }
+                if (temp.right != null) {
+                    deque.add(temp.right);
+                }
+            }
+        }
+        return result;
     }
 
 }
