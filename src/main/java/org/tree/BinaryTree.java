@@ -261,7 +261,7 @@ public class BinaryTree {
         deque.add(root);
 
         int result = 0;
-        while(!deque.isEmpty()){
+        while (!deque.isEmpty()) {
             int size = deque.size();
             for (int i = 0; i < size; i++) {
                 TreeNode temp = deque.pop();
@@ -278,5 +278,53 @@ public class BinaryTree {
         }
         return result;
     }
+
+    /**
+     * 112. 路径总和
+     *
+     * @param root
+     * @param targetSum
+     * @return
+     */
+    public boolean hasPathSum(TreeNode root, int targetSum) {
+        if(root == null){
+            return false;
+        }
+        return traversal(root, targetSum);
+    }
+
+    public boolean traversal(TreeNode root, int count) {
+        count -= root.val;
+        boolean leftFlag = false;
+        boolean rightFlag = false;
+        if (root.left == null && root.right == null && count == 0) {
+            return true;
+        }else if(root.left == null && root.right == null){
+            return false;
+        }
+        if (root.left != null) {
+            leftFlag = traversal(root.left, count);
+        }
+        if (root.right != null) {
+            rightFlag = traversal(root.right, count);
+        }
+        return leftFlag || rightFlag;
+    }
+
+    /**
+     * 113. 路径总和 II
+     *
+     * @param root
+     * @param targetSum
+     * @return
+     */
+    public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
+
+    }
+
+    public void traversal(TreeNode root, int count,List<List<Integer>> lists,List<Integer> path){
+
+    }
+
 
 }
