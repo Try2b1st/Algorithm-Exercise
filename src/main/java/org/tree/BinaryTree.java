@@ -287,7 +287,7 @@ public class BinaryTree {
      * @return
      */
     public boolean hasPathSum(TreeNode root, int targetSum) {
-        if(root == null){
+        if (root == null) {
             return false;
         }
         return traversal(root, targetSum);
@@ -299,7 +299,7 @@ public class BinaryTree {
         boolean rightFlag = false;
         if (root.left == null && root.right == null && count == 0) {
             return true;
-        }else if(root.left == null && root.right == null){
+        } else if (root.left == null && root.right == null) {
             return false;
         }
         if (root.left != null) {
@@ -319,11 +319,32 @@ public class BinaryTree {
      * @return
      */
     public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
-
+        List<List<Integer>> lists = new ArrayList<>();
+        if (root == null) {
+            return lists;
+        }
+        List<Integer> path = new ArrayList<>();
+        traversal(root, targetSum, lists, path);
+        return lists;
     }
 
-    public void traversal(TreeNode root, int count,List<List<Integer>> lists,List<Integer> path){
-
+    public void traversal(TreeNode root, int count, List<List<Integer>> lists, List<Integer> path) {
+        count -= root.val;
+        path.add(root.val);
+        if (root.left == null && root.right == null && count == 0) {
+            lists.add(new ArrayList<>(path));
+            return;
+        } else if (root.left == null && root.right == null) {
+            return;
+        }
+        if (root.left != null) {
+            traversal(root.left, count, lists, path);
+            path.remove(path.size() - 1);
+        }
+        if (root.right != null) {
+            traversal(root.right, count, lists, path);
+            path.remove(path.size() - 1);
+        }
     }
 
 
