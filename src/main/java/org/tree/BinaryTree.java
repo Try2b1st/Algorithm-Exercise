@@ -1,9 +1,6 @@
 package org.tree;
 
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author 下水道的小老鼠
@@ -347,5 +344,50 @@ public class BinaryTree {
         }
     }
 
+    /**
+     * 106. 从中序与后序遍历序列构造二叉树
+     *
+     * @param inorder
+     * @param postorder
+     * @return
+     */
+    public TreeNode buildTree(int[] inorder, int[] postorder) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < inorder.length; i++) {
+            map.put(inorder[i], i);
+        }
+        return traversal(inorder, 0, inorder.length, postorder, 0, postorder.length, map);
+    }
+
+    public TreeNode traversal(int[] inorder, int inorderBegin, int inorderEnd, int[] postorder, int postorderBegin, int postorderEnd, Map<Integer, Integer> map) {
+        if (postorderBegin == postorderEnd) {
+            return null;
+        }
+        int rootVal = postorder[postorderEnd - 1];
+        TreeNode root = new TreeNode(rootVal);
+
+        if (inorderEnd - inorderBegin == 1) {
+            return root;
+        }
+
+        int leftInorderBegin = inorderBegin;
+        int leftInorderEnd = map.get(rootVal);
+
+        int rightInorderBegin = leftInorderEnd + 1;
+        int rightInorderEnd = inorderEnd;
+
+
+        int leftPostorderBegin = postorderBegin;
+        int leftPostorderEnd = postorderBegin + (leftInorderEnd - leftInorderBegin);
+
+        int rightPostorderBegin = postorderBegin + (leftInorderEnd - leftInorderBegin);
+        int rightPostorderEnd = postorderEnd - 1;
+
+        root.left = traversal(inorder, leftInorderBegin, leftInorderEnd, postorder, leftPostorderBegin, leftPostorderEnd, map);
+
+        root.right = traversal(inorder, rightInorderBegin, rightInorderEnd, postorder, rightPostorderBegin, rightPostorderEnd, map);
+
+        return root;
+    }
 
 }
