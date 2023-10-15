@@ -390,4 +390,15 @@ public class BinaryTree {
         return root;
     }
 
+    /**
+     * 105. 从前序与中序遍历序列构造二叉树
+     *
+     * @param preorder
+     * @param inorder
+     * @return
+     */
+    public TreeNode buildTree2(int[] preorder, int[] inorder) {
+        return null;
+    }
+
 }
