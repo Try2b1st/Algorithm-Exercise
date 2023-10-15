@@ -398,7 +398,6 @@ public class BinaryTree {
      * @return
      */
     public TreeNode buildTree2(int[] preorder, int[] inorder) {
-        System.out.println("hh");
         return null;
     }
 
