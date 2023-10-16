@@ -390,5 +390,38 @@ public class BinaryTree {
         return root;
     }
 
+    /**
+     * 654. 最大二叉树
+     *
+     * @param nums
+     * @return
+     */
+    public TreeNode constructMaximumBinaryTree(int[] nums) {
+        return findRoot(nums,0,nums.length);
+    }
+
+    public TreeNode findRoot(int[] nums, int left, int right) {
+        if(right - left <= 0){
+            return null;
+        }
+        int maxIndex = left;
+        for (int i = left; i < right; i++) {
+            if (nums[maxIndex] < nums[i]) {
+                maxIndex = i;
+            }
+        }
+        TreeNode root = new TreeNode(nums[maxIndex]);
+        int leftLeft = left;
+        int leftRight = maxIndex;
+
+        int rightLeft = maxIndex + 1;
+        int rightRight = right;
+
+        root.left = findRoot(nums, leftLeft, leftRight);
+        root.right = findRoot(nums, rightLeft, rightRight);
+
+        return root;
+    }
+
 
 }
