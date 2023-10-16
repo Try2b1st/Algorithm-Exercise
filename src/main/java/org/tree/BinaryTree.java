@@ -452,4 +452,33 @@ public class BinaryTree {
         return root;
     }
 
+    /**
+     * 700. 二叉搜索树中的搜索
+     *
+     * @param root
+     * @param val
+     * @return
+     */
+    public TreeNode searchBST(TreeNode root, int val) {
+        return preSearch(root, val);
+    }
+
+    public TreeNode preSearch(TreeNode root, int val) {
+        if (root == null) {
+            return null;
+        }
+        if (root.val == val) {
+            return root;
+        }
+        if (root.val < val) {
+            return preSearch(root.right, val);
+        }else{
+            return preSearch(root.left, val);
+        }
+    }
+
+    public boolean isValidBST(TreeNode root) {
+
+    }
+
 }
