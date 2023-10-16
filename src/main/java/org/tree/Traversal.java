@@ -455,8 +455,47 @@ public class Traversal {
         }
         return max + 1;
     }
-}
 
+    /**
+     * 105. 从前序与中序遍历序列构造二叉树
+     *
+     * @param preorder
+     * @param inorder
+     * @return
+     */
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < inorder.length; i++) {
+            map.put(inorder[i], i);
+        }
+        return traversal(preorder, 0, preorder.length, inorder, 0, inorder.length, map);
+    }
+
+    public TreeNode traversal(int[] preorder, int preorderBegin, int preorderEnd, int[] inorder, int inorderBegin, int inorderEnd, Map<Integer, Integer> map) {
+        if (preorderBegin == preorderEnd) {
+            return null;
+        }
+
+        TreeNode root = new TreeNode(preorder[preorderBegin]);
+        if (preorderEnd - preorderBegin == -1) {
+            return root;
+        }
+
+        int leftInorderBegin = inorderBegin;
+        int leftInorderEnd = map.get(root.val);
+        int leftPreorderBegin = preorderBegin + 1;
+        int leftPreorderEnd = leftPreorderBegin + (leftInorderEnd - leftInorderBegin);
+
+        int rightInorderBegin = map.get(root.val) + 1;
+        int rightInorderEnd = inorderEnd;
+        int rightPreorderBegin = leftPreorderEnd;
+        int rightPreorderEnd = preorderEnd;
+        root.left = traversal(preorder, leftPreorderBegin, leftPreorderEnd, inorder, leftInorderBegin, leftInorderEnd, map);
+
+        root.right = traversal(preorder, rightPreorderBegin, rightPreorderEnd, inorder, rightInorderBegin, rightInorderEnd, map);
+        return root;
+    }
+}
 
 
 
