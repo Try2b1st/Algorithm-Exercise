@@ -472,13 +472,35 @@ public class BinaryTree {
         }
         if (root.val < val) {
             return preSearch(root.right, val);
-        }else{
+        } else {
             return preSearch(root.left, val);
         }
     }
 
+    /**
+     * 98. 验证二叉搜索树
+     *
+     * @param root
+     * @return
+     */
     public boolean isValidBST(TreeNode root) {
+        List<Integer> list = new ArrayList<>();
+        getList(root, list);
+        for (int i = 1; i < list.size(); i++) {
+            if (list.get(i) < list.get(i - 1)) {
+                return false;
+            }
+        }
+        return true;
+    }
 
+    public void getList(TreeNode root, List<Integer> list) {
+        if(root == null){
+            return;
+        }
+        getList(root.left,list);
+        list.add(root.val);
+        getList(root.right,list);
     }
 
 }
