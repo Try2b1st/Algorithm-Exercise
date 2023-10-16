@@ -397,11 +397,11 @@ public class BinaryTree {
      * @return
      */
     public TreeNode constructMaximumBinaryTree(int[] nums) {
-        return findRoot(nums,0,nums.length);
+        return findRoot(nums, 0, nums.length);
     }
 
     public TreeNode findRoot(int[] nums, int left, int right) {
-        if(right - left <= 0){
+        if (right - left <= 0) {
             return null;
         }
         int maxIndex = left;
@@ -423,5 +423,33 @@ public class BinaryTree {
         return root;
     }
 
+    /**
+     * 617. 合并二叉树
+     *
+     * @param root1
+     * @param root2
+     * @return
+     */
+    public TreeNode mergeTrees(TreeNode root1, TreeNode root2) {
+        return preMergeTrees(root1, root2);
+    }
+
+    public TreeNode preMergeTrees(TreeNode root1, TreeNode root2) {
+        int merge = 0;
+        TreeNode root = new TreeNode();
+        if (root1 == null && root2 == null) {
+            return null;
+        } else if (root1 != null && root2 == null) {
+            root = root1;
+        } else if (root1 == null && root2 != null) {
+            root = root2;
+        } else {
+            merge += root1.val + root2.val;
+            root.val = merge;
+            root.left = preMergeTrees(root1.left, root2.left);
+            root.right = preMergeTrees(root1.right, root2.right);
+        }
+        return root;
+    }
 
 }
