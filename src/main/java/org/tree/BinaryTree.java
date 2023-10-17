@@ -483,24 +483,20 @@ public class BinaryTree {
      * @param root
      * @return
      */
-    public boolean isValidBST(TreeNode root) {
-        List<Integer> list = new ArrayList<>();
-        getList(root, list);
-        for (int i = 1; i < list.size(); i++) {
-            if (list.get(i) < list.get(i - 1)) {
-                return false;
-            }
-        }
-        return true;
-    }
+    TreeNode pre = new TreeNode();
 
-    public void getList(TreeNode root, List<Integer> list) {
-        if(root == null){
-            return;
+    public boolean isValidBST(TreeNode root) {
+        if (root == null) {
+            return true;
         }
-        getList(root.left,list);
-        list.add(root.val);
-        getList(root.right,list);
+
+        boolean left = isValidBST(root.left);
+        if (pre != null && pre.val >= root.val) {
+            return false;
+        }
+        pre = root;
+        boolean right = isValidBST(root.right);
+        return left && right;
     }
 
 }
