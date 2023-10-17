@@ -483,7 +483,7 @@ public class BinaryTree {
      * @param root
      * @return
      */
-    TreeNode pre = new TreeNode();
+    TreeNode pre = null;
 
     public boolean isValidBST(TreeNode root) {
         if (root == null) {
@@ -499,4 +499,31 @@ public class BinaryTree {
         return left && right;
     }
 
+
+    int min = Integer.MAX_VALUE;
+
+    /**
+     * 530. 二叉搜索树的最小绝对差
+     *
+     * @param root
+     * @return
+     */
+    public int getMinimumDifference(TreeNode root) {
+        inn(root);
+        int temp = min;
+        min = Integer.MAX_VALUE;
+        return min;
+    }
+
+    public void inn(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        inn(root.left);
+        if (pre != null) {
+            min = Math.min(root.val - pre.val, min);
+        }
+        pre = root;
+        inn(root.right);
+    }
 }
