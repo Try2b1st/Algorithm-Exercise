@@ -526,4 +526,46 @@ public class BinaryTree {
         pre = root;
         inn(root.right);
     }
+
+    /**
+     * 501. 二叉搜索树中的众数
+     *
+     * @param root
+     * @return
+     */
+    int count = 0;
+    int maxCount = 0;
+    List<Integer> result = new ArrayList<>();
+
+    public int[] findMode(TreeNode root) {
+        search(root);
+        int[] x = new int[result.size()];
+        for (int i = 0; i < result.size(); i++) {
+            x[i] = result.get(i);
+        }
+        return x;
+    }
+
+    public void search(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        search(root.left);
+        if (pre == null) {
+            count = 1;
+        } else if (pre.val == root.val) {
+            count++;
+        } else {
+            count = 1;
+        }
+        if(maxCount < count){
+            maxCount = count;
+            result.clear();
+            result.add(root.val);
+        }else if(maxCount == count){
+            result.add(root.val);
+        }
+        pre = root;
+        search(root.right);
+    }
 }
