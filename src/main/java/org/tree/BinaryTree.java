@@ -558,14 +558,45 @@ public class BinaryTree {
         } else {
             count = 1;
         }
-        if(maxCount < count){
+        if (maxCount < count) {
             maxCount = count;
             result.clear();
             result.add(root.val);
-        }else if(maxCount == count){
+        } else if (maxCount == count) {
             result.add(root.val);
         }
         pre = root;
         search(root.right);
+    }
+
+    /**
+     * 236. 二叉树的最近公共祖先
+     *
+     * @param root
+     * @param p
+     * @param q
+     * @return
+     */
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if (p.val < q.val) {
+            return traversal(root, p, q);
+        } else {
+            return traversal(root, q, p);
+        }
+    }
+
+    public TreeNode traversal(TreeNode cur, TreeNode p, TreeNode q) {
+        if (cur == null) {
+            return null;
+        }
+        if (cur.val < p.val) {
+            TreeNode right = traversal(cur.right, p, q);
+            return right;
+        }
+        if (cur.val > q.val) {
+            TreeNode left = traversal(cur.left, p, q);
+            return left;
+        }
+        return cur;
     }
 }
