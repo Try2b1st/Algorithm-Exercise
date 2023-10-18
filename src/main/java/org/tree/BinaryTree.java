@@ -664,12 +664,39 @@ public class BinaryTree {
                 return root.right;
             }
         }
-        if(root.val > key){
-            root.left = deleteNode(root.left,key);
-        }else{
-            root.right = deleteNode(root.right,key);
+        if (root.val > key) {
+            root.left = deleteNode(root.left, key);
+        } else {
+            root.right = deleteNode(root.right, key);
         }
         return root;
     }
+
+    /**
+     * 669. 修剪二叉搜索树
+     *
+     * @param root
+     * @param low
+     * @param high
+     * @return
+     */
+    public TreeNode trimBST(TreeNode root, int low, int high) {
+        if (root == null) {
+            return null;
+        }
+        if (root.val < low) {
+            TreeNode right = trimBST(root.right,low,high);
+            return right;
+        }
+        if(root.val > high){
+            TreeNode left  = trimBST(root.left,low,high);
+            return left;
+        }
+
+        root.left = trimBST(root.left, low, high);
+        root.right = trimBST(root.right, low, high);
+        return root;
+    }
+
 
 }
