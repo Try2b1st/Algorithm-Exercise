@@ -685,11 +685,11 @@ public class BinaryTree {
             return null;
         }
         if (root.val < low) {
-            TreeNode right = trimBST(root.right,low,high);
+            TreeNode right = trimBST(root.right, low, high);
             return right;
         }
-        if(root.val > high){
-            TreeNode left  = trimBST(root.left,low,high);
+        if (root.val > high) {
+            TreeNode left = trimBST(root.left, low, high);
             return left;
         }
 
@@ -698,5 +698,27 @@ public class BinaryTree {
         return root;
     }
 
+
+    /**
+     * 108. 将有序数组转换为二叉搜索树
+     *
+     * @param nums
+     * @return
+     */
+    public TreeNode sortedArrayToBST(int[] nums) {
+        return sortArrayMakeBST(nums, 0, nums.length);
+    }
+
+    public TreeNode sortArrayMakeBST(int[] nums, int start, int end) {
+        if(start == end){
+            return null;
+        }
+        int mid = start + (end - start) / 2;
+        TreeNode root = new TreeNode(nums[mid]);
+
+        root.left = sortArrayMakeBST(nums,start,mid);
+        root.right = sortArrayMakeBST(nums,mid+1,end);
+        return root;
+    }
 
 }
