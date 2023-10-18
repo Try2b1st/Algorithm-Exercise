@@ -599,4 +599,47 @@ public class BinaryTree {
         }
         return cur;
     }
+
+    /**
+     * 701. 二叉搜索树中的插入操作
+     *
+     * @param root
+     * @param val
+     * @return
+     */
+    public TreeNode insertIntoBST(TreeNode root, int val) {
+        if(root == null){
+            root = new TreeNode(val);
+        }else{
+            insert(root,val);
+        }
+        return root;
+    }
+    public void insert(TreeNode cur, int val){
+        if(cur.val > val){
+            if(cur.left == null){
+                cur.left = new TreeNode(val);
+            }else{
+                insert(cur.left,val);
+            }
+        }else{
+            if(cur.right == null){
+                cur.right = new TreeNode(val);
+            }else{
+                insert(cur.right,val);
+            }
+        }
+    }
+
+    /**
+     * 450. 删除二叉搜索树中的节点
+     *
+     * @param root
+     * @param key
+     * @return
+     */
+    public TreeNode deleteNode(TreeNode root, int key) {
+
+    }
+
 }
