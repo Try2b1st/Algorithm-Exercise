@@ -710,15 +710,43 @@ public class BinaryTree {
     }
 
     public TreeNode sortArrayMakeBST(int[] nums, int start, int end) {
-        if(start == end){
+        if (start == end) {
             return null;
         }
         int mid = start + (end - start) / 2;
         TreeNode root = new TreeNode(nums[mid]);
 
-        root.left = sortArrayMakeBST(nums,start,mid);
-        root.right = sortArrayMakeBST(nums,mid+1,end);
+        root.left = sortArrayMakeBST(nums, start, mid);
+        root.right = sortArrayMakeBST(nums, mid + 1, end);
         return root;
     }
 
+    /**
+     * 538. 把二叉搜索树转换为累加树
+     *
+     * @param root
+     * @return
+     */
+    int sum = 0;
+
+    public TreeNode convertBST(TreeNode root) {
+        if(root == null){
+            return null;
+        }
+        convertBST(root.left);
+        int temp = root.val;
+        root.val = sum;
+        sum -= temp;
+        convertBST(root.right);
+        return root;
+    }
+
+    public void getSum(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        sum += root.val;
+        getSum(root.left);
+        getSum(root.right);
+    }
 }
