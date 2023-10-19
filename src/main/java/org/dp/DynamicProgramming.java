@@ -25,10 +25,36 @@ public class DynamicProgramming {
             return 1;
         }
         int[] array = new int[n + 1];
+        array[0] = 0;
+        array[1] = 1;
 
         for (int i = 2; i < array.length; i++) {
             array[i] = array[i - 1] + array[i - 2];
         }
         return array[n];
+    }
+
+    /**
+     * 70. 爬楼梯
+     *
+     * @param n
+     * @return
+     */
+    public int climbStairs(int n) {
+        if (n == 1) {
+            return 1;
+        }
+        if (n == 2) {
+            return 2;
+        }
+
+        int[] array = new int[n];
+        array[0] = 1;
+        array[1] = 2;
+
+        for (int i = 2; i < array.length; i++) {
+            array[i] = array[i - 1] + array[i - 2];
+        }
+        return array[n - 1];
     }
 }
