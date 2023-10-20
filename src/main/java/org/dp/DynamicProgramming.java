@@ -1,5 +1,7 @@
 package org.dp;
 
+import java.util.Arrays;
+
 public class DynamicProgramming {
     /*
       对于动态规划问题，我将拆解为如下五步曲，这五步都搞清楚了，才能说把动态规划真的掌握了！
@@ -191,5 +193,45 @@ public class DynamicProgramming {
             }
         }
         return dp[n];
+    }
+
+    public void bagTwoQuestion(int[] weight, int[] values, int bagWeight) {
+        //确定dp数组
+        int[][] dp = new int[values.length][bagWeight + 1];
+
+        //初始化
+        for (int i = weight[0]; i < bagWeight + 1; i++) {
+            dp[0][i] = values[0];
+        }
+
+        for (int i = 1; i < dp.length; i++) {
+            for (int j = 1; j < bagWeight + 1; j++) {
+                if (j >= weight[i]) {
+                    dp[i][j] = Math.max(dp[i - 1][j], dp[i - 1][j - weight[i]] + values[i]);
+                } else {
+                    dp[i][j] = dp[i - 1][j];
+                }
+            }
+        }
+
+        System.out.println(dp[values.length - 1][bagWeight]);
+    }
+
+    public void bagOneQuestion(int[] weight, int[] values, int bagWeight) {
+        //确定dp数组
+        int[] dp = new int[bagWeight + 1];
+
+        //初始化
+        for (int i = weight[0]; i < bagWeight + 1; i++) {
+            dp[i] = values[0];
+        }
+
+        for (int i = 1; i < values.length; i++) {
+            for (int j = bagWeight; j >= weight[i]; j--) {
+                dp[j] = Math.max(dp[j], dp[j - weight[i]] + values[i]);
+            }
+        }
+
+        System.out.println(dp[bagWeight]);
     }
 }
