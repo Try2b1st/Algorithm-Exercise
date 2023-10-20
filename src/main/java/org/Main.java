@@ -1,6 +1,7 @@
 package org;
 
 
+import org.dp.DynamicProgramming;
 import org.hash.AboutHashMap;
 import org.stack.AboutStack;
 import org.string.AboutString;
@@ -14,5 +15,8 @@ import java.util.Arrays;
 public class Main {
     public static void main(String[] args) {
         System.out.println("Hello World");
+        DynamicProgramming dynamicProgramming = new DynamicProgramming();
+
+        dynamicProgramming.integerBreak(10);
     }
 }

@@ -151,4 +151,24 @@ public class DynamicProgramming {
         return obstacleGrid[y - 1][x - 1];
     }
 
+    /**
+     * 343. 整数拆分
+     *
+     * @param n
+     * @return
+     */
+    public int integerBreak(int n) {
+        int[] dp = new int[n + 1];
+        dp[2] = 1;
+        if (n == 2) {
+            return 1;
+        }
+        for (int j = 3; j < n + 1; j++) {
+            for (int i = 1; i <= j / 2; i++) {
+                dp[j] = Math.max(dp[j], Math.max(i * (j - i), i * dp[j - i]));
+            }
+        }
+        return dp[n];
+    }
+
 }
