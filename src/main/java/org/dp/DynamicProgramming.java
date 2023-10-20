@@ -234,4 +234,30 @@ public class DynamicProgramming {
 
         System.out.println(dp[bagWeight]);
     }
+
+    /**
+     * 416. 分割等和子集
+     *
+     * @param nums
+     * @return
+     */
+    public boolean canPartition(int[] nums) {
+        int sum = 0;
+        for (int x : nums) {
+            sum += x;
+        }
+        if (sum % 2 != 0) {
+            return false;
+        }
+        sum /= 2;
+        int[] dp = new int[sum + 1];
+
+
+        for (int num : nums) {
+            for (int j = sum; j >= num; j--) {
+                dp[j] = Math.max(dp[j],dp[j-num] + num);
+            }
+        }
+        return dp[sum] == sum;
+    }
 }
