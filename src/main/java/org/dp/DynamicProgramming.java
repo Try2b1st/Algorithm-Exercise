@@ -260,4 +260,14 @@ public class DynamicProgramming {
         }
         return dp[sum] == sum;
     }
+
+    /**
+     * 1049. 最后一块石头的重量 II
+     *
+     * @param stones
+     * @return
+     */
+    public int lastStoneWeightII(int[] stones) {
+
+    }
 }
