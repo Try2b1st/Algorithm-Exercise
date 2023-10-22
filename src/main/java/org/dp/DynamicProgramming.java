@@ -292,4 +292,15 @@ public class DynamicProgramming {
 
         return Math.abs(sum - dp[stones.length - 1][avg] * 2);
     }
+
+    /**
+     * 494. 目标和
+     *
+     * @param nums
+     * @param target
+     * @return
+     */
+    public int findTargetSumWays(int[] nums, int target) {
+
+    }
 }
