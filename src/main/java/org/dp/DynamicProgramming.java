@@ -255,7 +255,7 @@ public class DynamicProgramming {
 
         for (int num : nums) {
             for (int j = sum; j >= num; j--) {
-                dp[j] = Math.max(dp[j],dp[j-num] + num);
+                dp[j] = Math.max(dp[j], dp[j - num] + num);
             }
         }
         return dp[sum] == sum;
@@ -268,6 +268,28 @@ public class DynamicProgramming {
      * @return
      */
     public int lastStoneWeightII(int[] stones) {
+        int sum = 0;
+        for (int i : stones) {
+            sum += i;
+        }
+        int avg = sum / 2;
+        int[][] dp = new int[stones.length][avg + 1];
 
+        //初始化
+        for (int i = stones[0]; i < avg + 1; i++) {
+            dp[0][i] = stones[0];
+        }
+
+        for (int i = 1; i < stones.length; i++) {
+            for (int j = 1; j < avg + 1; j++) {
+                if(j >= stones[i]){
+                    dp[i][j] = Math.max(dp[i - 1][j], dp[i - 1][j - stones[i]] + stones[i]);
+                }else{
+                    dp[i][j] = dp[i - 1][j];
+                }
+            }
+        }
+
+        return Math.abs(sum - dp[stones.length - 1][avg] * 2);
     }
 }
