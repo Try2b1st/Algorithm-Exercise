@@ -1,6 +1,7 @@
 package org.dp;
 
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class DynamicProgramming {
     /*
@@ -334,6 +335,51 @@ public class DynamicProgramming {
      * @return
      */
     public int findMaxForm(String[] strs, int m, int n) {
+        int[][] dp = new int[m + 1][n + 1];
 
+        for (String str : strs) {
+            int zero = 0;
+            int one = 0;
+            for (int i = 0; i < str.length(); i++) {
+                char c = str.charAt(i);
+                if (c == '0') {
+                    zero++;
+                } else {
+                    one++;
+                }
+            }
+            for (int j = m; j >= zero; j--) {
+                for (int k = n; k >= one; k--) {
+                    dp[j][k] = Math.max(dp[j][k], dp[j - zero][k - one] + 1);
+                }
+            }
+        }
+        return dp[m][n];
+    }
+
+    /**
+     * 完全背包问题
+     */
+    public void wanQBeiBao(){
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int v = sc.nextInt();
+        int[] weights = new int[n];
+        int[] values = new int[n];
+
+        for (int i = 0; i < n; i++) {
+            weights[i] = sc.nextInt();
+            values[i] = sc.nextInt();
+        }
+
+        int[] dp = new int[v + 1];
+
+        for (int i = 0; i < n; i++) {
+            for (int j = weights[i]; j < v + 1; j++) {
+                dp[j] = Math.max(dp[j - weights[i]] + values[i], dp[j]);
+            }
+        }
+
+        System.out.println(dp[v]);
     }
 }
