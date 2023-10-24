@@ -11,6 +11,8 @@ import java.util.Scanner;
  */
 public class Main {
     public static void main(String[] args) {
+        DynamicProgramming dynamicProgramming = new DynamicProgramming();
 
+        dynamicProgramming.change(5,new int[]{1,2,5});
     }
 }

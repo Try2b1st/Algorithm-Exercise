@@ -360,7 +360,7 @@ public class DynamicProgramming {
     /**
      * 完全背包问题
      */
-    public void wanQBeiBao(){
+    public void wanQBeiBao() {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
         int v = sc.nextInt();
@@ -381,5 +381,30 @@ public class DynamicProgramming {
         }
 
         System.out.println(dp[v]);
+    }
+
+    /**
+     * 518. 零钱兑换 II
+     *
+     * @param amount
+     * @param coins
+     * @return
+     */
+    public int change(int amount, int[] coins) {
+        int[] dp = new int[amount + 1];
+
+        //初始化
+        dp[0] = 1;
+        for (int i = coins[0]; i < amount + 1; i++) {
+            dp[i] += dp[i - coins[0]];
+        }
+
+
+        for (int i = 1; i < coins.length; i++) {
+            for (int j = coins[i]; j < amount + 1; j++) {
+                dp[j] += dp[j - coins[i]];
+            }
+        }
+        return dp[amount];
     }
 }
