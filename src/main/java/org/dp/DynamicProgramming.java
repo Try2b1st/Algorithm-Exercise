@@ -407,4 +407,28 @@ public class DynamicProgramming {
         }
         return dp[amount];
     }
+
+
+    /**
+     * 377. 组合总和 Ⅳ
+     *
+     * @param nums
+     * @param target
+     * @return
+     */
+    public int combinationSum4(int[] nums, int target) {
+        int[] dp = new int[target + 1];
+
+        //初始化
+        dp[0] = 1;
+
+        for (int i = 1; i < target + 1; i++) {
+            for (int j = 0; j < nums.length; j++) {
+                if (i >= nums[j]) {
+                    dp[i] += dp[i - nums[j]];
+                }
+            }
+        }
+        return dp[target];
+    }
 }
