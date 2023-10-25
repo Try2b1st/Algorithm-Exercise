@@ -1,6 +1,7 @@
 package org;
 
 
+import org.dp.BagProblem;
 import org.dp.DynamicProgramming;
 
 import java.util.ArrayList;
@@ -13,12 +14,12 @@ import java.util.Scanner;
  */
 public class Main {
     public static void main(String[] args) {
-        DynamicProgramming dynamicProgramming = new DynamicProgramming();
+        BagProblem bagProblem = new BagProblem();
 
         List<String> list = new ArrayList<>();
         list.add("dog");
         list.add("s");
         list.add("gs");
-        System.out.println(dynamicProgramming.wordBreak("dogs",list));
+        System.out.println(bagProblem.wordBreak("dogs",list));
     }
 }
