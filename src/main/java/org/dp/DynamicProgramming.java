@@ -497,7 +497,7 @@ public class DynamicProgramming {
         }
 
         for (int x = 1; x * x <= n; x++) {
-            int sum = x*x;
+            int sum = x * x;
             for (int i = sum; i < n + 1; i++) {
                 if (i - sum == 0 || dp[i - sum] != 0) {
                     dp[i] = Math.min(dp[i], dp[i - sum] + 1);
@@ -505,5 +505,29 @@ public class DynamicProgramming {
             }
         }
         return dp[n];
+    }
+
+    /**
+     * 139. 单词拆分
+     *
+     * @param s
+     * @param wordDict
+     * @return
+     */
+    public boolean wordBreak(String s, List<String> wordDict) {
+        Boolean[] dp = new Boolean[s.length() + 1];
+        dp[0] = true;
+        for(int i = 1;i<s.length() + 1;i++){
+            dp[i] = false;
+        }
+
+        for (int i = 0; i < dp.length; i++) {
+            for (String word : wordDict) {
+                if(i >= word.length() && s.startsWith(word, i-word.length())){
+                    dp[i] = dp[i - word.length()] || dp[i];
+                }
+            }
+        }
+        return dp[s.length()];
     }
 }
