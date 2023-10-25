@@ -1,6 +1,7 @@
 package org.dp;
 
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class DynamicProgramming {
@@ -440,4 +441,42 @@ public class DynamicProgramming {
         }
         return dp[target];
     }
+
+    /**
+     * 322. 零钱兑换
+     *
+     * @param coins
+     * @param amount
+     * @return
+     */
+    public int coinChange(int[] coins, int amount) {
+        if (amount == 0) {
+            return 0;
+        }
+
+        int max = Integer.MAX_VALUE - 1;
+
+        int[] dp = new int[amount + 1];
+        dp[0] = 0;
+        for(int i = 1;i<amount + 1;i++){
+            dp[i] = max;
+        }
+
+
+        for (int coin : coins) {
+            for (int j = coin; j < amount + 1; j++) {
+                if (j - coin == 0 || dp[j - coin] != 0) {
+                    dp[j] = Math.min(dp[j], dp[j - coin] + 1);
+                }
+            }
+        }
+
+        if (dp[amount] == Integer.MAX_VALUE) {
+            return -1;
+        } else {
+            return dp[amount];
+        }
+    }
+
+
 }

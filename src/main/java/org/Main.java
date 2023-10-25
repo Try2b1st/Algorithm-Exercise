@@ -13,6 +13,6 @@ public class Main {
     public static void main(String[] args) {
         DynamicProgramming dynamicProgramming = new DynamicProgramming();
 
-        System.out.println(dynamicProgramming.combinationSum4(new int[]{1,2,3},4));
+        System.out.println(dynamicProgramming.coinChange(new int[]{186,419,83,408},6249));
     }
 }
