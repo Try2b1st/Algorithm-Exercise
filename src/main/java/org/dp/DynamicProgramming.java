@@ -1,6 +1,6 @@
 package org.dp;
 
-import java.util.Arrays;
+
 import java.util.Scanner;
 
 public class DynamicProgramming {
@@ -43,21 +43,30 @@ public class DynamicProgramming {
      * @return
      */
     public int climbStairs(int n) {
-        if (n == 1) {
-            return 1;
+//        if (n == 1) {
+//            return 1;
+//        }
+//        if (n == 2) {
+//            return 2;
+//        }
+//
+//        int[] array = new int[n];
+//        array[0] = 1;
+//        array[1] = 2;
+//
+//        for (int i = 2; i < array.length; i++) {
+//            array[i] = array[i - 1] + array[i - 2];
+//        }
+//        return array[n - 1];
+        int[] dp = new int[n + 1];
+        dp[0] = 1;
+        dp[1] = 1;
+        for (int i = 2; i < n + 1; i++) {
+            for (int j = 1; j <= 2; j++) {
+                dp[i] += dp[i - j];
+            }
         }
-        if (n == 2) {
-            return 2;
-        }
-
-        int[] array = new int[n];
-        array[0] = 1;
-        array[1] = 2;
-
-        for (int i = 2; i < array.length; i++) {
-            array[i] = array[i - 1] + array[i - 2];
-        }
-        return array[n - 1];
+        return dp[n];
     }
 
 
