@@ -1,7 +1,9 @@
 package org.dp;
 
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class DynamicProgramming {
@@ -458,7 +460,7 @@ public class DynamicProgramming {
 
         int[] dp = new int[amount + 1];
         dp[0] = 0;
-        for(int i = 1;i<amount + 1;i++){
+        for (int i = 1; i < amount + 1; i++) {
             dp[i] = max;
         }
 
@@ -478,5 +480,30 @@ public class DynamicProgramming {
         }
     }
 
+    /**
+     * 279. 完全平方数
+     *
+     * @param n
+     * @return
+     */
+    public int numSquares(int n) {
 
+        //初始化
+        int max = Integer.MAX_VALUE - 1;
+        int[] dp = new int[n + 1];
+        dp[0] = 0;
+        for (int i = 1; i < n + 1; i++) {
+            dp[i] = max;
+        }
+
+        for (int x = 1; x * x <= n; x++) {
+            int sum = x*x;
+            for (int i = sum; i < n + 1; i++) {
+                if (i - sum == 0 || dp[i - sum] != 0) {
+                    dp[i] = Math.min(dp[i], dp[i - sum] + 1);
+                }
+            }
+        }
+        return dp[n];
+    }
 }
