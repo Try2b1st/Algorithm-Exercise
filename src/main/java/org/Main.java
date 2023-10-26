@@ -1,12 +1,6 @@
 package org;
 
-
-import org.dp.BagProblem;
-import org.dp.DynamicProgramming;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import org.dp.ShareProblem;
 
 
 /**
@@ -14,12 +8,7 @@ import java.util.Scanner;
  */
 public class Main {
     public static void main(String[] args) {
-        BagProblem bagProblem = new BagProblem();
-
-        List<String> list = new ArrayList<>();
-        list.add("dog");
-        list.add("s");
-        list.add("gs");
-        System.out.println(bagProblem.wordBreak("dogs",list));
+        ShareProblem shareProblem = new ShareProblem();
+        System.out.println(shareProblem.maxProfitII(new int[]{7,1,5,3,6,4}));
     }
 }
