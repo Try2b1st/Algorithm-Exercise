@@ -74,4 +74,33 @@ public class ShareProblem {
         return dp[prices.length - 1][4];
 
     }
+
+    /**
+     * 188. 买卖股票的最佳时机 IV
+     *
+     * @param k
+     * @param prices
+     * @return
+     */
+    public int maxProfit(int k, int[] prices) {
+        int[][] dp = new int[prices.length][2 * k + 1];
+        for (int i = 1; i < 2 * k + 1; i += 2) {
+            dp[0][i] = -prices[0];
+        }
+
+        for (int i = 1; i < prices.length; i++) {
+            for (int j = 1; j < 2 * k + 1; j += 2) {
+                if (j == 1) {
+                    dp[i][j] = Math.max(dp[i - 1][j], -prices[i]);
+                } else {
+                    dp[i][j] = Math.max(dp[i - 1][j], dp[i - 1][j - 1] - prices[i]);
+                }
+                dp[i][j + 1] = Math.max(dp[i - 1][j + 1], dp[i - 1][j] + prices[i]);
+            }
+            System.out.println(Arrays.toString(dp[i]));
+        }
+
+        return dp[prices.length - 1][2 * k];
+
+    }
 }
