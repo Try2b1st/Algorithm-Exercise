@@ -9,6 +9,6 @@ import org.dp.ShareProblem;
 public class Main {
     public static void main(String[] args) {
         ShareProblem shareProblem = new ShareProblem();
-        System.out.println(shareProblem.maxProfit(2,new int[]{2,4,1}));
+        System.out.println(shareProblem.maxProfit(new int[]{1,2,3,0,2}));
     }
 }
