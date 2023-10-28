@@ -100,4 +100,16 @@ public class SubQueue {
         }
         return result;
     }
+
+
+    /**
+     * 1143. 最长公共子序列
+     *
+     * @param text1
+     * @param text2
+     * @return
+     */
+    public int longestCommonSubsequence(String text1, String text2) {
+
+    }
 }
