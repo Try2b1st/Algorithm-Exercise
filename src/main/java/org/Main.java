@@ -10,6 +10,6 @@ import org.dp.SubQueue;
 public class Main {
     public static void main(String[] args) {
         SubQueue subQueue = new SubQueue();
-        System.out.println(subQueue.findLengthOfLCIS(new int[]{10,9,2,5,3,7,101,18}));
+        System.out.println(subQueue.longestCommonSubsequence("abcde","ace"));
     }
 }
