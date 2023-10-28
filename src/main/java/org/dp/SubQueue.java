@@ -61,4 +61,14 @@ public class SubQueue {
     }
 
 
+    /**
+     * 718. 最长重复子数组
+     *
+     * @param nums1
+     * @param nums2
+     * @return
+     */
+    public int findLength(int[] nums1, int[] nums2) {
+        return 0;
+    }
 }
