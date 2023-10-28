@@ -1,6 +1,7 @@
 package org;
 
 import org.dp.ShareProblem;
+import org.dp.SubQueue;
 
 
 /**
@@ -8,7 +9,7 @@ import org.dp.ShareProblem;
  */
 public class Main {
     public static void main(String[] args) {
-        ShareProblem shareProblem = new ShareProblem();
-        System.out.println(shareProblem.maxProfit(new int[]{1,2,3,0,2}));
+        SubQueue subQueue = new SubQueue();
+        System.out.println(subQueue.lengthOfLIS(new int[]{10,9,2,5,3,7,101,18}));
     }
 }
