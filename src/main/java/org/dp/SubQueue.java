@@ -34,4 +34,38 @@ public class SubQueue {
         }
         return result;
     }
+
+    /**
+     * 674. 最长连续递增序列
+     *
+     * @param nums
+     * @return
+     */
+    public int findLengthOfLCIS(int[] nums) {
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
