@@ -17,7 +17,7 @@ public class SubQueue {
         //初始化
         int[] dp = new int[nums.length];
         Arrays.fill(dp, 1);
-        System.out.println();
+
         for (int i = 0; i < dp.length; i++) {
             for (int j = 0; j < i; j++) {
                 if (nums[j] < nums[i]) {
@@ -147,5 +147,15 @@ public class SubQueue {
             }
         }
         return dp[nums1.length][nums2.length];
+    }
+
+    /**
+     * 53. 最大子数组和
+     *
+     * @param nums
+     * @return
+     */
+    public int maxSubArray(int[] nums) {
+
     }
 }
