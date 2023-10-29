@@ -156,6 +156,20 @@ public class SubQueue {
      * @return
      */
     public int maxSubArray(int[] nums) {
+        int[] dp = new int[nums.length];
+        Arrays.fill(dp, Integer.MIN_VALUE);
+        dp[0] = nums[0];
 
+        for (int i = 1; i < dp.length; i++) {
+            dp[i] = Math.max(nums[i], dp[i - 1] + nums[i]);
+        }
+
+        int result = Integer.MIN_VALUE;
+        for(int x : dp){
+            if(x>result){
+                result = x;
+            }
+        }
+        return result;
     }
 }
