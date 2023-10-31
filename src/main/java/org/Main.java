@@ -12,6 +12,6 @@ public class Main {
     public static void main(String[] args) {
         SubQueue subQueue = new SubQueue();
         Palindromic palindromic = new Palindromic();
-        System.out.println(palindromic.countSubstrings("abc"));
+        System.out.println(palindromic.longestPalindromeSubseq("bbbcb"));
     }
 }
