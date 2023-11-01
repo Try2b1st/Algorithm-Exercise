@@ -1,5 +1,6 @@
 package org;
 
+import org.Track.Combination;
 import org.dp.Palindromic;
 import org.dp.ShareProblem;
 import org.dp.SubQueue;
@@ -10,8 +11,7 @@ import org.dp.SubQueue;
  */
 public class Main {
     public static void main(String[] args) {
-        SubQueue subQueue = new SubQueue();
-        Palindromic palindromic = new Palindromic();
-        System.out.println(palindromic.longestPalindromeSubseq("bbbcb"));
+        Combination combination = new Combination();
+        System.out.println(combination.combine(4,2));
     }
 }
