@@ -2,6 +2,7 @@ package org.Track;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Combination {
 
@@ -61,6 +62,41 @@ public class Combination {
             backtrackingToCombinationSum3(k, n, i + 1);
             list.remove(list.size() - 1);
             sum -= i;
+        }
+    }
+
+    /**
+     * 17. 电话号码的字母组合
+     *
+     * @param digits
+     * @return
+     */
+    List<String> stringList = new ArrayList<>();
+    String[] nums = new String[]{"abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+    StringBuilder stringBuilder = new StringBuilder();
+
+    public List<String> letterCombinations(String digits) {
+        if (Objects.equals(digits, "")) {
+            return null;
+        }
+        backtrackingToLetterCombinations(digits, 0);
+        return stringList;
+    }
+
+    public void backtrackingToLetterCombinations(String digits, int startIndex) {
+        if (stringBuilder.length() == digits.length()) {
+            String s = String.valueOf(stringBuilder);
+            stringList.add(s);
+            return;
+        }
+        if (startIndex >= digits.length()) {
+            return;
+        }
+        String numberChar = nums[Integer.parseInt(new String(String.valueOf(digits.charAt(startIndex))))];
+        for (int i = 0; i < numberChar.length(); i++) {
+            stringBuilder.append(numberChar.charAt(i));
+            backtrackingToLetterCombinations(digits, startIndex + 1);
+            stringBuilder.deleteCharAt(stringBuilder.length() - 1);
         }
     }
 }
