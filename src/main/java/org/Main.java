@@ -12,6 +12,6 @@ import org.dp.SubQueue;
 public class Main {
     public static void main(String[] args) {
         Combination combination = new Combination();
-        System.out.println(combination.combine(4,2));
+        System.out.println(combination.combinationSum3(9,45));
     }
 }

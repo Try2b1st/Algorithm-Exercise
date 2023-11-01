@@ -32,4 +32,35 @@ public class Combination {
             list.remove(list.size() - 1);
         }
     }
+
+
+    /**
+     * 216. 组合总和 III
+     *
+     * @param k
+     * @param n
+     * @return
+     */
+    int sum = 0;
+
+    public List<List<Integer>> combinationSum3(int k, int n) {
+        int i = 0;
+        backtrackingToCombinationSum3(k, n, 1);
+        return result;
+    }
+
+    public void backtrackingToCombinationSum3(int k, int n, int startIndex) {
+        if (list.size() == n && sum == k) {
+            result.add(new ArrayList<>(list));
+            return;
+        }
+
+        for (int i = startIndex; i <= k; i++) {
+            list.add(i);
+            sum += i;
+            backtrackingToCombinationSum3(k, n, i + 1);
+            list.remove(list.size() - 1);
+            sum -= i;
+        }
+    }
 }
