@@ -1,8 +1,6 @@
 package org.Track;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Combination {
 
@@ -107,27 +105,68 @@ public class Combination {
      * @return
      */
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
-        backtrackingToCombinationSum(candidates,target,0);
+        backtrackingToCombinationSum(candidates, target, 0);
         return result;
     }
 
-    public void backtrackingToCombinationSum(int[] nums,int target,int startIndex) {
+    public void backtrackingToCombinationSum(int[] nums, int target, int startIndex) {
         if (sum == target) {
             result.add(new ArrayList<>(list));
             return;
         }
-        if(sum > target){
+        if (sum > target) {
             return;
         }
 
         for (int i = startIndex; i < nums.length; i++) {
             list.add(nums[i]);
             sum += nums[i];
-            backtrackingToCombinationSum(nums,target,i);
+            backtrackingToCombinationSum(nums, target, i);
             list.remove(list.size() - 1);
             sum -= nums[i];
         }
     }
 
+    /**
+     * 40. 组合总和 II
+     *
+     * @param candidates
+     * @param target
+     * @return
+     */
+    boolean[] used;
 
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        used = new boolean[candidates.length];
+        // 加标志数组，用来辅助判断同层节点是否已经遍历
+        Arrays.fill(used, false);
+        // 为了将重复的数字都放到一起，所以先进行排序
+        Arrays.sort(candidates);
+
+        backtrackingToCombinationSum2(candidates, target, 0);
+        return result;
+    }
+
+    public void backtrackingToCombinationSum2(int[] nums, int target, int startIndex) {
+        if (sum == target) {
+            result.add(new ArrayList<>(list));
+            return;
+        }
+
+        for (int i = startIndex; i < nums.length; i++) {
+            if (sum + nums[i] > target) {
+                break;
+            }
+            if (i > 0 && nums[i] == nums[i - 1] && !used[i-1]) {
+                continue;
+            }
+            list.add(nums[i]);
+            sum += nums[i];
+            used[i] = true;
+            backtrackingToCombinationSum2(nums, target, i + 1);
+            used[i] = false;
+            list.remove(list.size() - 1);
+            sum -= nums[i];
+        }
+    }
 }
