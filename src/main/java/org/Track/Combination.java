@@ -17,7 +17,6 @@ public class Combination {
     List<Integer> list = new ArrayList<>();
 
     public List<List<Integer>> combine(int n, int k) {
-        int i = 0;
         backtrackingToCombine(n, k, 1);
         return result;
     }
@@ -99,4 +98,36 @@ public class Combination {
             stringBuilder.deleteCharAt(stringBuilder.length() - 1);
         }
     }
+
+    /**
+     * 39. 组合总和
+     *
+     * @param candidates
+     * @param target
+     * @return
+     */
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        backtrackingToCombinationSum(candidates,target,0);
+        return result;
+    }
+
+    public void backtrackingToCombinationSum(int[] nums,int target,int startIndex) {
+        if (sum == target) {
+            result.add(new ArrayList<>(list));
+            return;
+        }
+        if(sum > target){
+            return;
+        }
+
+        for (int i = startIndex; i < nums.length; i++) {
+            list.add(nums[i]);
+            sum += nums[i];
+            backtrackingToCombinationSum(nums,target,i);
+            list.remove(list.size() - 1);
+            sum -= nums[i];
+        }
+    }
+
+
 }

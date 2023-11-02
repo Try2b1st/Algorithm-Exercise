@@ -12,6 +12,6 @@ import org.dp.SubQueue;
 public class Main {
     public static void main(String[] args) {
         Combination combination = new Combination();
-        System.out.println(combination.letterCombinations(""));
+        System.out.println(combination.combinationSum(new int[]{2,3,6,7},7));
     }
 }
