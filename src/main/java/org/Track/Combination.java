@@ -135,7 +135,6 @@ public class Combination {
      * @return
      */
     boolean[] used;
-
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
         used = new boolean[candidates.length];
         // 加标志数组，用来辅助判断同层节点是否已经遍历

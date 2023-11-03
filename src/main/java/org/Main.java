@@ -1,6 +1,7 @@
 package org;
 
 import org.Track.Combination;
+import org.Track.Palindrome;
 import org.dp.Palindromic;
 import org.dp.ShareProblem;
 import org.dp.SubQueue;
@@ -12,6 +13,7 @@ import org.dp.SubQueue;
 public class Main {
     public static void main(String[] args) {
         Combination combination = new Combination();
-        System.out.println(combination.combinationSum2(new int[]{10,1,2,7,6,1,5},8));
+        Palindrome palindrome = new Palindrome();
+        System.out.println(palindrome.partition("aab"));
     }
 }
