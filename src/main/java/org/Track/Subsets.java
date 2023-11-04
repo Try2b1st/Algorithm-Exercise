@@ -1,8 +1,6 @@
 package org.Track;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class Subsets {
 
@@ -40,6 +38,7 @@ public class Subsets {
      * @return
      */
     boolean[] used;
+
     public List<List<Integer>> subsetsWithDup(int[] nums) {
         Arrays.sort(nums);
         used = new boolean[nums.length];
@@ -64,4 +63,33 @@ public class Subsets {
             list.remove(list.size() - 1);
         }
     }
+
+    /**
+     * 491. 递增子序列
+     *
+     * @param nums
+     * @return
+     */
+    public List<List<Integer>> findSubsequences(int[] nums) {
+        backtrackingToFindSubsequences(nums, 0);
+        return result;
+    }
+
+    public void backtrackingToFindSubsequences(int[] nums, int startIndex) {
+        if (list.size() >= 2) {
+            result.add(new ArrayList<>(list));
+        }
+
+        Set<Integer> set = new HashSet<>();
+        for (int i = startIndex; i < nums.length; i++) {
+            if ((!list.isEmpty() && nums[i] < list.get(list.size()-1)) || (!set.isEmpty() && set.contains(nums[i]))) {
+                continue;
+            }
+            set.add(nums[i]);
+            list.add(nums[i]);
+            backtrackingToFindSubsequences(nums, i+1);
+            list.remove(list.size() - 1);
+        }
+    }
+
 }
