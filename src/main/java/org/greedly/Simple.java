@@ -86,10 +86,31 @@ public class Simple {
 
         int sum = 0;
         for (int x : current) {
-            if(x>0){
+            if (x > 0) {
                 sum += x;
             }
         }
         return sum;
+    }
+
+    /**
+     * 55. 跳跃游戏
+     * 贪心算法思路，是计算棋子最远可到达哪，因为我们可以选择走几步，
+     * 所以只要要在可到达的地方，我们就有一个走法，所以最远可到达地只要超过数组长度，即可。
+     *
+     * @param nums
+     * @return
+     */
+    public boolean canJump(int[] nums) {
+        int able = 0;
+
+        for (int i = 0; i <= able && i < nums.length; i++) {
+            able = Math.max(able, i + nums[i]);
+            if (able >= nums.length) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
