@@ -70,4 +70,26 @@ public class Simple {
 
         return result;
     }
+
+    /**
+     * 122. 买卖股票的最佳时机 II
+     *
+     * @param prices
+     * @return
+     */
+    public int maxProfit(int[] prices) {
+        int[] current = new int[prices.length - 1];
+
+        for (int i = 1; i < prices.length; i++) {
+            current[i - 1] = prices[i] - prices[i - 1];
+        }
+
+        int sum = 0;
+        for (int x : current) {
+            if(x>0){
+                sum += x;
+            }
+        }
+        return sum;
+    }
 }
