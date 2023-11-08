@@ -113,4 +113,44 @@ public class Simple {
 
         return false;
     }
+
+    /**
+     * 45. 跳跃游戏 II
+     *
+     * @param nums
+     * @return
+     */
+    public int jump(int[] nums) {
+        int[] ableNums = new int[nums.length];
+        Arrays.fill(ableNums, Integer.MAX_VALUE);
+        ableNums[0] = 0;
+        int able = 0;
+
+        for (int i = 0; i <= able && i < nums.length; i++) {
+            able = Math.max(able, i + nums[i]);
+            for (int j = i + 1; j <= able && j < nums.length; j++) {
+                ableNums[j] = Math.min(ableNums[j], ableNums[i] + 1);
+            }
+        }
+        return ableNums[ableNums.length - 1];
+    }
+
+    public int jumpBest(int[] nums) {
+        int nextDistance = 0;
+        int curDistance = 0;
+        int result = 0;
+
+        for (int i = 0; i < nums.length; i++) {
+            nextDistance = Math.max(nextDistance, nums[i] + i);
+            if (i == curDistance) {
+                result++;
+                curDistance = nextDistance;
+                if(nextDistance > nums.length){
+                    break;
+                }
+            }
+        }
+
+        return result;
+    }
 }
