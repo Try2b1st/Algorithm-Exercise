@@ -39,7 +39,6 @@ public class Simple {
         int preDiff = 0;
         int curDiff;
         int count = 1;
-
         for (int i = 0; i < nums.length - 1; i++) {
             curDiff = nums[i + 1] - nums[i];
             if ((preDiff <= 0 && curDiff > 0) || (preDiff >= 0 && curDiff < 0)) {
@@ -47,7 +46,28 @@ public class Simple {
                 preDiff = curDiff;
             }
         }
-
         return count;
+    }
+
+    /**
+     * 53. 最大子数组和
+     * 贪心算法的思路就是，当前的数组和为负数时，如果再往下加的话，会拖累和的大小所以要丛植开头
+     *
+     * @param nums
+     * @return
+     */
+    public int maxSubArray(int[] nums) {
+        int result = Integer.MIN_VALUE;
+        int current = 0;
+
+        for (int i : nums) {
+            current += i;
+            result = Math.max(result, current);
+            if (current < 0) {
+                current = 0;
+            }
+        }
+
+        return result;
     }
 }
