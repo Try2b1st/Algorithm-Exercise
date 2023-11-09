@@ -145,12 +145,38 @@ public class Simple {
             if (i == curDistance) {
                 result++;
                 curDistance = nextDistance;
-                if(nextDistance > nums.length){
+                if (nextDistance > nums.length) {
                     break;
                 }
             }
         }
 
         return result;
+    }
+
+    /**
+     * 1005. K 次取反后最大化的数组和
+     *
+     * @param nums
+     * @param k
+     * @return
+     */
+    public int largestSumAfterKNegations(int[] nums, int k) {
+        Arrays.sort(nums);
+        int sum = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (k > 0 && nums[i] < 0) {
+                nums[i] = -nums[i];
+                k--;
+            }
+        }
+        Arrays.sort(nums);
+        for (int i = 0; i < k; i++) {
+            nums[0] = -nums[0];
+        }
+        for(int num : nums){
+            sum+=num;
+        }
+        return sum;
     }
 }
