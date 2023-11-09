@@ -174,9 +174,48 @@ public class Simple {
         for (int i = 0; i < k; i++) {
             nums[0] = -nums[0];
         }
-        for(int num : nums){
-            sum+=num;
+        for (int num : nums) {
+            sum += num;
         }
         return sum;
+    }
+
+    /**
+     * 134. 加油站
+     * 暴力解法
+     *
+     * @param gas
+     * @param cost
+     * @return
+     */
+    public int canCompleteCircuit(int[] gas, int[] cost) {
+        int[] sums = new int[gas.length];
+        for (int i = 0; i < gas.length; i++) {
+            sums[i] = gas[i] - cost[i];
+        }
+
+        for (int i = 0; i < sums.length; i++) {
+            int sum = 0;
+            if (sums[i] < 0) {
+                continue;
+            }
+            boolean flag = true;
+            for (int count = 0; count < sums.length; count++) {
+                sum += sums[(i + count) % sums.length];
+
+                if (sum <= -1) {
+                    flag = false;
+                    break;
+                }
+                if (sum == 0 && count != sums.length - 1) {
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag) {
+                return i;
+            }
+        }
+        return -1;
     }
 }

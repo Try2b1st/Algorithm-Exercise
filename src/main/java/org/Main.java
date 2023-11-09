@@ -17,6 +17,6 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Simple simple = new Simple();
-        System.out.println(simple.wiggleMaxLength(new int[]{0,0}));
+        System.out.println(simple.canCompleteCircuit(new int[]{2,3,4}, new int[]{3,4,3}));
     }
 }
