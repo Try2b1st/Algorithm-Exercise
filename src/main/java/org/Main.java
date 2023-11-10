@@ -7,6 +7,7 @@ import org.dp.SubQueue;
 import org.greedly.Simple;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -17,6 +18,6 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Simple simple = new Simple();
-        System.out.println(simple.candy(new int[]{1,3,2,2,1}));
+        System.out.println(Arrays.deepToString(simple.reconstructQueue(new int[][]{{7, 0}, {4, 4}, {7, 1}, {5, 0}, {6, 1}, {5, 2}})));
     }
 }

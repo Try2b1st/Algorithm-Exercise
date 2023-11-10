@@ -1,6 +1,9 @@
 package org.greedly;
 
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Simple {
     //想清楚局部最优，想清楚全局最优，感觉局部最优是可以推出全局最优，并想不出反例，那么就试一试贪心。
@@ -297,17 +300,49 @@ public class Simple {
                 }
             } else if (bill == 20) {
                 money[2] += 1;
-                if(money[1] >0 && money[0]>0){
+                if (money[1] > 0 && money[0] > 0) {
                     money[0] -= 1;
                     money[1] -= 1;
-                }else if(money[0] > 2){
+                } else if (money[0] > 2) {
                     money[0] -= 3;
-                }else{
+                } else {
                     return false;
                 }
             }
         }
 
         return true;
+    }
+
+    /**
+     * 406. 根据身高重建队列
+     *
+     * @param people
+     * @return
+     */
+    public int[][] reconstructQueue(int[][] people) {
+        List<int[]> list = new LinkedList<>();
+
+        Arrays.sort(people, (o1, o2) -> {
+            if(o1[0] == o2[0]){
+                return o1[1] - o2[1];
+            }else{
+                return o2[0] - o1[0];
+            }
+        });
+
+        for(int[] person : people){
+            list.add(person[1],person);
+        }
+
+        int[][] result = new int[people.length][people[0].length];
+        int count =0;
+
+        for(int[] x : list){
+            result[count][0] = x[0];
+            result[count][1] = x[1];
+            count++;
+        }
+        return result;
     }
 }
