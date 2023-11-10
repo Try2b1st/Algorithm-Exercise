@@ -285,7 +285,6 @@ public class Simple {
     public boolean lemonadeChange(int[] bills) {
         //0-5 1-10 2-20
         int[] money = new int[3];
-
         for (int bill : bills) {
             if (bill == 5) {
                 money[0] += 1;
