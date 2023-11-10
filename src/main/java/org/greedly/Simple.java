@@ -246,4 +246,33 @@ public class Simple {
         }
         return start;
     }
+
+    /**
+     * 135. 分发糖果
+     *
+     * @param ratings
+     * @return
+     */
+    public int candy(int[] ratings) {
+        int[] result = new int[ratings.length];
+        Arrays.fill(result, 1);
+
+        for (int i = 1; i < result.length; i++) {
+            if (ratings[i] > ratings[i - 1]) {
+                result[i] = Math.max(result[i], result[i - 1] + 1);
+            }
+        }
+        System.out.println(Arrays.toString(result));
+        for (int i = result.length - 1; i > 0; i--) {
+            if (ratings[i - 1] > ratings[i]) {
+                result[i - 1] = Math.max(result[i] + 1, result[i - 1]);
+            }
+        }
+        System.out.println(Arrays.toString(result));
+        int sum = 0;
+        for (int x : result) {
+            sum += x;
+        }
+        return sum;
+    }
 }

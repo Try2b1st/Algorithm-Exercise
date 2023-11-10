@@ -17,6 +17,6 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Simple simple = new Simple();
-        System.out.println(simple.canCompleteCircuitBest(new int[]{4,5,2,6,5,3}, new int[]{3,2,7,3,2,9}));
+        System.out.println(simple.candy(new int[]{1,3,2,2,1}));
     }
 }
