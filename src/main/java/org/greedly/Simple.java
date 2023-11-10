@@ -275,4 +275,40 @@ public class Simple {
         }
         return sum;
     }
+
+    /**
+     * 860. 柠檬水找零
+     *
+     * @param bills
+     * @return
+     */
+    public boolean lemonadeChange(int[] bills) {
+        //0-5 1-10 2-20
+        int[] money = new int[3];
+
+        for (int bill : bills) {
+            if (bill == 5) {
+                money[0] += 1;
+            } else if (bill == 10) {
+                money[1] += 1;
+                if (money[0] > 0) {
+                    money[0] -= 1;
+                } else {
+                    return false;
+                }
+            } else if (bill == 20) {
+                money[2] += 1;
+                if(money[1] >0 && money[0]>0){
+                    money[0] -= 1;
+                    money[1] -= 1;
+                }else if(money[0] > 2){
+                    money[0] -= 3;
+                }else{
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
 }
