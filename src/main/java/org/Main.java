@@ -18,6 +18,9 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Simple simple = new Simple();
-        System.out.println(Arrays.deepToString(simple.reconstructQueue(new int[][]{{7, 0}, {4, 4}, {7, 1}, {5, 0}, {6, 1}, {5, 2}})));
+        System.out.println(simple.findMinArrowShots(new int[][]{
+                {0, 9}, {1, 8}, {7, 8}, {1, 6}, {9, 16}, {7, 13},
+                {7, 10}, {6, 11}, {6, 9}, {9, 13}
+        }));
     }
 }
