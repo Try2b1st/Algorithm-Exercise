@@ -35,4 +35,41 @@ public class Daily {
         }
         return result;
     }
+
+    /**
+     * 11.11 每日一题
+     * 765. 情侣牵手
+     * 暴力解法
+     *
+     * @param row
+     * @return
+     */
+    public int minSwapsCouples(int[] row) {
+        int count = 0;
+        for (int i = 0; i < row.length; i += 2) {
+            int target = -1;
+            if (row[i] == 0) {
+                target = 1;
+            } else {
+                if (row[i] % 2 == 1) {
+                    target = (row[i] / 2 * 2);
+                }else{
+                    target = row[i] + 1;
+                }
+            }
+            if (row[i + 1] == target) {
+                continue;
+            }
+            for (int j = i + 2; j < row.length; j++) {
+                if (row[j] == target) {
+                    int temp = row[i + 1];
+                    row[i + 1] = row[j];
+                    row[j] = temp;
+                    count++;
+                    break;
+                }
+            }
+        }
+        return count;
+    }
 }
