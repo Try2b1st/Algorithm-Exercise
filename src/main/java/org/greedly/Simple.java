@@ -377,4 +377,35 @@ public class Simple {
 
         return count;
     }
+
+    /**
+     * 435. 无重叠区间
+     *
+     * @param intervals
+     * @return
+     */
+    public int eraseOverlapIntervals(int[][] intervals) {
+        Arrays.sort(intervals, new Comparator<int[]>() {
+            @Override
+            public int compare(int[] point1, int[] point2) {
+                if (point1[0] > point2[0]) {
+                    return 1;
+                } else if (point1[0] < point2[0]) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            }
+        });
+
+        int count = 0;
+        for (int i = 1; i < intervals.length; i++) {
+            if(intervals[i][0] < intervals[i-1][1]){
+                intervals[i][1] = Math.min(intervals[i - 1][1], intervals[i][1]);
+                count++;
+            }
+        }
+
+        return count;
+    }
 }
