@@ -1,9 +1,6 @@
 package org.greedly;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class Simple {
     //想清楚局部最优，想清楚全局最优，感觉局部最优是可以推出全局最优，并想不出反例，那么就试一试贪心。
@@ -368,10 +365,10 @@ public class Simple {
 
         int count = 1;
         for (int i = 1; i < points.length; i++) {
-            if(points[i][0] > points[i-1][1]){
+            if (points[i][0] > points[i - 1][1]) {
                 count++;
-            }else{
-                points[i][1] = Math.min(points[i][1],points[i-1][1]);
+            } else {
+                points[i][1] = Math.min(points[i][1], points[i - 1][1]);
             }
         }
 
@@ -400,12 +397,47 @@ public class Simple {
 
         int count = 0;
         for (int i = 1; i < intervals.length; i++) {
-            if(intervals[i][0] < intervals[i-1][1]){
+            if (intervals[i][0] < intervals[i - 1][1]) {
                 intervals[i][1] = Math.min(intervals[i - 1][1], intervals[i][1]);
                 count++;
             }
         }
 
         return count;
+    }
+
+
+    /**
+     * 763. 划分字母区间
+     * O(n*n)
+     *
+     * @param s
+     * @return
+     */
+    public List<Integer> partitionLabels(String s) {
+        List<Integer> result = new ArrayList<>();
+        int start = 0;
+        int end = 0;
+        for (int i = 0; i < s.length(); i++) {
+            char temp = s.charAt(i);
+            for (int j = s.length() - 1; j > i; j--) {
+                if (temp == s.charAt(j)) {
+                    end = Math.max(j,end);
+                    break;
+                }
+            }
+            if (end == i) {
+                result.add(end - start + 1);
+                start = end + 1;
+                end = start;
+            }else if(i == s.length() - 1){
+                result.add(i - start + 1);
+            }
+        }
+        return result;
+    }
+
+    public List<Integer> partitionLabelsBatter(String s) {
+
     }
 }

@@ -18,6 +18,6 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Simple simple = new Simple();
-        System.out.println(simple.eraseOverlapIntervals(new int[][]{{1,100},{11,22},{1,11},{2,22}}));
+        System.out.println(simple.partitionLabels("eccbbbbdec"));
     }
 }
