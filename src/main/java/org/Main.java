@@ -18,6 +18,6 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Simple simple = new Simple();
-        System.out.println(simple.partitionLabels("eccbbbbdec"));
+        System.out.println(Arrays.deepToString(simple.merge(new int[][]{{1, 3}, {2, 6}, {8, 10}, {15, 16}})));
     }
 }
