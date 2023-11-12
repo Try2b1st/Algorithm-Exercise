@@ -1,5 +1,7 @@
 package org.greedly;
 
+import com.sun.java.swing.plaf.windows.WindowsTextAreaUI;
+
 import java.util.*;
 
 public class Simple {
@@ -422,7 +424,7 @@ public class Simple {
             char temp = s.charAt(i);
             for (int j = s.length() - 1; j > i; j--) {
                 if (temp == s.charAt(j)) {
-                    end = Math.max(j,end);
+                    end = Math.max(j, end);
                     break;
                 }
             }
@@ -430,7 +432,7 @@ public class Simple {
                 result.add(end - start + 1);
                 start = end + 1;
                 end = start;
-            }else if(i == s.length() - 1){
+            } else if (i == s.length() - 1) {
                 result.add(i - start + 1);
             }
         }
@@ -438,6 +440,22 @@ public class Simple {
     }
 
     public List<Integer> partitionLabelsBatter(String s) {
+        int[] hash = new int[26];
+        List<Integer> result = new ArrayList<>();
 
+        for (int i = 0; i < s.length(); i++) {
+            hash[s.charAt(i) - 'a'] = i;
+        }
+
+        int start = 0;
+        int end = 0;
+        for (int i = 0; i < s.length(); i++) {
+            end = Math.max(end, hash[s.charAt(i) - 'a']);
+            if (end == i) {
+                result.add(end - start + 1);
+                start = end + 1;
+            }
+        }
+        return result;
     }
 }
