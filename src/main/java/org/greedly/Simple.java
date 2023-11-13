@@ -486,21 +486,73 @@ public class Simple {
         List<int[]> result = new ArrayList<>();
         result.add(intervals[0]);
         for (int i = 1; i < intervals.length; i++) {
-            if (intervals[i][0] <= result.get(result.size()-1)[1]) {
-                result.set(result.size()-1,new int[]{
-                        result.get(result.size()-1)[0],
-                        Math.max(intervals[i][1],result.get(result.size()-1)[1])
+            if (intervals[i][0] <= result.get(result.size() - 1)[1]) {
+                result.set(result.size() - 1, new int[]{
+                        result.get(result.size() - 1)[0],
+                        Math.max(intervals[i][1], result.get(result.size() - 1)[1])
                 });
-            }else{
+            } else {
                 result.add(intervals[i]);
             }
 
         }
         int[][] ans = new int[result.size()][2];
         int count = 0;
-        for(int[] temp : result){
+        for (int[] temp : result) {
             ans[count++] = temp;
         }
         return ans;
+    }
+
+    /**
+     * 38. 单调递增的数字
+     *
+     * @param n
+     * @return
+     */
+    public int monotoneIncreasingDigits(int n) {
+
+        if (n < 10) {
+            return n;
+        }
+
+        int tempN = n;
+
+        List<Integer> list = new ArrayList<>();
+        while (n > 0) {
+            list.add(n % 10);
+            n = n / 10;
+        }
+
+        int[] nums = new int[list.size()];
+        int count = nums.length - 1;
+        for (int num : list) {
+            nums[count--] = num;
+        }
+
+        int flag = nums.length;
+
+        for (int i = nums.length - 2; i >= 0; i--) {
+            if (nums[i] > nums[i + 1]) {
+                nums[i]--;
+                flag = i+1;
+            }
+        }
+
+        if(flag == nums.length){
+            return tempN;
+        }
+
+        for (int i = flag; i < nums.length; i++) {
+            nums[i] = 9;
+        }
+
+        int result = nums[0];
+
+        for (int i = 1; i < nums.length; i++) {
+            result = result * 10 + nums[i];
+        }
+
+        return result;
     }
 }
