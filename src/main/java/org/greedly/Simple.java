@@ -535,11 +535,11 @@ public class Simple {
         for (int i = nums.length - 2; i >= 0; i--) {
             if (nums[i] > nums[i + 1]) {
                 nums[i]--;
-                flag = i+1;
+                flag = i + 1;
             }
         }
 
-        if(flag == nums.length){
+        if (flag == nums.length) {
             return tempN;
         }
 
@@ -554,5 +554,65 @@ public class Simple {
         }
 
         return result;
+    }
+
+    public class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode() {
+        }
+
+        TreeNode(int val) {
+            this.val = val;
+        }
+
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
+    }
+
+    /**
+     * 968. 监控二叉树
+     * 0：该节点无覆盖
+     * 1：本节点有摄像头
+     * 2：本节点有覆盖
+     *
+     * @param root
+     * @return
+     */
+    int count = 0;
+
+    public int minCameraCover(TreeNode root) {
+        if (root.left == null && root.right == null) {
+            return 1;
+        }
+        int is = cameras(root);
+        if(is == 0){
+            count++;
+        }
+        return count;
+    }
+
+    public int cameras(TreeNode root) {
+        if (root == null) {
+            return 2;
+        }
+
+        int left = cameras(root.left);
+        int right = cameras(root.right);
+
+        if (left == 2 && right == 2) {
+            return 0;
+        }
+        if((left == 0 && right == 0) || (left == 2 && right == 0) || (left == 0 && right == 2) || (left == 0 && right == 1) || (left == 1 && right == 0)){
+            count++;
+            return 1;
+        }
+
+        return 2;
     }
 }
