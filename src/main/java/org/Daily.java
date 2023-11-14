@@ -115,7 +115,7 @@ public class Daily {
         for (int i = 0; i < n; i++) {
             int cnt = 0;
             for (int j = 0; j < n; j++) {
-                if(distance[i][j] <= distanceThreshold){
+                if (distance[i][j] <= distanceThreshold) {
                     cnt++;
                 }
             }
@@ -125,5 +125,22 @@ public class Daily {
             }
         }
         return ans[1];
+    }
+
+    /**
+     * 2656. K 个元素的最大和
+     *
+     * @param nums
+     * @param k
+     * @return
+     */
+    public int maximizeSum(int[] nums, int k) {
+        int max = Integer.MIN_VALUE;
+        for (int num : nums) {
+            if(num>max){
+                max = num;
+            }
+        }
+        return k * max + (k * k - k) / 2;
     }
 }
