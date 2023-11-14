@@ -53,7 +53,7 @@ public class Daily {
             } else {
                 if (row[i] % 2 == 1) {
                     target = (row[i] / 2 * 2);
-                }else{
+                } else {
                     target = row[i] + 1;
                 }
             }
@@ -74,4 +74,56 @@ public class Daily {
     }
 
 
+    /**
+     * 11.14 每日一题
+     * 1334. 阈值距离内邻居最少的城市
+     *
+     * @param n
+     * @param edges
+     * @param distanceThreshold
+     * @return
+     */
+    public int findTheCity(int n, int[][] edges, int distanceThreshold) {
+        int[][] distance = new int[n][n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                distance[i][j] = i == j ? 0 : 10001;
+            }
+        }
+
+        for (int[] edge : edges) {
+            int x = edge[0];
+            int y = edge[1];
+            int weight = edge[2];
+
+            distance[x][y] = weight;
+            distance[y][x] = weight;
+        }
+
+        for (int k = 0; k < n; k++) {
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    if (i != j) {
+                        distance[i][j] = Math.min(distance[i][j], distance[i][k] + distance[k][j]);
+                    }
+                }
+            }
+        }
+
+
+        int[] ans = {Integer.MAX_VALUE / 2, -1};
+        for (int i = 0; i < n; i++) {
+            int cnt = 0;
+            for (int j = 0; j < n; j++) {
+                if(distance[i][j] <= distanceThreshold){
+                    cnt++;
+                }
+            }
+            if (cnt <= ans[0]) {
+                ans[0] = cnt;
+                ans[1] = i;
+            }
+        }
+        return ans[1];
+    }
 }
