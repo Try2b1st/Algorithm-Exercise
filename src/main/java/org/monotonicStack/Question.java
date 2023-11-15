@@ -59,4 +59,28 @@ public class Question {
 
         return result;
     }
+
+
+    /**
+     * 503. 下一个更大元素 II
+     *
+     * @param nums
+     * @return
+     */
+    public int[] nextGreaterElements(int[] nums) {
+        int[] result = new int[nums.length];
+        Arrays.fill(result, -1);
+        Stack<Integer> stack = new Stack<>();
+        stack.push(0);
+
+        for (int i = 1; i < nums.length * 2; i++) {
+            while (!stack.isEmpty() && nums[stack.peek()] < nums[i % nums.length]) {
+                int temp = stack.pop();
+                result[temp] = nums[i % nums.length];
+            }
+            stack.push(i % nums.length);
+        }
+
+        return result;
+    }
 }

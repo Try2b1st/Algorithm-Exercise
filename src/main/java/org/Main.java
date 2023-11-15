@@ -20,7 +20,6 @@ public class Main {
     public static void main(String[] args) {
         Question question = new Question();
         Daily daily = new Daily();
-        daily.findTheCity(4,new int[][]{{0,1,3},{1,2,1},{1,3,4},{2,3,1}},4);
-//        System.out.println(Arrays.toString(question.nextGreaterElement(new int[]{4, 1, 2}, new int[]{1, 3, 4, 2})));
+        System.out.println(Arrays.toString(question.nextGreaterElements(new int[]{1, 2, 1})));
     }
 }
