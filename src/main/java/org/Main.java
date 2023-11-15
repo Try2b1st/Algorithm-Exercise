@@ -20,6 +20,6 @@ public class Main {
     public static void main(String[] args) {
         Question question = new Question();
         Daily daily = new Daily();
-        System.out.println(Arrays.toString(question.nextGreaterElements(new int[]{1, 2, 1})));
+        System.out.println(question.trap(new int[]{0,1,0,2,1,0,1,3,2,1,2,1}));
     }
 }

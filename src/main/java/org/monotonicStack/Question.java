@@ -83,4 +83,33 @@ public class Question {
 
         return result;
     }
+
+    /**
+     * 42. 接雨水
+     *
+     * @param height
+     * @return
+     */
+    public int trap(int[] height) {
+        int result = 0;
+        Stack<Integer> stack = new Stack<>();
+        for (int i = 0; i < height.length; i++) {
+            if (height[i] > 0) {
+                stack.push(i);
+                break;
+            }
+        }
+
+        for (int i = stack.peek() + 1; i < height.length; i++) {
+            while (!stack.isEmpty() && height[stack.peek()] < height[i]) {
+                int tempIndex = stack.pop();
+                if (!stack.isEmpty()) {
+                    result += (Math.min(height[stack.peek()], height[i]) - height[tempIndex]) * (i - stack.peek() - 1);
+                }
+            }
+            stack.push(i);
+        }
+
+        return result;
+    }
 }
