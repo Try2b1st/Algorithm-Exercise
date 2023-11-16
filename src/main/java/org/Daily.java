@@ -128,6 +128,7 @@ public class Daily {
     }
 
     /**
+     * 11.15 每日一题
      * 2656. K 个元素的最大和
      *
      * @param nums
@@ -137,10 +138,37 @@ public class Daily {
     public int maximizeSum(int[] nums, int k) {
         int max = Integer.MIN_VALUE;
         for (int num : nums) {
-            if(num>max){
+            if (num > max) {
                 max = num;
             }
         }
         return k * max + (k * k - k) / 2;
+    }
+
+    /**
+     * 11.16 每日一题
+     * 2760. 最长奇偶子数组
+     *
+     * @param nums
+     * @param threshold
+     * @return
+     */
+    public int longestAlternatingSubarray(int[] nums, int threshold) {
+        int result = 0;
+        int dp = 0;
+
+        for (int i = nums.length - 1 ; i >= 0; i--) {
+            if (nums[i] < threshold) {
+                dp = 0;
+            } else if (i == nums.length - 1 || nums[i] % 2 != nums[i - 1] % 2) {
+                dp++;
+            } else {
+                dp = 1;
+            }
+            if(nums[i] % 2 == 0){
+                result = Math.max(result, dp);
+            }
+        }
+        return result;
     }
 }

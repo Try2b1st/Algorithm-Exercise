@@ -112,4 +112,16 @@ public class Question {
 
         return result;
     }
+
+    /**
+     * 84. 柱状图中最大的矩形
+     *
+     * @param heights
+     * @return
+     */
+    public int largestRectangleArea(int[] heights) {
+        int result = 0;
+
+        return result;
+    }
 }
