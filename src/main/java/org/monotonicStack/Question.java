@@ -121,6 +121,22 @@ public class Question {
      */
     public int largestRectangleArea(int[] heights) {
         int result = 0;
+        int[] newHeight = new int[heights.length + 2];
+        System.arraycopy(heights, 0, newHeight, 1, heights.length);
+        newHeight[heights.length + 1] = 0;
+        newHeight[0] = 0;
+
+        Stack<Integer> stack = new Stack<>();
+        stack.push(0);
+
+        for (int i = 1; i < newHeight.length; i++) {
+            while (newHeight[stack.peek()] > newHeight[i]) {
+                int hIndex = stack.pop();
+                int h = newHeight[hIndex];
+                int w = i - stack.peek() - 1;
+                result = Math.max(result, h * w);
+            }
+        }
 
         return result;
     }
