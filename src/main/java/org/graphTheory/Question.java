@@ -1,8 +1,6 @@
 package org.graphTheory;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class Question {
 
@@ -68,11 +66,38 @@ public class Question {
             int nextY = y + dir[i][1];
 
             //越界
-            if(nextX <0 || nextX >= grid.length || nextY <0 || nextY >= grid[0].length){
+            if (nextX < 0 || nextX >= grid.length || nextY < 0 || nextY >= grid[0].length) {
                 continue;
             }
 
-            dfsToNumIslands(grid,visited,nextX,nextY);
+            dfsToNumIslands(grid, visited, nextX, nextY);
+        }
+    }
+
+    public void bfsToNumIslands(char[][] grid, boolean[][] visited, int x, int y) {
+        Deque<int[]> queue = new ArrayDeque<>();
+
+        queue.add(new int[]{x, y});
+        visited[x][y] = true;
+
+        while (!queue.isEmpty()) {
+            int m = queue.peek()[0];
+            int n = queue.peek()[1];
+            queue.pop();
+
+            for (int i = 0; i < 4; i++) {
+                int nextX = m + dir[i][0];
+                int nextY = n + dir[i][1];
+
+                //越界
+                if (nextX < 0 || nextX >= grid.length || nextY < 0 || nextY >= grid[0].length) {
+                    continue;
+                }
+                if (!visited[nextX][nextY] && grid[nextX][nextY] == '1') {
+                    queue.add(new int[]{nextX,nextY});
+                    visited[nextX][nextY] = true;
+                }
+            }
         }
     }
 }
