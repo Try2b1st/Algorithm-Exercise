@@ -20,6 +20,6 @@ public class Main {
     public static void main(String[] args) {
         Question question = new Question();
         Daily daily = new Daily();
-        System.out.println(question.trap(new int[]{0,1,0,2,1,0,1,3,2,1,2,1}));
+        daily.maximumSumQueries(new int[]{4,3,1,2},new int[]{2,4,9,5},new int[][]{{4,1},{1,3},{2,5}});
     }
 }

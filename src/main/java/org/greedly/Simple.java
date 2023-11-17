@@ -470,16 +470,13 @@ public class Simple {
         if (intervals.length == 1) {
             return intervals;
         }
-        Arrays.sort(intervals, new Comparator<int[]>() {
-            @Override
-            public int compare(int[] o1, int[] o2) {
-                if (o1[0] < o2[0]) {
-                    return -1;
-                } else if (o1[0] > o2[0]) {
-                    return 1;
-                } else {
-                    return 0;
-                }
+        Arrays.sort(intervals, (o1, o2) -> {
+            if (o1[0] < o2[0]) {
+                return -1;
+            } else if (o1[0] > o2[0]) {
+                return 1;
+            } else {
+                return 0;
             }
         });
 
