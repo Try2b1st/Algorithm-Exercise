@@ -41,10 +41,10 @@ public class Question {
      * @return
      */
     int[][] dir = new int[][]{{0, 1}, {1, 0}, {-1, 0}, {0, -1}}; //四个方向
-
+    boolean[][] visited;
     public int numIslands(char[][] grid) {
         int count = 0;
-        boolean[][] visited = new boolean[grid.length][grid[0].length];
+        visited = new boolean[grid.length][grid[0].length];
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[0].length; j++) {
                 if (!visited[i][j] && grid[i][j] == '1') {
@@ -69,7 +69,6 @@ public class Question {
             if (nextX < 0 || nextX >= grid.length || nextY < 0 || nextY >= grid[0].length) {
                 continue;
             }
-
             dfsToNumIslands(grid, visited, nextX, nextY);
         }
     }
@@ -99,5 +98,54 @@ public class Question {
                 }
             }
         }
+    }
+
+    /**
+     * 695. 岛屿的最大面积
+     *
+     * @param grid
+     * @return
+     */
+    int maxM = 0;
+    public int maxAreaOfIsland(int[][] grid) {
+        visited = new boolean[grid.length][grid[0].length];
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                if (!visited[i][j] && grid[i][j] == 1) {
+                    bfsToMaxAreaOfIsland(grid, visited, i, j);
+                }
+            }
+        }
+        return maxM;
+    }
+
+    public void bfsToMaxAreaOfIsland(int[][] grid, boolean[][] visited, int x, int y) {
+        Deque<int[]> queue = new ArrayDeque<>();
+
+        queue.add(new int[]{x, y});
+        visited[x][y] = true;
+        int currentM =1;
+
+        while (!queue.isEmpty()) {
+            int m = queue.peek()[0];
+            int n = queue.peek()[1];
+            queue.pop();
+
+            for (int i = 0; i < 4; i++) {
+                int nextX = m + dir[i][0];
+                int nextY = n + dir[i][1];
+
+                //越界
+                if (nextX < 0 || nextX >= grid.length || nextY < 0 || nextY >= grid[0].length) {
+                    continue;
+                }
+                if (!visited[nextX][nextY] && grid[nextX][nextY] == 1) {
+                    queue.add(new int[]{nextX,nextY});
+                    currentM++;
+                    visited[nextX][nextY] = true;
+                }
+            }
+        }
+        maxM = Math.max(maxM,currentM);
     }
 }
