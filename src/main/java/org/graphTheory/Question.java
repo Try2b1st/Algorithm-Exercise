@@ -1,0 +1,78 @@
+package org.graphTheory;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
+public class Question {
+
+    List<Integer> list = new ArrayList<>();
+    List<List<Integer>> result = new ArrayList<>();
+
+    /**
+     * 797. 所有可能的路径
+     *
+     * @param graph
+     * @return
+     */
+    public List<List<Integer>> allPathsSourceTarget(int[][] graph) {
+        list.add(0);
+        dfsToAllPathsSourceTarget(graph, 0);
+        return result;
+    }
+
+    public void dfsToAllPathsSourceTarget(int[][] graph, int current) {
+        if (current == graph.length - 1) {
+            result.add(new ArrayList<>(list));
+            return;
+        }
+
+        int[] tempArray = graph[current];
+
+        for (int j : tempArray) {
+            list.add(j);
+            dfsToAllPathsSourceTarget(graph, j);
+            list.remove(list.size() - 1);
+        }
+    }
+
+    /**
+     * 200. 岛屿数量
+     *
+     * @param grid
+     * @return
+     */
+    int[][] dir = new int[][]{{0, 1}, {1, 0}, {-1, 0}, {0, -1}}; //四个方向
+
+    public int numIslands(char[][] grid) {
+        int count = 0;
+        boolean[][] visited = new boolean[grid.length][grid[0].length];
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                if (!visited[i][j] && grid[i][j] == '1') {
+                    count++;
+                    dfsToNumIslands(grid, visited, i, j);
+                }
+            }
+        }
+        return count;
+    }
+
+    public void dfsToNumIslands(char[][] grid, boolean[][] visited, int x, int y) {
+        if (visited[x][y] || grid[x][y] == '0') {
+            return;
+        }
+
+        for (int i = 0; i < 4; i++) {
+            int nextX = x + dir[i][0];
+            int nextY = y + dir[i][1];
+
+            //越界
+            if(nextX <0 || nextX >= grid.length || nextY <0 || nextY >= grid[0].length){
+                continue;
+            }
+
+            dfsToNumIslands(grid,visited,nextX,nextY);
+        }
+    }
+}
