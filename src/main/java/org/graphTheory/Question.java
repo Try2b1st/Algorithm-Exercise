@@ -42,6 +42,7 @@ public class Question {
      */
     int[][] dir = new int[][]{{0, 1}, {1, 0}, {-1, 0}, {0, -1}}; //四个方向
     boolean[][] visited;
+
     public int numIslands(char[][] grid) {
         int count = 0;
         visited = new boolean[grid.length][grid[0].length];
@@ -60,6 +61,8 @@ public class Question {
         if (visited[x][y] || grid[x][y] == '0') {
             return;
         }
+
+        visited[x][y] = true;
 
         for (int i = 0; i < 4; i++) {
             int nextX = x + dir[i][0];
@@ -93,7 +96,7 @@ public class Question {
                     continue;
                 }
                 if (!visited[nextX][nextY] && grid[nextX][nextY] == '1') {
-                    queue.add(new int[]{nextX,nextY});
+                    queue.add(new int[]{nextX, nextY});
                     visited[nextX][nextY] = true;
                 }
             }
@@ -107,6 +110,7 @@ public class Question {
      * @return
      */
     int maxM = 0;
+
     public int maxAreaOfIsland(int[][] grid) {
         visited = new boolean[grid.length][grid[0].length];
         for (int i = 0; i < grid.length; i++) {
@@ -124,7 +128,7 @@ public class Question {
 
         queue.add(new int[]{x, y});
         visited[x][y] = true;
-        int currentM =1;
+        int currentM = 1;
 
         while (!queue.isEmpty()) {
             int m = queue.peek()[0];
@@ -140,12 +144,101 @@ public class Question {
                     continue;
                 }
                 if (!visited[nextX][nextY] && grid[nextX][nextY] == 1) {
-                    queue.add(new int[]{nextX,nextY});
+                    queue.add(new int[]{nextX, nextY});
                     currentM++;
                     visited[nextX][nextY] = true;
                 }
             }
         }
-        maxM = Math.max(maxM,currentM);
+        maxM = Math.max(maxM, currentM);
+    }
+
+    /**
+     * 1020. 飞地的数量
+     *
+     * @param grid
+     * @return
+     */
+    int numEnclavesCount = 0;
+    public int numEnclaves(int[][] grid) {
+        visited = new boolean[grid.length][grid[0].length];
+
+        for (int i = 0; i < grid[0].length; i++) {
+            if (!visited[0][i] && grid[0][i] == 1) {
+                dfsToZero(grid, visited, 0, i);
+            }
+        }
+
+        for (int i = 0; i < grid.length; i++) {
+            if (!visited[i][grid[0].length - 1] && grid[i][grid[0].length - 1] == 1) {
+                dfsToZero(grid, visited, i, grid[0].length - 1);
+            }
+        }
+
+        for (int i = 0; i < grid[0].length; i++) {
+            if (!visited[grid.length - 1][i] && grid[grid.length - 1][i] == 1) {
+                dfsToZero(grid, visited, grid.length - 1, i);
+            }
+        }
+
+        for (int i = 0; i < grid.length; i++) {
+            if (!visited[i][0] && grid[i][0] == 1) {
+                dfsToZero(grid, visited, i, 0);
+            }
+        }
+
+        for (boolean[] booleans : visited) {
+            Arrays.fill(booleans, false);
+        }
+
+
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                if (!visited[i][j] && grid[i][j] == 1) {
+                    dfsToNumEnclaves(grid, visited, i, j);
+                }
+            }
+        }
+        return numEnclavesCount;
+    }
+
+    public void dfsToNumEnclaves(int[][] grid, boolean[][] visited, int x, int y) {
+        if (visited[x][y] || grid[x][y] == 0) {
+            return;
+        }
+
+        visited[x][y] = true;
+        numEnclavesCount++;
+
+        for (int i = 0; i < 4; i++) {
+            int nextX = x + dir[i][0];
+            int nextY = y + dir[i][1];
+
+            if (nextX < 0 || nextX >= grid.length || nextY < 0 || nextY >= grid[0].length) {
+                continue;
+            }
+
+            dfsToNumEnclaves(grid, visited, nextX, nextY);
+        }
+    }
+
+    public void dfsToZero(int[][] grid, boolean[][] visited, int x, int y) {
+        if (visited[x][y] || grid[x][y] == 0) {
+            return;
+        }
+
+        visited[x][y] = true;
+        grid[x][y] = 0;
+
+        for (int i = 0; i < 4; i++) {
+            int nextX = x + dir[i][0];
+            int nextY = y + dir[i][1];
+
+            if (nextX < 0 || nextX >= grid.length || nextY < 0 || nextY >= grid[0].length) {
+                continue;
+            }
+
+            dfsToZero(grid, visited, nextX, nextY);
+        }
     }
 }
