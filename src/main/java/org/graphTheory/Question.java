@@ -160,6 +160,7 @@ public class Question {
      * @return
      */
     int numEnclavesCount = 0;
+
     public int numEnclaves(int[][] grid) {
         visited = new boolean[grid.length][grid[0].length];
 
@@ -239,6 +240,74 @@ public class Question {
             }
 
             dfsToZero(grid, visited, nextX, nextY);
+        }
+    }
+
+
+    /**
+     * 130. 被围绕的区域
+     *
+     * @param board
+     */
+    public void solve(char[][] board) {
+        int rowSize = board.length;
+        int colSize = board[0].length;
+
+        for (int i = 0; i < rowSize; i++) {
+            if (board[i][colSize - 1] == 'O') {
+                bfsToSolve(board, i, colSize - 1);
+            }
+            if (board[i][0] == 'O') {
+                bfsToSolve(board, i, 0);
+            }
+        }
+
+        for (int i = 0; i < colSize; i++) {
+            if (board[0][i] == 'O') {
+                bfsToSolve(board, 0, i);
+            }
+            if (board[rowSize - 1][i] == 'O') {
+                bfsToSolve(board, rowSize - 1, i);
+            }
+        }
+
+        for (int i = 0; i < rowSize; i++) {
+            for (int j = 0; j < colSize; j++) {
+                if (board[i][j] == 'O') {
+                    board[i][j] = 'X';
+                }
+                if (board[i][j] == 'A') {
+                    board[i][j] = 'O';
+                }
+            }
+        }
+    }
+
+    public void bfsToSolve(char[][] board, int x, int y) {
+        board[x][y] = 'A';
+
+        Deque<int[]> deque = new ArrayDeque<>();
+        deque.add(new int[]{x, y});
+
+        while (!deque.isEmpty()) {
+            int m = deque.peek()[0];
+            int n = deque.peek()[1];
+            deque.pop();
+
+            for (int i = 0; i < 4; i++) {
+                int nextX = m + dir[i][0];
+                int nextY = n + dir[i][1];
+
+                //越界
+                if (nextX < 0 || nextX >= board.length || nextY < 0 || nextY >= board[0].length) {
+                    continue;
+                }
+
+                if (board[nextX][nextY] == 'O') {
+                    deque.add(new int[]{nextX, nextY});
+                    board[nextX][nextY] = 'A';
+                }
+            }
         }
     }
 }
