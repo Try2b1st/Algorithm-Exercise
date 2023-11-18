@@ -10,6 +10,6 @@ public class Main {
     public static void main(String[] args) {
         Question question = new Question();
         Daily daily = new Daily();
-        System.out.println(question.numEnclaves(new int[][]{{0, 1, 1, 0}, {0, 0, 1, 0}, {0, 0, 1, 0}, {0, 0, 0, 0}}));
+        System.out.println(daily.maximumSum(new int[]{1,9,1,3,10}));
     }
 }

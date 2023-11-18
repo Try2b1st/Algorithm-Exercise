@@ -237,4 +237,51 @@ public class Daily {
         }
         return low;
     }
+
+
+    /**
+     * 11.18 每日一题
+     * 2342. 数位和相等数对的最大和
+     *
+     * @param nums
+     * @return
+     */
+    public int maximumSum(int[] nums) {
+        int[][] sum = new int[82][2];
+        boolean flag = true;
+
+        for (int num : nums) {
+            int temp = num;
+            int sumTemp = 0;
+            while (temp > 0) {
+                sumTemp += temp % 10;
+                temp /= 10;
+            }
+            if (sum[sumTemp][0] == 0) {
+                sum[sumTemp][0] = num;
+            } else if (sum[sumTemp][1] == 0) {
+                sum[sumTemp][1] = num;
+                flag = false;
+            } else {
+                if (sum[sumTemp][0] >= sum[sumTemp][1] && num > sum[sumTemp][1]) {
+                    sum[sumTemp][1] = num;
+                }else if (sum[sumTemp][1] >= sum[sumTemp][0] && num > sum[sumTemp][0]) {
+                    sum[sumTemp][0] = num;
+                }
+            }
+        }
+        System.out.println(Arrays.deepToString(sum));
+
+        if (flag) {
+            return -1;
+        }
+        int max = -1;
+        for (int[] i : sum) {
+            if(i[0] == 0 || i[1] == 0){
+                continue;
+            }
+            max = Math.max(max, i[0] + i[1]);
+        }
+        return max;
+    }
 }
