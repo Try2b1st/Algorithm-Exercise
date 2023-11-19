@@ -310,4 +310,57 @@ public class Question {
             }
         }
     }
+
+    /**
+     * 417. 太平洋大西洋水流问题
+     *
+     * @param heights
+     * @return
+     */
+    public List<List<Integer>> pacificAtlantic(int[][] heights) {
+        boolean[][][] visited = new boolean[heights.length][heights[0].length][2];
+        List<List<Integer>> result = new ArrayList<>();
+
+        for (int i = 0; i < heights.length; i++) {
+            dfsToPacificAtlantic(heights, visited, i, 0, 0);
+            dfsToPacificAtlantic(heights, visited, i, heights[0].length - 1, 1);
+        }
+        for (int i = 0; i < heights[0].length; i++) {
+            dfsToPacificAtlantic(heights, visited, 0, i, 0);
+            dfsToPacificAtlantic(heights, visited, heights.length - 1, i, 1);
+        }
+
+
+        for (int i = 0; i < heights.length; i++) {
+            for (int j = 0; j < heights[0].length; j++) {
+                if (visited[i][j][0] && visited[i][j][1]) {
+                    List<Integer> list = new ArrayList<>();
+                    list.add(i);
+                    list.add(j);
+                    result.add(new ArrayList<>(list));
+                }
+            }
+        }
+
+        return result;
+    }
+
+    public void dfsToPacificAtlantic(int[][] heights, boolean[][][] visited, int x, int y, int sign) {
+        visited[x][y][sign] = true;
+        for (int[] temp : dir) {
+            int nextX = x + temp[0];
+            int nextY = y + temp[1];
+
+            if (nextX < 0 || nextX >= heights.length || nextY < 0 || nextY >= heights[0].length) {
+                continue;
+            }
+            if (heights[x][y] > heights[nextX][nextY] || visited[nextX][nextY][sign]) {
+                continue;
+            }
+            dfsToPacificAtlantic(heights, visited, nextX, nextY, sign);
+        }
+
+    }
+
+
 }
