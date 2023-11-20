@@ -477,18 +477,43 @@ public class Question {
 
             for (int i = 0; i < keys.size(); i++) {
                 int room = keys.get(i);
-                if(!in[room]){
+                if (!in[room]) {
                     in[room] = true;
                     deque.offer(room);
                 }
             }
         }
 
-        for(boolean b : in){
-            if(!b){
+        for (boolean b : in) {
+            if (!b) {
                 return false;
             }
         }
         return true;
+    }
+
+
+    /**
+     * 463. 岛屿的周长
+     *
+     * @param grid
+     * @return
+     */
+    public int islandPerimeter(int[][] grid) {
+        int sum = 0;
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                if (grid[i][j] == 1) {
+                    for (int k = 0; k < 4; k++) {
+                        int nextI = i + dir[k][0];
+                        int nextJ = j + dir[k][1];
+                        if(nextI < 0 || nextJ < 0 || nextI >= grid.length || nextJ >= grid[0].length || grid[nextI][nextJ] == 0 ){
+                            sum++;
+                        }
+                    }
+                }
+            }
+        }
+        return sum;
     }
 }
