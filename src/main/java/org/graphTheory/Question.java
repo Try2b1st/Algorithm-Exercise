@@ -372,7 +372,7 @@ public class Question {
     public int dfs(int[][] grid, int row, int col, int mark) {
         int ans = 0;
         grid[row][col] = mark;
-        for (int[] current: dir) {
+        for (int[] current : dir) {
             int curRow = row + current[0], curCol = col + current[1];
             if (curRow < 0 || curRow >= grid.length || curCol < 0 || curCol >= grid.length) continue;  // 越界
             if (grid[curRow][curCol] == 1)
@@ -399,7 +399,7 @@ public class Question {
                 Set<Integer> hashSet = new HashSet<>();     // 防止同一个区域被重复计算
                 // 计算从当前位置开始获取的 1 的数量，初始化 1 是因为把当前位置的 0 转换成了 1
                 int curSize = 1;
-                for (int[] current: dir) {
+                for (int[] current : dir) {
                     int curRow = row + current[0], curCol = col + current[1];
                     if (curRow < 0 || curRow >= grid.length || curCol < 0 || curCol >= grid.length) continue;
                     int curMark = grid[curRow][curCol];     // 获取对应位置的标记
@@ -413,5 +413,48 @@ public class Question {
         }
         // 当 ans == Integer.MIN_VALUE 说明矩阵数组中不存在 0，全都是有效区域，返回数组大小即可
         return ans == Integer.MIN_VALUE ? size * size : ans;
+    }
+
+
+    /**
+     * 127. 单词接龙
+     *
+     * @param beginWord
+     * @param endWord
+     * @param wordList
+     * @return
+     */
+    public int ladderLength(String beginWord, String endWord, List<String> wordList) {
+        Set<String> set = new HashSet<>(wordList);
+        if(set.isEmpty() || set.contains(endWord)){
+            return 0;
+        }
+        Deque<String> deque = new ArrayDeque<>();
+        Map<String, Integer> map = new HashMap<>();
+
+        deque.offer(beginWord);
+        map.put(beginWord, 1);
+
+        while (!deque.isEmpty()) {
+            String current = deque.pop();
+            int path = map.get(current);
+
+            for (int i = 0; i < current.length(); i++) {
+                char[] chars = current.toCharArray();
+                for (char c = 'a'; c <= 'z'; c++) {
+                    chars[i] = c;
+                    String s = String.valueOf(chars);
+                    if (s.equals(endWord)) {
+                        return path + 1;
+                    }
+
+                    if (set.contains(s) && !map.containsKey(s)) {
+                        deque.offer(s);
+                        map.put(s,path + 1);
+                    }
+                }
+            }
+        }
+        return 0;
     }
 }
