@@ -426,7 +426,7 @@ public class Question {
      */
     public int ladderLength(String beginWord, String endWord, List<String> wordList) {
         Set<String> set = new HashSet<>(wordList);
-        if(set.isEmpty() || set.contains(endWord)){
+        if (set.isEmpty() || set.contains(endWord)) {
             return 0;
         }
         Deque<String> deque = new ArrayDeque<>();
@@ -450,11 +450,45 @@ public class Question {
 
                     if (set.contains(s) && !map.containsKey(s)) {
                         deque.offer(s);
-                        map.put(s,path + 1);
+                        map.put(s, path + 1);
                     }
                 }
             }
         }
         return 0;
+    }
+
+    /**
+     * 841. 钥匙和房间
+     *
+     * @param rooms
+     * @return
+     */
+    public boolean canVisitAllRooms(List<List<Integer>> rooms) {
+        boolean[] in = new boolean[rooms.size()];
+        Deque<Integer> deque = new ArrayDeque<>();
+
+        in[0] = true;
+        deque.offer(0);
+
+        while (!deque.isEmpty()) {
+            int roomNumber = deque.pop();
+            List<Integer> keys = rooms.get(roomNumber);
+
+            for (int i = 0; i < keys.size(); i++) {
+                int room = keys.get(i);
+                if(!in[room]){
+                    in[room] = true;
+                    deque.offer(room);
+                }
+            }
+        }
+
+        for(boolean b : in){
+            if(!b){
+                return false;
+            }
+        }
+        return true;
     }
 }
