@@ -265,7 +265,7 @@ public class Daily {
             } else {
                 if (sum[sumTemp][0] >= sum[sumTemp][1] && num > sum[sumTemp][1]) {
                     sum[sumTemp][1] = num;
-                }else if (sum[sumTemp][1] >= sum[sumTemp][0] && num > sum[sumTemp][0]) {
+                } else if (sum[sumTemp][1] >= sum[sumTemp][0] && num > sum[sumTemp][0]) {
                     sum[sumTemp][0] = num;
                 }
             }
@@ -277,11 +277,62 @@ public class Daily {
         }
         int max = -1;
         for (int[] i : sum) {
-            if(i[0] == 0 || i[1] == 0){
+            if (i[0] == 0 || i[1] == 0) {
                 continue;
             }
             max = Math.max(max, i[0] + i[1]);
         }
         return max;
     }
+
+
+    /**
+     * 1971. 寻找图中是否存在路径
+     *
+     * @param n
+     * @param edges
+     * @param source
+     * @param destination
+     * @return
+     */
+    int[] father;
+    public boolean validPath(int n, int[][] edges, int source, int destination) {
+        father = new int[n];
+        init();
+        for (int[] arrays : edges) {
+            join(arrays[0], arrays[1]);
+        }
+        return isSame(source, destination);
+    }
+
+    public void init() {
+        for (int i = 0; i < father.length; i++) {
+            father[i] = i;
+        }
+    }
+
+    public int find(int u) {
+        if (u == father[u]) {
+            return u;
+        }
+        return find(father[u]);
+    }
+
+    public boolean isSame(int u, int v) {
+        u = find(u);
+        v = find(v);
+        return u == v;
+    }
+
+    public void join(int f, int s) {
+        f = find(f);
+        s = find(s);
+
+        if (f == s) {
+            return;
+        }
+
+        father[s] = f;
+    }
+
 }
