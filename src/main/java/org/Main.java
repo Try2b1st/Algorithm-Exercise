@@ -9,7 +9,7 @@ import org.graphTheory.Question;
 public class Main {
     public static void main(String[] args) {
         Question question = new Question();
-
-        System.out.println(question.largestIsland(new int[][]{{1, 0}, {0, 1}}));
+        Daily daily = new Daily();
+        System.out.println(daily.minDeletion(new int[]{1, 1, 2, 2, 3, 3}));
     }
 }

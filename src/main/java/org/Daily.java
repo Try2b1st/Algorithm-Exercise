@@ -284,4 +284,29 @@ public class Daily {
         }
         return max;
     }
+
+
+    /**
+     * 11.21 每日一题
+     * 2216. 美化数组的最少删除数
+     *
+     * @param nums
+     * @return
+     */
+    public int minDeletion(int[] nums) {
+        int result = 0;
+        Stack<Integer> stack = new Stack<>();
+        stack.push(nums[0]);
+        for (int i = 1; i < nums.length; i ++) {
+            if((stack.size() - 1) % 2 == 0 && nums[i] == stack.peek()){
+                result++;
+                continue;
+            }
+            stack.push(nums[i]);
+        }
+        if(stack.size() % 2 != 0){
+            result++;
+        }
+        return result;
+    }
 }
