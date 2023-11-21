@@ -516,4 +516,53 @@ public class Question {
         }
         return sum;
     }
+
+    /**
+     * 1971. 寻找图中是否存在路径
+     *
+     * @param n
+     * @param edges
+     * @param source
+     * @param destination
+     * @return
+     */
+    int[] father;
+    public boolean validPath(int n, int[][] edges, int source, int destination) {
+        father = new int[n];
+        init();
+        for (int[] arrays : edges) {
+            join(arrays[0], arrays[1]);
+        }
+        return isSame(source, destination);
+    }
+
+    public void init() {
+        for (int i = 0; i < father.length; i++) {
+            father[i] = i;
+        }
+    }
+
+    public int find(int u) {
+        if (u == father[u]) {
+            return u;
+        }
+        return find(father[u]);
+    }
+
+    public boolean isSame(int u, int v) {
+        u = find(u);
+        v = find(v);
+        return u == v;
+    }
+
+    public void join(int f, int s) {
+        f = find(f);
+        s = find(s);
+
+        if (f == s) {
+            return;
+        }
+
+        father[s] = f;
+    }
 }
