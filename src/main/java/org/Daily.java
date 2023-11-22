@@ -297,16 +297,55 @@ public class Daily {
         int result = 0;
         Stack<Integer> stack = new Stack<>();
         stack.push(nums[0]);
-        for (int i = 1; i < nums.length; i ++) {
-            if((stack.size() - 1) % 2 == 0 && nums[i] == stack.peek()){
+        for (int i = 1; i < nums.length; i++) {
+            if ((stack.size() - 1) % 2 == 0 && nums[i] == stack.peek()) {
                 result++;
                 continue;
             }
             stack.push(nums[i]);
         }
-        if(stack.size() % 2 != 0){
+        if (stack.size() % 2 != 0) {
             result++;
         }
+        return result;
+    }
+
+
+    /**
+     * 11.22 每日一题
+     * 2304. 网格中的最小路径代价
+     *
+     * @param grid
+     * @param moveCost
+     * @return
+     */
+    public int minPathCost(int[][] grid, int[][] moveCost) {
+        int m = grid.length;
+        int n = grid[0].length;
+
+        //dp[i][j]是到第i行第j列的最小代价
+        int[][] dp = new int[m][n];
+        for (int[] temp : dp) {
+            Arrays.fill(temp, Integer.MAX_VALUE);
+        }
+        dp[0] = grid[0];
+
+        for (int i = 1; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                for (int k = 0; k < n; k++) {
+                    dp[i][j] = Math.min(dp[i][j], dp[i - 1][k] + moveCost[grid[i - 1][k]][j] + grid[i][j]);
+                }
+            }
+        }
+
+        int result = Integer.MAX_VALUE;
+
+        for(int i : dp[m-1]){
+            if(i < result){
+                result = i;
+            }
+        }
+
         return result;
     }
 }
