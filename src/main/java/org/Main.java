@@ -1,7 +1,10 @@
 package org;
 
 
+import org.graphTheory.Connection;
 import org.graphTheory.Question;
+
+import java.util.Arrays;
 
 /**
  * @author 下水道的小老鼠
@@ -10,6 +13,7 @@ public class Main {
     public static void main(String[] args) {
         Question question = new Question();
         Daily daily = new Daily();
-        System.out.println(daily.minDeletion(new int[]{1, 1, 2, 2, 3, 3}));
+        Connection connection = new Connection();
+        System.out.println(Arrays.toString(connection.findRedundantDirectedConnection(new int[][]{{1, 2}, {1, 3}, {2, 3}})));
     }
 }
