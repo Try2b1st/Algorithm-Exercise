@@ -348,4 +348,20 @@ public class Daily {
 
         return result;
     }
+
+    /**
+     * 11.23 每日一题
+     * 1410. HTML 实体解析器
+     *
+     * @param text
+     * @return
+     */
+    public String entityParser(String text) {
+        return text.replaceAll("&quot;", "\"")
+                .replaceAll("&apos;", "'")
+                .replaceAll("&amp;","&")
+                .replaceAll("&gt;",">")
+                .replaceAll("&lt","<")
+                .replaceAll("&frasl;","/");
+    }
 }
