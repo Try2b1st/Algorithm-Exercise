@@ -1,9 +1,6 @@
 package org;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 public class Daily {
 
@@ -340,8 +337,8 @@ public class Daily {
 
         int result = Integer.MAX_VALUE;
 
-        for(int i : dp[m-1]){
-            if(i < result){
+        for (int i : dp[m - 1]) {
+            if (i < result) {
                 result = i;
             }
         }
@@ -359,9 +356,36 @@ public class Daily {
     public String entityParser(String text) {
         return text.replaceAll("&quot;", "\"")
                 .replaceAll("&apos;", "'")
-                .replaceAll("&amp;","&")
-                .replaceAll("&gt;",">")
-                .replaceAll("&lt","<")
-                .replaceAll("&frasl;","/");
+                .replaceAll("&amp;", "&")
+                .replaceAll("&gt;", ">")
+                .replaceAll("&lt", "<")
+                .replaceAll("&frasl;", "/");
+    }
+
+
+    /**
+     * 11.24 每日一题
+     * 2824. 统计和小于目标的下标对数目
+     *
+     * @param nums
+     * @param target
+     * @return
+     */
+    public int countPairs(List<Integer> nums, int target) {
+        int result = 0;
+
+        Collections.sort(nums);
+        int left = 0;
+        int right = nums.size() - 1;
+        while (left < right) {
+            if (nums.get(left) + nums.get(right) < target) {
+                result += right - left;
+                left++;
+            } else {
+                right--;
+            }
+        }
+
+        return result;
     }
 }
