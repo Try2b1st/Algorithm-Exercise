@@ -388,4 +388,61 @@ public class Daily {
 
         return result;
     }
+
+    public class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode() {
+        }
+
+        TreeNode(int val) {
+            this.val = val;
+        }
+
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
+    }
+
+    /**
+     * 11.25 每日一题
+     * 1457. 二叉树中的伪回文路径
+     *
+     * @param root
+     * @return
+     */
+    public int pseudoPalindromicPaths(TreeNode root) {
+        int[] current = new int[10];
+        return dsf(root,current);
+    }
+    public int dsf(TreeNode root,int[] counter) {
+        if(root == null){
+            return 0;
+        }
+        counter[root.val]++;
+        int res = 0;
+        if (root.left == null && root.right == null) {
+            if(isPseudoPalindrome(counter)){
+                return 1;
+            }
+        }else{
+            res = dsf(root.left,counter) + dsf(root.right,counter);
+        }
+        counter[root.val]--;
+        return res;
+    }
+
+    public boolean isPseudoPalindrome(int[] counter) {
+        int odd = 0;
+        for (int value : counter) {
+            if (value % 2 == 1) {
+                odd++;
+            }
+        }
+        return odd <= 1;
+    }
 }
