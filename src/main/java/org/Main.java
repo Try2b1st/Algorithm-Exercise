@@ -14,6 +14,6 @@ public class Main {
         Question question = new Question();
         Daily daily = new Daily();
         Connection connection = new Connection();
-        System.out.println(Arrays.toString(connection.findRedundantDirectedConnection(new int[][]{{1, 2}, {1, 3}, {2, 3}})));
+        System.out.println(daily.uniqueLetterString("ABC"));
     }
 }

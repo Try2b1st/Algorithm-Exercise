@@ -417,20 +417,21 @@ public class Daily {
      */
     public int pseudoPalindromicPaths(TreeNode root) {
         int[] current = new int[10];
-        return dsf(root,current);
+        return dsf(root, current);
     }
-    public int dsf(TreeNode root,int[] counter) {
-        if(root == null){
+
+    public int dsf(TreeNode root, int[] counter) {
+        if (root == null) {
             return 0;
         }
         counter[root.val]++;
         int res = 0;
         if (root.left == null && root.right == null) {
-            if(isPseudoPalindrome(counter)){
+            if (isPseudoPalindrome(counter)) {
                 return 1;
             }
-        }else{
-            res = dsf(root.left,counter) + dsf(root.right,counter);
+        } else {
+            res = dsf(root.left, counter) + dsf(root.right, counter);
         }
         counter[root.val]--;
         return res;
@@ -444,5 +445,34 @@ public class Daily {
             }
         }
         return odd <= 1;
+    }
+
+
+    /**
+     * 11.26 每日一题
+     * 828. 统计子串中的唯一字符
+     *
+     * @param s
+     * @return
+     */
+    public int uniqueLetterString(String s) {
+        char[] cs = s.toCharArray();
+        int n = cs.length, ans = 0;
+        int[] l = new int[n], r = new int[n];
+        int[] idx = new int[26];
+        Arrays.fill(idx, -1);
+        for (int i = 0; i < n; i++) {
+            int u = cs[i] - 'A';
+            l[i] = idx[u];
+            idx[u] = i;
+        }
+        Arrays.fill(idx, n);
+        for (int i = n - 1; i >= 0; i--) {
+            int u = cs[i] - 'A';
+            r[i] = idx[u];
+            idx[u] = i;
+        }
+        for (int i = 0; i < n; i++) ans += (i - l[i]) * (r[i] - i);
+        return ans;
     }
 }
