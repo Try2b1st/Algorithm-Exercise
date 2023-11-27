@@ -14,6 +14,6 @@ public class Main {
         Question question = new Question();
         Daily daily = new Daily();
         Connection connection = new Connection();
-        System.out.println(daily.uniqueLetterString("ABC"));
+        System.out.println(daily.sumSubarrayMins(new int[]{71,55,82,55}));
     }
 }

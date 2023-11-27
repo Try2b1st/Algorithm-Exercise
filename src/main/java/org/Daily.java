@@ -1,6 +1,7 @@
 package org;
 
 import java.util.*;
+import java.util.function.DoubleToIntFunction;
 
 public class Daily {
 
@@ -474,5 +475,45 @@ public class Daily {
         }
         for (int i = 0; i < n; i++) ans += (i - l[i]) * (r[i] - i);
         return ans;
+    }
+
+    /**
+     * 11.27 每日一题
+     * 907. 子数组的最小值之和
+     *
+     * @param arr
+     * @return
+     */
+    public int sumSubarrayMins(int[] arr) {
+        int MOD = (int) 1e9 + 7;
+        Deque<Integer> deque = new ArrayDeque<>();
+        int[] l = new int[arr.length];
+        int[] r = new int[arr.length];
+        int result = 0;
+        Arrays.fill(l, -1);
+        Arrays.fill(r, arr.length);
+
+        for (int i = 0; i < arr.length; i++) {
+            while (!deque.isEmpty() && arr[deque.getLast()] >= arr[i]) {
+                r[deque.pollLast()] = i;
+            }
+            deque.addLast(i);
+        }
+        while (!deque.isEmpty()) {
+            deque.pop();
+        }
+        for (int i = arr.length - 1; i >= 0; i--) {
+            while (!deque.isEmpty() && arr[deque.getLast()] > arr[i]) {
+                l[deque.pollLast()] = i;
+            }
+            deque.addLast(i);
+        }
+
+        for (int i = 0; i < arr.length; i++) {
+            result += (long) (i - l[i]) * (r[i] - i) % MOD * arr[i] % MOD;
+            result %= MOD;
+        }
+
+        return result;
     }
 }
