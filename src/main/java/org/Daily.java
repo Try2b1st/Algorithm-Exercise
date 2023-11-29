@@ -516,4 +516,32 @@ public class Daily {
 
         return result;
     }
+
+    /**
+     * 11.29 每日一题
+     */
+    class SmallestInfiniteSet {
+        boolean[] vis = new boolean[1010];
+        PriorityQueue<Integer> q = new PriorityQueue<>((a,b)->a-b);
+        int idx = 1;
+        public int popSmallest() {
+            int ans = -1;
+            if (!q.isEmpty()) {
+                ans = q.poll();
+                vis[ans] = false;
+            } else {
+                ans = idx++;
+            }
+            return ans;
+        }
+        public void addBack(int x) {
+            if (x >= idx || vis[x]) return ;
+            if (x == idx - 1) {
+                idx--;
+            } else {
+                q.add(x);
+                vis[x] = true;
+            }
+        }
+    }
 }
