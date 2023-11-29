@@ -522,8 +522,9 @@ public class Daily {
      */
     class SmallestInfiniteSet {
         boolean[] vis = new boolean[1010];
-        PriorityQueue<Integer> q = new PriorityQueue<>((a,b)->a-b);
+        PriorityQueue<Integer> q = new PriorityQueue<>((a, b) -> a - b);
         int idx = 1;
+
         public int popSmallest() {
             int ans = -1;
             if (!q.isEmpty()) {
@@ -534,8 +535,9 @@ public class Daily {
             }
             return ans;
         }
+
         public void addBack(int x) {
-            if (x >= idx || vis[x]) return ;
+            if (x >= idx || vis[x]) return;
             if (x == idx - 1) {
                 idx--;
             } else {
@@ -543,5 +545,47 @@ public class Daily {
                 vis[x] = true;
             }
         }
+    }
+
+
+    /**
+     * 11.30 每日一题
+     * 1657. 确定两个字符串是否接近
+     *
+     * @param word1
+     * @param word2
+     * @return
+     */
+    public boolean closeStrings(String word1, String word2) {
+        if (word1.length() != word2.length()) {
+            return false;
+        }
+        int[] array1 = new int[26];
+        int[] array2 = new int[26];
+
+        for (int i = 0; i < word1.length(); i++) {
+            array1[word1.charAt(i) - 'a']++;
+        }
+        for (int i = 0; i < word2.length(); i++) {
+            array2[word2.charAt(i) - 'a']++;
+        }
+
+        for(int i = 0;i<26;i++){
+            if (array1[i] + array2[i] == 0) continue;
+            if (array1[i] == 0 || array2[i] == 0) return false;
+        }
+
+        Arrays.sort(array1);
+        Arrays.sort(array2);
+
+        int count = 25;
+        while (count > 0 && (array1[count] > 0 || array2[count] > 0)) {
+            if (array1[count] != array2[count]) {
+                return false;
+            }
+            count--;
+        }
+
+        return true;
     }
 }
