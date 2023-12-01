@@ -570,7 +570,7 @@ public class Daily {
             array2[word2.charAt(i) - 'a']++;
         }
 
-        for(int i = 0;i<26;i++){
+        for (int i = 0; i < 26; i++) {
             if (array1[i] + array2[i] == 0) continue;
             if (array1[i] == 0 || array2[i] == 0) return false;
         }
@@ -587,5 +587,50 @@ public class Daily {
         }
 
         return true;
+    }
+
+    /**
+     * 11.30 每日一题
+     * 2661. 找出叠涂元素
+     *
+     * @param arr
+     * @param mat
+     * @return
+     */
+    public int firstCompleteIndex(int[] arr, int[][] mat) {
+        Map<Integer, Integer> map = new HashMap<>();
+
+        for (int i = 0; i < arr.length; i++) {
+            map.put(arr[i], i);
+        }
+        int result = Integer.MAX_VALUE;
+
+        for (int[] temp : mat) {
+            int x = Integer.MIN_VALUE;
+            for (int i : temp) {
+                int value = map.get(i);
+                if (x < value) {
+                    x = value;
+                }
+            }
+            if (x < result) {
+                result = x;
+            }
+        }
+
+        for (int i = 0; i < mat[0].length; i++) {
+            int x = Integer.MIN_VALUE;
+            for (int[] ints : mat) {
+                int value = map.get(ints[i]);
+                if (x < value) {
+                    x = value;
+                }
+            }
+            if (x < result) {
+                result = x;
+            }
+        }
+
+        return result;
     }
 }
