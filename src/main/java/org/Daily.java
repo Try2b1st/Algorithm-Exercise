@@ -590,7 +590,7 @@ public class Daily {
     }
 
     /**
-     * 11.30 每日一题
+     * 12.01 每日一题
      * 2661. 找出叠涂元素
      *
      * @param arr
@@ -632,5 +632,31 @@ public class Daily {
         }
 
         return result;
+    }
+
+
+    /**
+     * 12.02 每日一题
+     * 1094. 拼车
+     *
+     * @param trips
+     * @param capacity
+     * @return
+     */
+    public boolean carPooling(int[][] trips, int capacity) {
+        int[] nums = new int[1001];
+
+        for (int[] trip : trips) {
+            nums[trip[1]] += trip[0];
+            nums[trip[2]] -= trip[0];
+        }
+
+        for (int i = 1; i < 1001; i++) {
+            nums[i] += nums[i-1];
+            if(nums[i] > capacity){
+                return false;
+            }
+        }
+        return true;
     }
 }

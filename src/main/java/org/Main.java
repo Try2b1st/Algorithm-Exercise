@@ -14,6 +14,6 @@ public class Main {
         Question question = new Question();
         Daily daily = new Daily();
         Connection connection = new Connection();
-        System.out.println(daily.closeStrings("abc", "bca"));
+        System.out.println(daily.carPooling(new int[][]{{2,1,5},{3,3,7}},4));
     }
 }
