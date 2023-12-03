@@ -14,6 +14,6 @@ public class Main {
         Question question = new Question();
         Daily daily = new Daily();
         Connection connection = new Connection();
-        System.out.println(daily.carPooling(new int[][]{{2,1,5},{3,3,7}},4));
+        System.out.println(daily.maxScore(new int[]{100,40,17,9,73,75}, 3));
     }
 }

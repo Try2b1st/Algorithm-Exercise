@@ -652,11 +652,55 @@ public class Daily {
         }
 
         for (int i = 1; i < 1001; i++) {
-            nums[i] += nums[i-1];
-            if(nums[i] > capacity){
+            nums[i] += nums[i - 1];
+            if (nums[i] > capacity) {
                 return false;
             }
         }
         return true;
+    }
+
+
+    /**
+     * 12.03 每日一题
+     * 1423. 可获得的最大点数
+     *
+     * @param cardPoints
+     * @param k
+     * @return
+     */
+    public int maxScore(int[] cardPoints, int k) {
+        int sum = 0;
+        if (cardPoints.length == k) {
+            for (int i : cardPoints) {
+                sum += i;
+            }
+            return sum;
+        }
+
+        int[] left = new int[k];
+        int[] right = new int[k];
+
+        left[0] = cardPoints[0];
+        for (int i = 1; i < k; i++) {
+            left[i] = left[i - 1] + cardPoints[i];
+        }
+
+        int length = cardPoints.length - 1;
+        right[0] = cardPoints[length];
+        for (int i = 1; i < k; i++) {
+            right[i] = right[i - 1] + cardPoints[length - i];
+        }
+
+        sum = left[k - 1];
+
+        for (int i = 0; i <= k - 2; i++) {
+            sum = Math.max(left[k - 2 - i] + right[i], sum);
+        }
+
+        sum = Math.max(sum, right[k - 1]);
+
+        return sum;
+
     }
 }
