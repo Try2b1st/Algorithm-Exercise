@@ -701,6 +701,30 @@ public class Daily {
         sum = Math.max(sum, right[k - 1]);
 
         return sum;
+    }
 
+
+    /**
+     * 12.04 每日一题
+     * 1038. 从二叉搜索树到更大和树
+     *
+     * @param root
+     * @return
+     */
+    int sum = 0;
+    public TreeNode bstToGst(TreeNode root) {
+        dfsToBstToGst(root);
+        return root;
+    }
+
+    public void dfsToBstToGst(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+
+        dfsToBstToGst(root.right);
+        sum += root.val;
+        root.val = sum;
+        dfsToBstToGst(root.left);
     }
 }
