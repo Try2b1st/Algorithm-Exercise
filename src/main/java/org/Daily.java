@@ -712,6 +712,7 @@ public class Daily {
      * @return
      */
     int sum = 0;
+
     public TreeNode bstToGst(TreeNode root) {
         dfsToBstToGst(root);
         return root;
@@ -727,4 +728,42 @@ public class Daily {
         root.val = sum;
         dfsToBstToGst(root.left);
     }
+
+    /**
+     * 12.04 每日一题
+     * 2477. 到达首都的最少油耗
+     *
+     * @param roads
+     * @param seats
+     * @return
+     */
+    int N = 100010, M = 2 * N, idx = 0;
+    int[] he = new int[N], e = new int[M], ne = new int[M];
+    void add(int a, int b) {
+        e[idx] = b;
+        ne[idx] = he[a];
+        he[a] = idx++;
+    }
+    long ans = 0;
+    public long minimumFuelCost(int[][] roads, int seats) {
+        int n = roads.length + 1;
+        Arrays.fill(he, -1);
+        for (int[] r : roads) {
+            int a = r[0], b = r[1];
+            add(a, b); add(b, a);
+        }
+        dfs(0, -1, seats);
+        return ans;
+    }
+    int dfs(int u, int fa, int t) {
+        int cnt = 1;
+        for (int i = he[u]; i != -1; i = ne[i]) {
+            int j = e[i];
+            if (j == fa) continue;
+            cnt += dfs(j, u, t);
+        }
+        if (u != 0) ans += Math.ceil(cnt * 1.0 / t);
+        return cnt;
+    }
+
 }
