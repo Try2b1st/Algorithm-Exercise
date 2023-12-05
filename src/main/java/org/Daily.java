@@ -737,33 +737,30 @@ public class Daily {
      * @param seats
      * @return
      */
-    int N = 100010, M = 2 * N, idx = 0;
-    int[] he = new int[N], e = new int[M], ne = new int[M];
-    void add(int a, int b) {
-        e[idx] = b;
-        ne[idx] = he[a];
-        he[a] = idx++;
-    }
-    long ans = 0;
-    public long minimumFuelCost(int[][] roads, int seats) {
-        int n = roads.length + 1;
-        Arrays.fill(he, -1);
-        for (int[] r : roads) {
-            int a = r[0], b = r[1];
-            add(a, b); add(b, a);
+        long res = 0;
+        public long minimumFuelCost(int[][] roads, int seats) {
+            int n = roads.length;
+            List<Integer>[] g = new List[n + 1];
+            for (int i = 0; i <= n; i++) {
+                g[i] = new ArrayList<Integer>();
+            }
+            for (int[] e : roads) {
+                g[e[0]].add(e[1]);
+                g[e[1]].add(e[0]);
+            }
+            dfs(0, -1, seats, g);
+            return res;
         }
-        dfs(0, -1, seats);
-        return ans;
-    }
-    int dfs(int u, int fa, int t) {
-        int cnt = 1;
-        for (int i = he[u]; i != -1; i = ne[i]) {
-            int j = e[i];
-            if (j == fa) continue;
-            cnt += dfs(j, u, t);
-        }
-        if (u != 0) ans += Math.ceil(cnt * 1.0 / t);
-        return cnt;
-    }
 
+        public int dfs(int cur, int fa, int seats, List<Integer>[] g) {
+            int peopleSum = 1;
+            for (int ne : g[cur]) {
+                if (ne != fa) {
+                    int peopleCnt = dfs(ne, cur, seats, g);
+                    peopleSum += peopleCnt;
+                    res += (peopleCnt + seats - 1) / seats;
+                }
+            }
+            return peopleSum;
+        }
 }
