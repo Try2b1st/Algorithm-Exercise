@@ -737,30 +737,102 @@ public class Daily {
      * @param seats
      * @return
      */
-        long res = 0;
-        public long minimumFuelCost(int[][] roads, int seats) {
-            int n = roads.length;
-            List<Integer>[] g = new List[n + 1];
-            for (int i = 0; i <= n; i++) {
-                g[i] = new ArrayList<Integer>();
+    long res = 0;
+
+    public long minimumFuelCost(int[][] roads, int seats) {
+        int n = roads.length;
+        List<Integer>[] g = new List[n + 1];
+        for (int i = 0; i <= n; i++) {
+            g[i] = new ArrayList<Integer>();
+        }
+        for (int[] e : roads) {
+            g[e[0]].add(e[1]);
+            g[e[1]].add(e[0]);
+        }
+        dfs(0, -1, seats, g);
+        return res;
+    }
+
+    public int dfs(int cur, int fa, int seats, List<Integer>[] g) {
+        int peopleSum = 1;
+        for (int ne : g[cur]) {
+            if (ne != fa) {
+                int peopleCnt = dfs(ne, cur, seats, g);
+                peopleSum += peopleCnt;
+                res += (peopleCnt + seats - 1) / seats;
             }
-            for (int[] e : roads) {
-                g[e[0]].add(e[1]);
-                g[e[1]].add(e[0]);
-            }
-            dfs(0, -1, seats, g);
-            return res;
+        }
+        return peopleSum;
+    }
+
+
+    /**
+     * 12.04 每日一题
+     * 2646. 最小化旅行的价格总和
+     *
+     * @param n
+     * @param edges
+     * @param price
+     * @param trips
+     * @return
+     */
+    int end;
+    int[][] myEdgs;
+    int[] cnt, myPrice;
+    List<Integer>[] g;
+
+    public int minimumTotalPrice(int n, int[][] edges, int[] price, int[][] trips) {
+
+        g = new ArrayList[n];
+        Arrays.setAll(g, e -> new ArrayList<>());
+        for (int[] e : edges) {
+            int x = e[0], y = e[1];
+            g[x].add(y);
+            g[y].add(x);
         }
 
-        public int dfs(int cur, int fa, int seats, List<Integer>[] g) {
-            int peopleSum = 1;
-            for (int ne : g[cur]) {
-                if (ne != fa) {
-                    int peopleCnt = dfs(ne, cur, seats, g);
-                    peopleSum += peopleCnt;
-                    res += (peopleCnt + seats - 1) / seats;
-                }
-            }
-            return peopleSum;
+        cnt = new int[n];
+        myEdgs = edges;
+
+        for (int[] temp : trips) {
+            temp[1] = end;
+            dfsToMinimumTotalPrice(temp[0], -1);
         }
+
+        this.myPrice = price;
+        int[] res = dpToMinimumTotalPrice(0, -1);
+
+        return Math.min(res[0], res[1]);
+    }
+
+    public boolean dfsToMinimumTotalPrice(int start, int fa) {
+        if (end == start) {
+            cnt[end]++;
+            return true;
+        }
+
+        for (int y : g[start]) {
+            if (y != fa && dfsToMinimumTotalPrice(y, start)) {
+                cnt[start]++;
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public int[] dpToMinimumTotalPrice(int start, int fa) {
+        int no = myPrice[start] * cnt[start];
+        int yes = myPrice[start] / 2 * cnt[start];
+
+        for (int temp : g[start]) {
+            if (temp != fa) {
+                int[] res = dpToMinimumTotalPrice(temp, start);
+                no = Math.min(no + res[0], no + res[1]);
+                yes += res[0];
+            }
+        }
+
+        return new int[]{no, yes};
+    }
 }
