@@ -835,4 +835,48 @@ public class Daily {
 
         return new int[]{no, yes};
     }
+
+
+    /**
+     * 12.04 每日一题
+     * 1466. 重新规划路线
+     *
+     * @param n
+     * @param connections
+     * @return
+     */
+    int result = 0;
+    List<int[]>[] path;
+    boolean[] flag;
+
+    int[][] myConnections;
+
+    public int minReorder(int n, int[][] connections) {
+        path = new ArrayList[n];
+        Arrays.setAll(path, e -> new ArrayList<Integer>());
+        flag = new boolean[n];
+        myConnections = connections;
+
+        for (int[] temp : connections) {
+            //0 来 1 出发
+            path[temp[0]].add(new int[]{temp[1], 1});
+            path[temp[1]].add(new int[]{temp[0], 0});
+        }
+
+        dfsToMinReorder(0, -1);
+
+        return result;
+    }
+
+    public void dfsToMinReorder(int start, int fa) {
+
+        for (int[] temp : path[start]) {
+            if (temp[0] != fa) {
+                if(temp[1] == 1){
+                    result++;
+                }
+                dfsToMinReorder(temp[0], start);
+            }
+        }
+    }
 }
