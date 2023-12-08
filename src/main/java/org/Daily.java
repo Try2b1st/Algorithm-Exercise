@@ -730,7 +730,7 @@ public class Daily {
     }
 
     /**
-     * 12.04 每日一题
+     * 12.05 每日一题
      * 2477. 到达首都的最少油耗
      *
      * @param roads
@@ -767,7 +767,7 @@ public class Daily {
 
 
     /**
-     * 12.04 每日一题
+     * 12.06 每日一题
      * 2646. 最小化旅行的价格总和
      *
      * @param n
@@ -838,7 +838,7 @@ public class Daily {
 
 
     /**
-     * 12.04 每日一题
+     * 12.07 每日一题
      * 1466. 重新规划路线
      *
      * @param n
@@ -872,11 +872,49 @@ public class Daily {
 
         for (int[] temp : path[start]) {
             if (temp[0] != fa) {
-                if(temp[1] == 1){
+                if (temp[1] == 1) {
                     result++;
                 }
                 dfsToMinReorder(temp[0], start);
             }
         }
     }
+
+
+    /**
+     * 12.04 每日一题
+     * 2008. 出租车的最大盈利
+     *
+     * @param n
+     * @param rides
+     * @return
+     */
+    public long maxTaxiEarnings(int n, int[][] rides) {
+        Arrays.sort(rides, Comparator.comparingInt(o -> o[1]));
+
+        int m = rides.length;
+        long[] dp = new long[m];
+
+        for (int i = 0; i < m; i++) {
+            int j = binarySearch(rides, i, rides[i][0]);
+            dp[i + 1] = Math.max(dp[i], dp[j] + rides[i][1] - rides[i][0] + rides[i][2]);
+        }
+
+        return dp[n];
+    }
+
+    public int binarySearch(int[][] rides, int high, int target) {
+        int low = 0;
+
+        while (low < high) {
+            int mid = low + (high - low) / 2;
+            if (rides[mid][1] > target) {
+                high = mid;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return low;
+    }
+
 }
