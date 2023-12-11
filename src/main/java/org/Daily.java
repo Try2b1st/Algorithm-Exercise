@@ -925,7 +925,7 @@ public class Daily {
      * @param n
      * @return
      */
-    private static final int[] balance = new int[] {
+    private static final int[] balance = new int[]{
             1, 22, 122, 212, 221, 333, 1333, 3133, 3313, 3331, 4444,
             14444, 22333, 23233, 23323, 23332, 32233, 32323, 32332,
             33223, 33232, 33322, 41444, 44144, 44414, 44441, 55555,
@@ -942,6 +942,7 @@ public class Daily {
             442244, 442424, 442442, 444224, 444242, 444422, 515555,
             551555, 555155, 555515, 555551, 666666, 1224444
     };
+
     public int nextBeautifulNumber(int n) {
         int i = Arrays.binarySearch(balance, n + 1);
         if (i < 0) {
@@ -968,6 +969,46 @@ public class Daily {
             }
         }
         return dp[n];
+    }
+
+    /**
+     * 12.11 每日一题
+     * 1631. 最小体力消耗路径
+     *
+     * @param heights
+     * @return
+     */
+    int[][] dirs = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+    public int minimumEffortPath(int[][] heights) {
+        int m = heights.length;
+        int n = heights[0].length;
+        int left = 0, right = 999999, ans = 0;
+        while (left <= right) {
+            int mid = (left + right) / 2;
+            Queue<int[]> queue = new LinkedList<int[]>();
+            queue.offer(new int[]{0, 0});
+            boolean[] seen = new boolean[m * n];
+            seen[0] = true;
+            while (!queue.isEmpty()) {
+                int[] cell = queue.poll();
+                int x = cell[0], y = cell[1];
+                for (int i = 0; i < 4; ++i) {
+                    int nx = x + dirs[i][0];
+                    int ny = y + dirs[i][1];
+                    if (nx >= 0 && nx < m && ny >= 0 && ny < n && !seen[nx * n + ny] && Math.abs(heights[x][y] - heights[nx][ny]) <= mid) {
+                        queue.offer(new int[]{nx, ny});
+                        seen[nx * n + ny] = true;
+                    }
+                }
+            }
+            if (seen[m * n - 1]) {
+                ans = mid;
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return ans;
     }
 
 }
