@@ -979,6 +979,7 @@ public class Daily {
      * @return
      */
     int[][] dirs = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+
     public int minimumEffortPath(int[][] heights) {
         int m = heights.length;
         int n = heights[0].length;
@@ -1010,5 +1011,40 @@ public class Daily {
         }
         return ans;
     }
+
+    /**
+     * 12.12 每日一题
+     * 2454. 下一个更大元素 IV
+     *
+     * @param nums
+     * @return
+     */
+    public int[] secondGreaterElement(int[] nums) {
+        Stack<Integer> stack1 = new Stack<>();
+        Stack<Integer> stack2 = new Stack<>();
+        int[] result = new int[nums.length];
+        Arrays.fill(result, -1);
+        stack1.push(0);
+        for (int i = 1; i < nums.length; i++) {
+            List<Integer> list = new ArrayList<>();
+
+            while (!stack2.isEmpty() && nums[i] > nums[stack2.peek()]) {
+                int temp = stack2.pop();
+                result[temp] = nums[i];
+            }
+
+            while (!stack1.isEmpty() && nums[i] > nums[stack1.peek()]) {
+                int temp = stack1.pop();
+                list.add(temp);
+            }
+            for (int j = list.size() - 1; j >= 0; j--) {
+                stack2.push(list.get(j));
+            }
+            stack1.push(i);
+        }
+
+        return result;
+    }
+
 
 }
