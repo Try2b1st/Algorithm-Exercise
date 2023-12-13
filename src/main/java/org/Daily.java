@@ -1046,5 +1046,29 @@ public class Daily {
         return result;
     }
 
+    /**
+     * 12.13 每日一题
+     * 2697. 字典序最小回文串
+     *
+     * @param s
+     * @return
+     */
+    public String makeSmallestPalindrome(String s) {
+        int startIndex = 0;
+        int endIndex = s.length() - 1;
+        char[] c = s.toCharArray();
+
+        while(startIndex < endIndex){
+            if(c[startIndex] < c[endIndex]){
+                c[endIndex] = c[startIndex];
+            }else if(c[startIndex] > c[endIndex]){
+                c[startIndex] = c[endIndex];
+            }
+            startIndex++;
+            endIndex--;
+        }
+
+        return new String(c);
+    }
 
 }
