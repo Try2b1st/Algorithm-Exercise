@@ -1058,10 +1058,10 @@ public class Daily {
         int endIndex = s.length() - 1;
         char[] c = s.toCharArray();
 
-        while(startIndex < endIndex){
-            if(c[startIndex] < c[endIndex]){
+        while (startIndex < endIndex) {
+            if (c[startIndex] < c[endIndex]) {
                 c[endIndex] = c[startIndex];
-            }else if(c[startIndex] > c[endIndex]){
+            } else if (c[startIndex] > c[endIndex]) {
                 c[startIndex] = c[endIndex];
             }
             startIndex++;
@@ -1069,6 +1069,71 @@ public class Daily {
         }
 
         return new String(c);
+    }
+
+
+    /**
+     * 12.14 每日一题
+     * 2132. 用邮票贴满网格图
+     *
+     * @param grid
+     * @param stampHeight
+     * @param stampWidth
+     * @return
+     */
+    public boolean possibleToStamp(int[][] grid, int stampHeight, int stampWidth) {
+        int m = grid.length;
+        int n = grid[0].length;
+
+        // 1. 计算 grid 的二维前缀和
+        int[][] s = new int[m + 1][n + 1];
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                s[i + 1][j + 1] = s[i + 1][j] + s[i][j + 1] - s[i][j] + grid[i][j];
+            }
+        }
+        System.out.println("============s========");
+        for(int[] tempS : s){
+            System.out.println(Arrays.toString(tempS));
+        }
+
+        // 2. 计算二维差分,即判断是否可以放置印章，可以则更新二位差分数组
+        // 为方便第 3 步的计算，在 d 数组的最上面和最左边各加了一行（列），所以下标要 +1
+        int[][] diffs = new int[m + 2][n + 2];
+        for (int i = stampHeight; i <= m; i++) {
+            for (int j = stampWidth; j <= n; j++) {
+                int tempI = i - stampHeight + 1;
+                int tempJ = j - stampWidth + 1;
+
+                int cnt = s[i][j] - s[i][tempJ - 1] - s[tempI - 1][j] + s[tempI - 1][tempJ - 1];
+                if (cnt == 0) {
+                    diffs[tempI][tempJ]++;
+                    diffs[i + 1][tempJ]--;
+                    diffs[tempI][j + 1]--;
+                    diffs[i + 1][j + 1]++;
+                }
+            }
+        }
+        System.out.println("==========diffs============");
+        for(int[] tempS : diffs){
+            System.out.println(Arrays.toString(tempS));
+        }
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                diffs[i + 1][j + 1] += diffs[i][j + 1] + diffs[i + 1][j] - diffs[i][j];
+                if(grid[i][j] == 0 && diffs[i+1][j+1] == 0){
+                    return false;
+                }
+            }
+        }
+
+        System.out.println("==========diffs============");
+        for(int[] tempS : diffs){
+            System.out.println(Arrays.toString(tempS));
+        }
+
+        return true;
     }
 
 }

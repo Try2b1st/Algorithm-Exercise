@@ -14,6 +14,6 @@ public class Main {
         Question question = new Question();
         Daily daily = new Daily();
         Connection connection = new Connection();
-        System.out.println(Arrays.toString(daily.secondGreaterElement(new int[]{11, 13, 15, 12, 0, 15, 12, 11, 9})));
+        System.out.println(daily.possibleToStamp(new int[][]{{1, 1, 0, 0, 0}, {1, 1, 0, 0, 0}, {0, 0, 0, 1, 1}, {0, 0, 0, 1, 1}}, 2, 2));
     }
 }
