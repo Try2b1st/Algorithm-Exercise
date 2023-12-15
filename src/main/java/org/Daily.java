@@ -1,5 +1,7 @@
 package org;
 
+import org.greedly.Simple;
+
 import java.util.*;
 import java.util.function.DoubleToIntFunction;
 
@@ -1093,7 +1095,7 @@ public class Daily {
             }
         }
         System.out.println("============s========");
-        for(int[] tempS : s){
+        for (int[] tempS : s) {
             System.out.println(Arrays.toString(tempS));
         }
 
@@ -1115,25 +1117,65 @@ public class Daily {
             }
         }
         System.out.println("==========diffs============");
-        for(int[] tempS : diffs){
+        for (int[] tempS : diffs) {
             System.out.println(Arrays.toString(tempS));
         }
 
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 diffs[i + 1][j + 1] += diffs[i][j + 1] + diffs[i + 1][j] - diffs[i][j];
-                if(grid[i][j] == 0 && diffs[i+1][j+1] == 0){
+                if (grid[i][j] == 0 && diffs[i + 1][j + 1] == 0) {
                     return false;
                 }
             }
         }
 
         System.out.println("==========diffs============");
-        for(int[] tempS : diffs){
+        for (int[] tempS : diffs) {
             System.out.println(Arrays.toString(tempS));
         }
 
         return true;
+    }
+
+    /**
+     * 12.15 每日一题
+     * 2415. 反转二叉树的奇数层
+     *
+     * @param root
+     * @return
+     */
+    public TreeNode reverseOddLevels(TreeNode root) {
+        boolean isOdd = true;
+        Queue<TreeNode> deque = new ArrayDeque<>();
+        deque.offer(root);
+
+        while (!deque.isEmpty()) {
+            int s = deque.size();
+            Stack<Integer> stack = new Stack<>();
+            List<TreeNode> list = new ArrayList<>();
+
+            for (int i = 0; i < s; i++) {
+                TreeNode temp = deque.poll();
+                if (temp.left != null && isOdd) {
+                    list.add(temp);
+                    stack.push(temp.left.val);
+                    stack.push(temp.right.val);
+                }
+                if (temp.left != null) {
+                    deque.offer(temp.left);
+                    deque.offer(temp.right);
+                }
+            }
+            if (isOdd && !stack.isEmpty()) {
+                for (TreeNode t : list) {
+                    t.left.val = stack.pop();
+                    t.right.val = stack.pop();
+                }
+            }
+            isOdd = !isOdd;
+        }
+        return root;
     }
 
 }
