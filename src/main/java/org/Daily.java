@@ -1201,4 +1201,19 @@ public class Daily {
         return r;
     }
 
+    /**
+     * 12.20 每日一题
+     * 2828. 判别首字母缩略词
+     *
+     * @param words
+     * @param s
+     * @return
+     */
+    public boolean isAcronym(List<String> words, String s) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for(String word : words){
+            stringBuilder.append(word.charAt(0));
+        }
+        return s.equals(stringBuilder.toString());
+    }
 }
