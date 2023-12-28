@@ -1306,4 +1306,37 @@ public class Daily {
         }
         return reversed;
     }
+
+
+    /**
+     * 12.28 每日一题
+     * 2735. 收集巧克力
+     *
+     * @param nums
+     * @param x
+     * @return
+     */
+    public long minCost(int[] nums, int x) {
+        int n = nums.length;
+        int sum = 0;
+        long result = Integer.MAX_VALUE;
+        int[] temp = new int[n];
+        System.arraycopy(nums, 0, temp, 0, n);
+        result = getSum(temp);
+        for (int k = 1; k < n; k++) {
+            for (int i = 0; i < n; i++) {
+                temp[i] = Math.min(temp[i], nums[(i + k) % n]);
+            }
+            result = Math.min(result, (long) k * x + getSum(temp));
+        }
+        return result;
+    }
+
+    public long getSum(int[] temp) {
+        long sum = 0;
+        for (int i : temp) {
+            sum += i;
+        }
+        return sum;
+    }
 }
