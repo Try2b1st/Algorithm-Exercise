@@ -1339,4 +1339,22 @@ public class Daily {
         }
         return sum;
     }
+
+
+    /**
+     * 12.29 每日一题
+     * 2706. 购买两块巧克力
+     *
+     * @param prices
+     * @param money
+     * @return
+     */
+    public int buyChoco(int[] prices, int money) {
+        Arrays.sort(prices);
+        if(prices[0] + prices[1] > money) {
+            return money;
+        }else{
+            return money - prices[0] - prices[1];
+        }
+    }
 }
