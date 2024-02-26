@@ -1351,10 +1351,42 @@ public class Daily {
      */
     public int buyChoco(int[] prices, int money) {
         Arrays.sort(prices);
-        if(prices[0] + prices[1] > money) {
+        if (prices[0] + prices[1] > money) {
             return money;
-        }else{
+        } else {
             return money - prices[0] - prices[1];
+        }
+    }
+
+
+    /**
+     * 02.26 每日一题
+     *
+     * @param root
+     * @param low
+     * @param high
+     * @return
+     */
+    int sumBST = 0;
+
+    public int rangeSumBST(TreeNode root, int low, int high) {
+        if (root == null) {
+            return 0;
+        }
+        scand(root, low, high);
+        return sumBST;
+    }
+
+    public void scand(TreeNode root, int low, int high) {
+        int x = root.val;
+        if (root.left != null) {
+            scand(root.left, low, high);
+        }
+        if ((x > low || x == low) && (x < high || x == high)) {
+            sumBST += x;
+        }
+        if (root.right != null) {
+            scand(root.right, low, high);
         }
     }
 }
