@@ -1403,7 +1403,6 @@ public class Daily {
     int[] in = new int[N];
     long[] dist = new long[N];
     boolean[] visted = new boolean[N];
-
     public int countPaths(int n, int[][] roads) {
         int[] dp = new int[n];
 
