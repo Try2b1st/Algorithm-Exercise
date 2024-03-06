@@ -61,4 +61,28 @@ public class Hash {
         }
         return false;
     }
+
+    /**
+     * LCR 128. 库存管理 I
+     *
+     * @param stock
+     * @return
+     */
+    public int stockManagement(int[] stock) {
+        int l = 0;
+        int r = stock.length - 1;
+
+        while (l < r) {
+            int m = l + (r - l) / 2;
+            if(stock[m] > stock[r]){
+                l = m;
+            }else if(stock[m] < stock[r]){
+                r = m;
+            }else if(stock[m] == stock[r]){
+                r-=1;
+            }
+        }
+        return stock[l];
+
+    }
 }
