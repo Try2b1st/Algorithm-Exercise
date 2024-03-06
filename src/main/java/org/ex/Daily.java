@@ -1403,6 +1403,7 @@ public class Daily {
     int[] in = new int[N];
     long[] dist = new long[N];
     boolean[] visted = new boolean[N];
+
     public int countPaths(int n, int[][] roads) {
         int[] dp = new int[n];
 
@@ -1439,14 +1440,14 @@ public class Daily {
         dp[0] = 1;
         while (!deque.isEmpty()) {
             int x = deque.pollFirst();
-            for(int i = 0;i<n;i++){
-                if(graph[x][i] == 0){
+            for (int i = 0; i < n; i++) {
+                if (graph[x][i] == 0) {
                     continue;
                 }
                 dp[i] += dp[x];
                 dp[i] %= MOD;
                 in[i]--;
-                if(in[i] == 0){
+                if (in[i] == 0) {
                     deque.addLast(i);
                 }
             }
@@ -1471,5 +1472,27 @@ public class Daily {
                 dist[j] = Math.min(dist[j], dist[t] + graph[t][j]);
             }
         }
+    }
+
+    /**
+     * 03.06 每日一题
+     * 2917. 找出数组中的 K-or 值
+     *
+     * @param nums 数组
+     * @param k    整数
+     * @return i
+     */
+    public int findKOr(int[] nums, int k) {
+        int result = 0;
+        for (int i = 0; i < 31; i++) {
+            int count = 0;
+            for (int x : nums) {
+                count += x >> i & 1;
+            }
+            if (count >= k) {
+                result += 1 << i;
+            }
+        }
+        return result;
     }
 }
