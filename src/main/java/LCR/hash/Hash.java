@@ -83,6 +83,23 @@ public class Hash {
             }
         }
         return stock[l];
+    }
 
+    /**
+     * LCR 131. 砍竹子 I
+     *
+     * @param bamboo_len
+     * @return
+     */
+    public int cuttingBamboo(int bamboo_len) {
+        int result = 1;
+
+        while(bamboo_len >4){
+            bamboo_len -= 3;
+            result *= 3;
+        }
+
+        result *= bamboo_len;
+        return result;
     }
 }
