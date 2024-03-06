@@ -74,12 +74,12 @@ public class Hash {
 
         while (l < r) {
             int m = l + (r - l) / 2;
-            if(stock[m] > stock[r]){
+            if (stock[m] > stock[r]) {
                 l = m;
-            }else if(stock[m] < stock[r]){
+            } else if (stock[m] < stock[r]) {
                 r = m;
-            }else if(stock[m] == stock[r]){
-                r-=1;
+            } else if (stock[m] == stock[r]) {
+                r -= 1;
             }
         }
         return stock[l];
@@ -94,12 +94,32 @@ public class Hash {
     public int cuttingBamboo(int bamboo_len) {
         int result = 1;
 
-        while(bamboo_len >4){
+        while (bamboo_len > 4) {
             bamboo_len -= 3;
             result *= 3;
+
         }
 
         result *= bamboo_len;
         return result;
+    }
+
+    /**
+     * LCR 132. 砍竹子 II
+     *
+     * @param bamboo_len
+     * @return
+     */
+    public int cuttingBamboo_2(int bamboo_len) {
+        int[] dp = new int[bamboo_len + 1];
+        dp[2] = 1;
+
+        for (int i = 3; i < bamboo_len + 1; i++) {
+            for (int j = 0; j < i / 2; i++) {
+                dp[i] = Math.max(dp[i],Math.max(i*(i-j),i*dp[i-j]));
+            }
+        }
+
+        return dp[bamboo_len];
     }
 }
