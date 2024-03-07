@@ -1495,4 +1495,33 @@ public class Daily {
         }
         return result;
     }
+
+
+    /**
+     * 03.07 每日一题
+     * 2575. 找出字符串的可整除数组
+     * ((a * 10) + b) mod x = (a * 10) mod x + b mod x
+     *
+     * @param word
+     * @param m
+     * @return
+     */
+    public int[] divisibilityArray(String word, int m) {
+        int l = word.length();
+        int[] result = new int[l];
+
+        long cur = 0;
+        for (int i = 0; i < l; i++) {
+            char c = word.charAt(i);
+            cur = (cur * 10 + c - '0') % m;
+
+            if(cur == 0){
+                result[i] = 1;
+            }else{
+                result[i] = 0;
+            }
+        }
+
+        return result;
+    }
 }
