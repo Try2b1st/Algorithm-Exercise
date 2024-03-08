@@ -116,10 +116,76 @@ public class Hash {
 
         for (int i = 3; i < bamboo_len + 1; i++) {
             for (int j = 0; j < i / 2; i++) {
-                dp[i] = Math.max(dp[i],Math.max(i*(i-j),i*dp[i-j]));
+                dp[i] = Math.max(dp[i], Math.max(i * (i - j), i * dp[i - j]));
             }
         }
 
         return dp[bamboo_len];
     }
+
+    /**
+     * LCR 135. 报数
+     * 主要考点是大数越界情况下的打印。
+     *
+     * @param cnt
+     * @return
+     */
+    char[] nums, loop = new char[]{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+    StringBuilder result;
+    int count;
+    int nine;
+    int start;
+
+    public String countNumbers(int cnt) {
+        count = cnt;
+        result = new StringBuilder();
+        nums = new char[cnt];
+        start = cnt - 1;
+        dfsToCountNumber(0);
+
+        result.deleteCharAt(result.length() - 1);
+        return result.toString();
+    }
+
+    void dfsToCountNumber(int x) {
+        //当确定到最后一位
+        if (x == count) {
+            String s = String.valueOf(nums).substring(start);
+            if (!s.equals("0")) {
+                result.append(s).append(",");
+            }
+            if(count - start == nine){
+                start--;
+            }
+            return;
+        }
+
+        for (char c : loop) {
+            if(c == '9'){
+                nine++;
+            }
+            nums[x] = c;
+            dfsToCountNumber(x + 1);
+        }
+        nine--;
+
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
