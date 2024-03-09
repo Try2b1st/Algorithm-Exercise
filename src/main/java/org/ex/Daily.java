@@ -1515,13 +1515,83 @@ public class Daily {
             char c = word.charAt(i);
             cur = (cur * 10 + c - '0') % m;
 
-            if(cur == 0){
+            if (cur == 0) {
                 result[i] = 1;
-            }else{
+            } else {
                 result[i] = 0;
             }
         }
 
         return result;
+    }
+
+
+    /**
+     * 03.08 每日一题
+     * 2834. 找出美丽数组的最小和
+     *
+     * @param n
+     * @param target
+     * @return
+     */
+    public int minimumPossibleSum(int n, int target) {
+        int x = target / 2;
+        int result;
+        if(n < x){
+            result = ((1 + x) * x / 2) % MOD;
+        }else{
+            result = ((1 + n) * n / 2) % MOD;
+        }
+        if (!(n > x)) {
+            return result;
+        }
+        result += (n - x) * (target) + (n - x - 1) * (n - x) / 2;
+        return result;
+    }
+
+
+    /**
+     * 03.09 每日一题
+     * 2386. 找出数组的第 K 大和
+     *
+     * @param nums
+     * @param k
+     * @return
+     */
+    int cntk;
+    public long kSum(int[] nums, int k) {
+        long sum = 0, right = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] >= 0) {
+                sum += nums[i];
+            } else {
+                nums[i] = -nums[i];
+            }
+            right += nums[i];
+        }
+        Arrays.sort(nums);
+
+        long left = -1;
+        while (left + 1 < right) { // 开区间二分，原理见【前置知识】
+            long mid = (left + right) / 2;
+            cntk = k - 1; // 空子序列算一个
+            dfs(0, mid, nums);
+            if (cntk == 0) { // 找到 k 个元素和不超过 mid 的子序列
+                right = mid;
+            } else {
+                left = mid;
+            }
+        }
+        return sum - right;
+    }
+
+    // 反向递归，增加改成减少，这样可以少传一些参数
+    private void dfs(int i, long s, int[] nums) {
+        if (cntk == 0 || i == nums.length || s < nums[i]) {
+            return;
+        }
+        cntk--;
+        dfs(i + 1, s - nums[i], nums); // 选
+        dfs(i + 1, s, nums); // 不选
     }
 }
