@@ -1,5 +1,6 @@
 package LCR.hash;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -154,14 +155,14 @@ public class Hash {
             if (!s.equals("0")) {
                 result.append(s).append(",");
             }
-            if(count - start == nine){
+            if (count - start == nine) {
                 start--;
             }
             return;
         }
 
         for (char c : loop) {
-            if(c == '9'){
+            if (c == '9') {
                 nine++;
             }
             nums[x] = c;
@@ -169,6 +170,33 @@ public class Hash {
         }
         nine--;
 
+    }
+
+
+    /**
+     * LCR 139. 训练计划 I
+     *
+     * @param actions
+     * @return
+     */
+    public int[] trainingPlan(int[] actions) {
+        int l = 0;
+        int r = actions.length - 1;
+
+        while (l < r) {
+            while (l < r && actions[l] % 2 == 1) {
+                l++;
+            }
+            while (l < r && actions[r] % 2 == 0) {
+                r--;
+            }
+            int temp = actions[l];
+            actions[l] = actions[r];
+            actions[r] = temp;
+
+        }
+
+        return actions;
     }
 }
 
