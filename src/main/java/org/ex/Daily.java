@@ -1626,6 +1626,20 @@ public class Daily {
         }
         return sb.toString();
     }
+    public String capitalizeTitleByEasy(String title) {
+        StringBuilder stringBuilder = new StringBuilder(title);
+        for(String s : title.split(" ")){
+            if(!stringBuilder.isEmpty()){
+                stringBuilder.append(' ');
+            }
+            if(s.length() > 2){
+                stringBuilder.append(s.substring(0,1).toUpperCase());
+                s = s.substring(1);
+            }
+            stringBuilder.append(s.toLowerCase());
+        }
+        return stringBuilder.toString();
+    }
 }
 
 
