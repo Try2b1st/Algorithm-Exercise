@@ -249,6 +249,49 @@ public class Hash {
     }
 
 
+    /**
+     * LCR 159. 库存管理 III
+     * 快排
+     *
+     * @param stock
+     * @param cnt
+     * @return
+     */
+    public int[] inventoryManagement(int[] stock, int cnt) {
+        if(cnt >= stock.length){
+            return stock;
+        }
+        return quickSort(stock, cnt, 0, stock.length - 1);
+    }
+
+    private int[] quickSort(int[] stock, int cnt, int l, int r) {
+        int i = l;
+        int j = r;
+        while (i < j) {
+            while (i < j && stock[j] >= stock[l]) {
+                j--;
+            }
+            while (i < j && stock[l] >= stock[i]) {
+                i++;
+            }
+            swap(stock, i, j);
+        }
+        swap(stock, i, l);
+
+        if (i < cnt) {
+            return quickSort(stock, cnt, l, i - 1);
+        }
+        if (i > cnt) {
+            return quickSort(stock, cnt, i + 1, r);
+        }
+        return Arrays.copyOf(stock, cnt);
+    }
+
+    private void swap(int[] stock, int l, int r) {
+        int temp = stock[l];
+        stock[l] = stock[r];
+        stock[r] = temp;
+    }
 }
 
 
