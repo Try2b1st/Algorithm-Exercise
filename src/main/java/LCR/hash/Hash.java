@@ -1,8 +1,6 @@
 package LCR.hash;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class Hash {
 
@@ -198,6 +196,59 @@ public class Hash {
 
         return actions;
     }
+
+    /**
+     * LCR 158. 库存管理 II
+     *
+     * @param stock
+     * @return
+     */
+    public int inventoryManagementByEasy(int[] stock) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+
+        for (int x : stock) {
+            if (map.containsKey(x)) {
+                map.put(x, map.get(x) + 1);
+            } else {
+                map.put(x, 1);
+            }
+        }
+
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            if (entry.getValue() > stock.length / 2) {
+                return entry.getKey();
+            }
+        }
+
+        return -1;
+    }
+
+    /**
+     * 摩尔投票法
+     *
+     * @param stock
+     * @return
+     */
+    public int inventoryManagement(int[] stock) {
+        int x = stock[0];
+        int point = 1;
+
+        for (int i = 1; i < stock.length; i++) {
+            if (point == 0) {
+                x = stock[i];
+                point = 1;
+            } else {
+                if (stock[i] != x) {
+                    point--;
+                } else {
+                    point++;
+                }
+            }
+        }
+        return x;
+    }
+
+
 }
 
 
