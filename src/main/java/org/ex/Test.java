@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 public class Test {
     public static void main(String[] args) {
-        Hash hash = new Hash();
-        hash.trainingPlan(new int[]{1,2,3,4,5});
+        Daily daily = new Daily();
+        daily.capitalizeTitle("First leTTeR of EACH Word");
     }
 }

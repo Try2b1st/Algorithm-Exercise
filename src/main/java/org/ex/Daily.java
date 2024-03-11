@@ -1537,9 +1537,9 @@ public class Daily {
     public int minimumPossibleSum(int n, int target) {
         int x = target / 2;
         int result;
-        if(n < x){
+        if (n < x) {
             result = ((1 + x) * x / 2) % MOD;
-        }else{
+        } else {
             result = ((1 + n) * n / 2) % MOD;
         }
         if (!(n > x)) {
@@ -1559,6 +1559,7 @@ public class Daily {
      * @return
      */
     int cntk;
+
     public long kSum(int[] nums, int k) {
         long sum = 0, right = 0;
         for (int i = 0; i < nums.length; i++) {
@@ -1572,7 +1573,7 @@ public class Daily {
         Arrays.sort(nums);
 
         long left = -1;
-        while (left + 1 < right) { // 开区间二分，原理见【前置知识】
+        while (left + 1 < right) { // 开区间二分
             long mid = (left + right) / 2;
             cntk = k - 1; // 空子序列算一个
             dfs(0, mid, nums);
@@ -1594,4 +1595,64 @@ public class Daily {
         dfs(i + 1, s - nums[i], nums); // 选
         dfs(i + 1, s, nums); // 不选
     }
+
+    /**
+     * 03.11 每日一题
+     * 2129. 将标题首字母大写
+     *
+     * @param title
+     * @return
+     */
+    public String capitalizeTitle(String title) {
+        int l = 0;
+        int r = 1;
+        int length = title.length();
+        StringBuilder sb = new StringBuilder(title);
+
+        while (r < length) {
+            while (r < length && title.charAt(r) != ' ') {
+                if (title.charAt(r) <= 'Z') {
+                    sb.setCharAt(r, (char) (title.charAt(r) + 32));
+                }
+                r++;
+            }
+
+            if (r - l > 2 && sb.charAt(l) >= 'a') {
+                sb.setCharAt(l, (char) (sb.charAt(l) - 32));
+            }
+
+            r++;
+            l=r;
+        }
+        return sb.toString();
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
