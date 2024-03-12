@@ -1622,23 +1622,49 @@ public class Daily {
             }
 
             r++;
-            l=r;
+            l = r;
         }
         return sb.toString();
     }
+
     public String capitalizeTitleByEasy(String title) {
         StringBuilder stringBuilder = new StringBuilder(title);
-        for(String s : title.split(" ")){
-            if(!stringBuilder.isEmpty()){
+        for (String s : title.split(" ")) {
+            if (!stringBuilder.isEmpty()) {
                 stringBuilder.append(' ');
             }
-            if(s.length() > 2){
-                stringBuilder.append(s.substring(0,1).toUpperCase());
+            if (s.length() > 2) {
+                stringBuilder.append(s.substring(0, 1).toUpperCase());
                 s = s.substring(1);
             }
             stringBuilder.append(s.toLowerCase());
         }
         return stringBuilder.toString();
+    }
+
+    /**
+     * 1261. 在受污染的二叉树中查找元素
+     */
+    public class FindElements {
+        private final Set<Integer> set = new HashSet<>();
+
+        public FindElements(TreeNode root) {
+            dfsToFindElements(root, 0);
+        }
+
+        public boolean find(int target) {
+            return set.contains(target);
+        }
+
+        private void dfsToFindElements(TreeNode root, int x) {
+            if (root == null) {
+                return;
+            }
+            root.val = x;
+            set.add(x);
+            dfsToFindElements(root.left, 2 * x + 1);
+            dfsToFindElements(root.right, 2 * x + 2);
+        }
     }
 }
 
