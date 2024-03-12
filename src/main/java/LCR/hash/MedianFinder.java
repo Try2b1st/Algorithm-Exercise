@@ -3,6 +3,9 @@ package LCR.hash;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
+/**
+ * LCR 160. 数据流中的中位数
+ */
 public class MedianFinder {
 
     Queue<Integer> min, max;
