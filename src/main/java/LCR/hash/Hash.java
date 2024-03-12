@@ -258,7 +258,7 @@ public class Hash {
      * @return
      */
     public int[] inventoryManagement(int[] stock, int cnt) {
-        if(cnt >= stock.length){
+        if (cnt >= stock.length) {
             return stock;
         }
         return quickSort(stock, cnt, 0, stock.length - 1);
@@ -291,6 +291,33 @@ public class Hash {
         int temp = stock[l];
         stock[l] = stock[r];
         stock[r] = temp;
+    }
+
+
+    /**
+     * LCR 164. 破解闯关密码
+     *
+     * @param password
+     * @return
+     */
+    public String crackPassword(int[] password) {
+        StringBuilder stringBuilder = new StringBuilder();
+        int length = password.length;
+
+        Integer[] arr2 = Arrays.stream(password).boxed().toArray(Integer[]::new);
+        Arrays.sort(arr2, new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                String s1 = String.valueOf(o1);
+                String s2 = String.valueOf(o2);
+                return (s2 + s1).compareTo(s1 + s2);
+            }
+        });
+
+        for (int temp : arr2) {
+            stringBuilder.append(temp);
+        }
+        return stringBuilder.toString();
     }
 }
 

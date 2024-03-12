@@ -8,10 +8,7 @@ import java.util.Arrays;
 
 public class Test {
     public static void main(String[] args) {
-        MedianFinder medianFinder = new MedianFinder();
-
-        medianFinder.addNum(1);
-        medianFinder.addNum(2);
-        medianFinder.findMedian();
+        Hash hash  =new Hash();
+        hash.crackPassword(new int[]{15,7,8});
     }
 }
