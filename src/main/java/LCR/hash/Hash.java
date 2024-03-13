@@ -356,6 +356,7 @@ public class Hash {
      * @return
      */
     int countToReverPairs = 0;
+
     public int reversePairs(int[] record) {
         merge(record, 0, record.length - 1);
         return countToReverPairs;
@@ -395,6 +396,51 @@ public class Hash {
         for (int x : temp) {
             nums[left++] = x;
         }
+    }
+
+
+    /**
+     * LCR 172. 统计目标成绩的出现次数
+     *
+     * @param scores
+     * @param target
+     * @return
+     */
+    public int countTarget(int[] scores, int target) {
+        if(scores.length == 0){
+            return 0;
+        }
+        int l = 0;
+        int r = scores.length - 1;
+        int mid = 0;
+        int result = 0;
+
+        while (l < r) {
+            mid = l + (r - l) / 2;
+            if (scores[mid] == target) {
+                break;
+            } else if (scores[mid] > target) {
+                r = mid - 1;
+            } else {
+                l = mid + 1;
+            }
+        }
+        if (scores[mid] != target) {
+            return result;
+        }else{
+            result++;
+        }
+        int rmid = mid + 1;
+        int lmid = mid - 1;
+        while (rmid <= r && scores[rmid] == target) {
+            rmid++;
+            result++;
+        }
+        while (lmid >= 0 && scores[lmid] == target) {
+            lmid--;
+            result++;
+        }
+        return result;
     }
 }
 
