@@ -347,6 +347,55 @@ public class Hash {
 
         return res[n - 1];
     }
+
+    /**
+     * LCR 170. 交易逆序对的总数
+     * 归并排序
+     *
+     * @param record
+     * @return
+     */
+    int countToReverPairs = 0;
+    public int reversePairs(int[] record) {
+        merge(record, 0, record.length - 1);
+        return countToReverPairs;
+    }
+
+    public void merge(int[] nums, int l, int r) {
+        int mid = l + (r - l) / 2;
+        if (l < r) {
+            merge(nums, l, mid);
+            merge(nums, mid + 1, r);
+            mergeSort(nums, l, mid, r);
+        }
+    }
+
+    public void mergeSort(int[] nums, int left, int mid, int right) {
+        int[] temp = new int[right - left + 1];
+        int tempCount = 0;
+        int leftStart = left;
+        int rightStart = mid + 1;
+        while (leftStart <= mid && rightStart <= right) {
+            if (nums[leftStart] <= nums[rightStart]) {
+                temp[tempCount++] = nums[leftStart];
+                leftStart++;
+            } else {
+                temp[tempCount++] = nums[rightStart];
+                countToReverPairs++;
+                countToReverPairs += (mid - leftStart);
+                rightStart++;
+            }
+        }
+        while (leftStart <= mid) {
+            temp[tempCount++] = nums[leftStart++];
+        }
+        while (rightStart <= right) {
+            temp[tempCount++] = nums[rightStart++];
+        }
+        for (int x : temp) {
+            nums[left++] = x;
+        }
+    }
 }
 
 
