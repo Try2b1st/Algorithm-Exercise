@@ -1666,6 +1666,25 @@ public class Daily {
             dfsToFindElements(root.right, 2 * x + 2);
         }
     }
+
+
+    /**
+     * 03.13
+     * 2864. 最大二进制奇数
+     *
+     * @param s
+     * @return
+     */
+    public String maximumOddBinaryNumber(String s) {
+        int length = s.length();
+        int count = 0;
+        for (int i = 0; i < length; i++) {
+            if(s.charAt(i) == '1'){
+                count++;
+            }
+        }
+        return "1".repeat(count - 1) + "0".repeat(length - count) + "1";
+    }
 }
 
 
