@@ -442,6 +442,33 @@ public class Hash {
         }
         return result;
     }
+
+
+    /**
+     * LCR 173.点名
+     *
+     * @param records
+     * @return
+     */
+    public int takeAttendance(int[] records) {
+        int l = 0;
+        int r = records.length - 1;
+        int mid = l + (r - l) / 2;
+
+        while (l < r) {
+            if (records[mid] == mid) {
+                l = mid + 1;
+            } else {
+                r = mid - 1;
+            }
+            mid = l + (r - l) / 2;
+        }
+        if(records[l] == l){
+            return l + 1;
+        }else{
+            return l;
+        }
+    }
 }
 
 
