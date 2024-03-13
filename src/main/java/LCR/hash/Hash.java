@@ -407,7 +407,7 @@ public class Hash {
      * @return
      */
     public int countTarget(int[] scores, int target) {
-        if(scores.length == 0){
+        if (scores.length == 0) {
             return 0;
         }
         int l = 0;
@@ -427,7 +427,7 @@ public class Hash {
         }
         if (scores[mid] != target) {
             return result;
-        }else{
+        } else {
             result++;
         }
         int rmid = mid + 1;
