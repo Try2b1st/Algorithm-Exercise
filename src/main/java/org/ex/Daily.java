@@ -1679,11 +1679,33 @@ public class Daily {
         int length = s.length();
         int count = 0;
         for (int i = 0; i < length; i++) {
-            if(s.charAt(i) == '1'){
+            if (s.charAt(i) == '1') {
                 count++;
             }
         }
         return "1".repeat(count - 1) + "0".repeat(length - count) + "1";
+    }
+
+
+    /**
+     * 03.14
+     * 2789. 合并后数组中的最大元素
+     *
+     * @param nums
+     * @return
+     */
+    public long maxArrayValue(int[] nums) {
+        int n = nums.length;
+        long result = nums[n - 1];
+
+        for (int i = n - 2; i >= 0; i--) {
+            if(nums[i] <= result){
+                result += nums[i];
+            }else{
+                result = nums[i];
+            }
+        }
+        return result;
     }
 }
 
