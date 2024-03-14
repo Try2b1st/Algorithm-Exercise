@@ -486,14 +486,55 @@ public class Hash {
             int tempSum = price[l] + price[r];
             if (tempSum == target) {
                 return new int[]{price[l], price[r]};
-            }else if(tempSum < target){
+            } else if (tempSum < target) {
                 l++;
-            }else{
+            } else {
                 r++;
             }
         }
 
         return null;
+    }
+
+
+    /**
+     * LCR 180. 文件组合
+     *
+     * @param target
+     * @return
+     */
+    public int[][] fileCombination(int target) {
+        List<int[]> list = new ArrayList<>();
+
+        int start = 1;
+        int end = 2;
+        int sum = 3;
+
+        while (start < end) {
+            if (sum == target) {
+                list.add(getAns(start, end));
+                sum -= start;
+                start++;
+                end++;
+                sum += end;
+            } else if (sum < target) {
+                end++;
+                sum += end;
+            } else {
+                sum -= start;
+                start++;
+            }
+        }
+        return list.toArray(new int[0][]);
+    }
+
+    private int[] getAns(int start, int end) {
+        int[] ans = new int[end - start + 1];
+        int count = 0;
+        for (int i = start; i <= end; i++) {
+            ans[count++] = i;
+        }
+        return ans;
     }
 
 }
