@@ -567,7 +567,7 @@ public class Hash {
         for (; r < heights.length; r++, l++) {
             result[count++] = myDeque.peek();
             myDeque.pop(heights[l]);
-            if(r + 1 <heights.length){
+            if (r + 1 < heights.length) {
                 myDeque.add(heights[r + 1]);
             }
         }
@@ -598,6 +598,39 @@ public class Hash {
             return deque.getFirst();
         }
 
+    }
+
+
+    /**
+     * LCR 186. 文物朝代判断
+     *
+     * @param places
+     * @return
+     */
+    public boolean checkDynasty(int[] places) {
+        Arrays.sort(places);
+        boolean result = true;
+        int n = places.length;
+
+        int l = 0;
+        for (; l < n; l++) {
+            if (places[l] != 0) {
+                break;
+            }
+        }
+
+        for (int i = l + 1; i < n; i++) {
+            if (places[i] == places[i - 1]) {
+                return false;
+            }
+            if (places[i] - places[i - 1] != 1) {
+                l -= places[i] - places[i - 1] - 1;
+                if (l < 0) {
+                    return false;
+                }
+            }
+        }
+        return result;
     }
 
 }
