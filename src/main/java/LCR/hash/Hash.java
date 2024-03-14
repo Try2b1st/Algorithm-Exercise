@@ -1,5 +1,8 @@
 package LCR.hash;
 
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.*;
 
 public class Hash {
@@ -528,6 +531,7 @@ public class Hash {
         return list.toArray(new int[0][]);
     }
 
+    @NotNull
     private int[] getAns(int start, int end) {
         int[] ans = new int[end - start + 1];
         int count = 0;
@@ -535,6 +539,65 @@ public class Hash {
             ans[count++] = i;
         }
         return ans;
+    }
+
+
+    /**
+     * LCR 183. 望远镜中最高的海拔
+     *
+     * @param heights
+     * @param limit
+     * @return
+     */
+    public int[] maxAltitude(int[] heights, int limit) {
+        int l = 0;
+        int r = limit - 1;
+        int count = 0;
+        if (r <= 0) {
+            return new int[]{0};
+        }
+
+        MyDeque myDeque = new MyDeque();
+        int[] result = new int[heights.length - limit + 1];
+
+        for (int i = l; i < r; i++) {
+            myDeque.add(heights[l]);
+        }
+
+        for (; r < heights.length; r++, l++) {
+            result[count++] = myDeque.peek();
+            myDeque.pop(heights[l]);
+            if(r + 1 <heights.length){
+                myDeque.add(heights[r + 1]);
+            }
+        }
+        return result;
+    }
+
+    public static class MyDeque {
+        private Deque<Integer> deque;
+
+        public MyDeque() {
+            deque = new LinkedList<>();
+        }
+
+        public void add(int x) {
+            while (!deque.isEmpty() && x > deque.getLast()) {
+                deque.removeLast();
+            }
+            deque.addLast(x);
+        }
+
+        public void pop(int x) {
+            if (!deque.isEmpty() && x == deque.getFirst()) {
+                deque.removeFirst();
+            }
+        }
+
+        public int peek() {
+            return deque.getFirst();
+        }
+
     }
 
 }
