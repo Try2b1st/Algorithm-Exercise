@@ -1,5 +1,10 @@
 package Hot100;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
+
 public class array {
     /**
      * 189. 轮转数组
@@ -45,10 +50,43 @@ public class array {
 
         int temp = 1;
         for (int i = length - 2; i >= 0; i--) {
-            temp *= nums[i+1];
+            temp *= nums[i + 1];
             result[i] *= temp;
         }
 
         return result;
     }
+
+
+    /**
+     * 41. 缺失的第一个正数
+     *
+     * @param nums
+     * @return
+     */
+    public int firstMissingPositive(int[] nums) {
+        int n = nums.length;
+        for (int i = 0; i < n; i++) {
+            if (nums[i] <= 0) {
+                nums[i] = n + 1;
+            }
+        }
+
+        for (int i = 0; i < n; i++) {
+            int num = Math.abs(nums[i]);
+            if (num <= n) {
+                nums[num - 1] = -Math.abs(nums[num - 1]);
+            }
+        }
+
+        for(int i = 0 ;i < n ;i++){
+            if(nums[i] > 0){
+                return i + 1;
+            }
+        }
+
+        return n + 1;
+    }
+
+
 }
