@@ -463,12 +463,39 @@ public class Hash {
             }
             mid = l + (r - l) / 2;
         }
-        if(records[l] == l){
+        if (records[l] == l) {
             return l + 1;
-        }else{
+        } else {
             return l;
         }
     }
+
+
+    /**
+     * LCR 179. 查找总价格为目标值的两个商品
+     *
+     * @param price
+     * @param target
+     * @return
+     */
+    public int[] twoSum(int[] price, int target) {
+        int l = 0;
+        int r = price.length - 1;
+
+        while (l < r) {
+            int tempSum = price[l] + price[r];
+            if (tempSum == target) {
+                return new int[]{price[l], price[r]};
+            }else if(tempSum < target){
+                l++;
+            }else{
+                r++;
+            }
+        }
+
+        return null;
+    }
+
 }
 
 
