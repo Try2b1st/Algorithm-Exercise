@@ -1699,13 +1699,45 @@ public class Daily {
         long result = nums[n - 1];
 
         for (int i = n - 2; i >= 0; i--) {
-            if(nums[i] <= result){
+            if (nums[i] <= result) {
                 result += nums[i];
-            }else{
+            } else {
                 result = nums[i];
             }
         }
         return result;
+    }
+
+
+    /**
+     * 03.15
+     * 2312. 卖木头块
+     *
+     * @param m
+     * @param n
+     * @param prices
+     * @return
+     */
+    public long sellingWood(int m, int n, int[][] prices) {
+        long[][] dp = new long[m + 1][n + 1];
+
+        for (int[] temp : prices) {
+            dp[temp[0]][temp[1]] = temp[2];
+        }
+
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= n; j++) {
+                //垂直切割
+                for (int k = 1; k <= j/2; k++) {
+                    dp[i][j] = Math.max(dp[i][j], dp[i][j - k] + dp[i][k]);
+                }
+                //水平切割
+                for (int k = 1; k <= i/2; k++) {
+                    dp[i][j] = Math.max(dp[i][j], dp[i - k][j] + dp[k][j]);
+                }
+            }
+        }
+        return dp[m][n];
     }
 }
 
