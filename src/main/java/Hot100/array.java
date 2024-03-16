@@ -79,8 +79,8 @@ public class array {
             }
         }
 
-        for(int i = 0 ;i < n ;i++){
-            if(nums[i] > 0){
+        for (int i = 0; i < n; i++) {
+            if (nums[i] > 0) {
                 return i + 1;
             }
         }
@@ -89,4 +89,48 @@ public class array {
     }
 
 
+    /**
+     * 73. 矩阵置零
+     *
+     * @param matrix
+     */
+    public void setZeroes(int[][] matrix) {
+        Set<Integer> h = new HashSet<>();
+        Set<Integer> l = new HashSet<>();
+        int x = matrix.length;
+        int y = matrix[0].length;
+
+        for (int i = 0; i < x; i++) {
+            if (h.contains(i)) {
+                continue;
+            }
+            for (int j = 0; j < y; j++) {
+                if (l.contains(j)) {
+                    continue;
+                }
+                if (matrix[i][j] == 0) {
+                    h.add(i);
+                    l.add(j);
+                }
+            }
+        }
+        for (int temp : h) {
+            setHZeroes(matrix, temp, y);
+        }
+        for (int temp : l) {
+            setLZeroes(matrix, temp, x);
+        }
+    }
+
+    public void setHZeroes(int[][] matrix, int h, int maxL) {
+        for (int i = 0; i < maxL; i++) {
+            matrix[h][i] = 0;
+        }
+    }
+
+    public void setLZeroes(int[][] matrix, int l, int maxH) {
+        for (int i = 0; i < maxH; i++) {
+            matrix[i][l] = 0;
+        }
+    }
 }
