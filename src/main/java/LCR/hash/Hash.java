@@ -633,6 +633,20 @@ public class Hash {
         return result;
     }
 
+
+    /**
+     * LCR 189. 设计机械累加器
+     *
+     * @param target
+     * @return
+     */
+    int resultToMechanicalAccumulator = 0;
+    public int mechanicalAccumulator(int target) {
+        boolean flag = target > 1 && mechanicalAccumulator(target - 1) > 0;
+        resultToMechanicalAccumulator += target;
+        return resultToMechanicalAccumulator;
+    }
+
 }
 
 
