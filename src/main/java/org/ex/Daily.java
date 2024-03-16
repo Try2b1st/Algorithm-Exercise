@@ -1627,20 +1627,20 @@ public class Daily {
         return sb.toString();
     }
 
-    public String capitalizeTitleByEasy(String title) {
-        StringBuilder stringBuilder = new StringBuilder(title);
-        for (String s : title.split(" ")) {
-            if (!stringBuilder.isEmpty()) {
-                stringBuilder.append(' ');
-            }
-            if (s.length() > 2) {
-                stringBuilder.append(s.substring(0, 1).toUpperCase());
-                s = s.substring(1);
-            }
-            stringBuilder.append(s.toLowerCase());
-        }
-        return stringBuilder.toString();
-    }
+//    public String capitalizeTitleByEasy(String title) {
+//        StringBuilder stringBuilder = new StringBuilder(title);
+//        for (String s : title.split(" ")) {
+//            if (!stringBuilder.isEmpty()) {
+//                stringBuilder.append(' ');
+//            }
+//            if (s.length() > 2) {
+//                stringBuilder.append(s.substring(0, 1).toUpperCase());
+//                s = s.substring(1);
+//            }
+//            stringBuilder.append(s.toLowerCase());
+//        }
+//        return stringBuilder.toString();
+//    }
 
     /**
      * 1261. 在受污染的二叉树中查找元素
@@ -1710,7 +1710,7 @@ public class Daily {
 
 
     /**
-     * 03.15
+     * 03.15 每日一题
      * 2312. 卖木头块
      *
      * @param m
@@ -1728,16 +1728,49 @@ public class Daily {
         for (int i = 1; i <= m; i++) {
             for (int j = 1; j <= n; j++) {
                 //垂直切割
-                for (int k = 1; k <= j/2; k++) {
+                for (int k = 1; k <= j / 2; k++) {
                     dp[i][j] = Math.max(dp[i][j], dp[i][j - k] + dp[i][k]);
                 }
                 //水平切割
-                for (int k = 1; k <= i/2; k++) {
+                for (int k = 1; k <= i / 2; k++) {
                     dp[i][j] = Math.max(dp[i][j], dp[i - k][j] + dp[k][j]);
                 }
             }
         }
         return dp[m][n];
+    }
+
+
+    /**
+     * 03.16 每日一题
+     * 2684. 矩阵中移动的最大次数
+     *
+     * @param grid
+     * @return
+     */
+    int[][] next = new int[][]{{-1, 1}, {0, 1}, {1, 1}};
+    int maxX = 0;
+    int maxY = 0;
+    int max = 0;
+    public int maxMoves(int[][] grid) {
+        maxX = grid.length;
+        maxY = grid[0].length;
+        for (int i = 0; i < maxY; i++) {
+            dfsToMaxMoves(grid, 0, i);
+        }
+        return max;
+    }
+
+    public void dfsToMaxMoves(int[][] grid, int x, int y) {
+        max = Math.max(max, y);
+        for (int[] temp : next) {
+            int nextX = x + temp[0];
+            int nextY = y + temp[1];
+            if (nextX >= 0 && nextX < maxX && nextY >= 0 && nextY < maxY && grid[nextX][nextY] > grid[x][y]) {
+                grid[nextX][nextY] = 0;
+                dfsToMaxMoves(grid, nextX, nextY);
+            }
+        }
     }
 }
 

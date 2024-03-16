@@ -6,14 +6,8 @@ import java.util.List;
 
 public class Test {
     public static void main(String[] args) {
-        List<int[]> list = new ArrayList<>();
-
-        int[] s = new int[]{1,2,3};
-        int[] i = new int[]{4,5,6,7};
-
-        list.add(s);
-        list.add(i);
-        int[][] arrays = list.toArray(new int[0][]);
-        System.out.println(Arrays.deepToString(arrays));
+        int[][] tst = new int[][]{{187,167,209,251,152,236,263,128,135}};
+        Daily daily = new Daily();
+        System.out.println(daily.maxMoves(tst));
     }
 }
