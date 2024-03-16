@@ -13,6 +13,7 @@ public class Main {
     public static void main(String[] args) {
         Question question = new Question();
         Daily daily = new Daily();
-        System.out.println(4 *6 *8 * 10);
+        LCR.string.Question question1 = new LCR.string.Question();
+        System.out.println(question1.dismantlingAction("abba"));
     }
 }
