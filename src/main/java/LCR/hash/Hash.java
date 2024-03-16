@@ -641,12 +641,40 @@ public class Hash {
      * @return
      */
     int resultToMechanicalAccumulator = 0;
+
     public int mechanicalAccumulator(int target) {
         boolean flag = target > 1 && mechanicalAccumulator(target - 1) > 0;
         resultToMechanicalAccumulator += target;
         return resultToMechanicalAccumulator;
     }
 
+
+    /**
+     * LCR 191. 按规则计算统计结果
+     *
+     * @param arrayA
+     * @return
+     */
+    public int[] statisticalResult(int[] arrayA) {
+        int n = arrayA.length;
+        if (n == 0) {
+            return new int[]{};
+        }
+        int[] left = new int[n];
+        left[0] = arrayA[0];
+
+        for (int i = 1; i < n; i++) {
+            left[i] = arrayA[i] * left[i - 1];
+        }
+        int temp = 1;
+        for (int i = n - 1; i > 0; i--) {
+            left[i] = left[i - 1] * temp;
+            temp *= arrayA[i];
+        }
+        left[0] = temp;
+
+        return left;
+    }
 }
 
 

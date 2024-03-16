@@ -13,7 +13,6 @@ public class Main {
     public static void main(String[] args) {
         Question question = new Question();
         Daily daily = new Daily();
-        Connection connection = new Connection();
-        System.out.println(daily.possibleToStamp(new int[][]{{1, 1, 0, 0, 0}, {1, 1, 0, 0, 0}, {0, 0, 0, 1, 1}, {0, 0, 0, 1, 1}}, 2, 2));
+        System.out.println(4 *6 *8 * 10);
     }
 }
