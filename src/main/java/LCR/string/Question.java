@@ -1,7 +1,6 @@
 package LCR.string;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Question {
 
@@ -31,9 +30,48 @@ public class Question {
                 start = Math.max(map.get(c), start);
             }
             max = Math.max(max, end - start + 1);
-            map.put(c, end+1);
+            map.put(c, end + 1);
         }
         return max;
+    }
+
+
+    /**
+     * LCR 157. 套餐内商品的排列顺序
+     *
+     * @param goods
+     * @return
+     */
+    List<String> list = new ArrayList<>();
+    int N;
+    char[] arr;
+
+    public String[] goodsOrder(String goods) {
+        N = goods.length();
+        arr = goods.toCharArray();
+        dfsToGoodsOrder(0);
+        return list.toArray(new String[0]);
+    }
+    public void dfsToGoodsOrder(int x) {
+        if (x == N - 1) {
+            list.add(String.valueOf(arr));
+            return;
+        }
+        Set<Character> set = new HashSet<>();
+        for (int i = x; i < N; i++) {
+            if (set.contains(arr[i])) {
+                continue;
+            }
+            set.add(arr[i]);
+            swap(i, x);
+            dfsToGoodsOrder(x + 1);
+            swap(i, x);
+        }
+    }
+    public void swap(int a, int b) {
+        char tmp = arr[a];
+        arr[a] = arr[b];
+        arr[b] = tmp;
     }
 }
 
