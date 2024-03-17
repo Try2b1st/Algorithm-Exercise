@@ -14,6 +14,6 @@ public class Main {
         Question question = new Question();
         Daily daily = new Daily();
         LCR.string.Question question1 = new LCR.string.Question();
-        System.out.println(question1.dismantlingAction("abba"));
+        System.out.println(question1. reverseMessage("  hello world!  "));
     }
 }

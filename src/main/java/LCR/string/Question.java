@@ -97,11 +97,36 @@ public class Question {
         }
         for (int i = 0; i < n; i++) {
             char c = arr.charAt(i);
-            if(map.get(c)){
+            if (map.get(c)) {
                 return c;
             }
         }
         return ' ';
+    }
+
+
+    /**
+     * LCR 181. 字符串中的单词反转
+     *
+     * @param message
+     * @return
+     */
+    public String reverseMessage(String message) {
+        message = message.trim();
+        int n = message.length() - 1;
+        StringBuilder sb = new StringBuilder();
+        while(n >= 0){
+            int i = n;
+            while(n >=0 && message.charAt(n) != ' '){
+                n--;
+            }
+            sb.append(message, n+1, i+1);
+            sb.append(" ");
+            while(n >= 0 && message.charAt(n) == ' '){
+                n--;
+            }
+        }
+        return sb.toString().trim();
     }
 }
 
