@@ -52,6 +52,7 @@ public class Question {
         dfsToGoodsOrder(0);
         return list.toArray(new String[0]);
     }
+
     public void dfsToGoodsOrder(int x) {
         if (x == N - 1) {
             list.add(String.valueOf(arr));
@@ -68,10 +69,39 @@ public class Question {
             swap(i, x);
         }
     }
+
     public void swap(int a, int b) {
         char tmp = arr[a];
         arr[a] = arr[b];
         arr[b] = tmp;
+    }
+
+
+    /**
+     * LCR 169. 招式拆解 II
+     *
+     * @param arr
+     * @return
+     */
+    public char dismantlingAction2(String arr) {
+        int n = arr.length();
+        Map<Character, Boolean> map = new HashMap<>();
+
+        for (int i = 0; i < n; i++) {
+            char c = arr.charAt(i);
+            if (map.containsKey(c)) {
+                map.put(c, false);
+            } else {
+                map.put(c, true);
+            }
+        }
+        for (int i = 0; i < n; i++) {
+            char c = arr.charAt(i);
+            if(map.get(c)){
+                return c;
+            }
+        }
+        return ' ';
     }
 }
 
