@@ -1852,6 +1852,68 @@ public class Daily {
             }
         }
     }
+
+
+    /**
+     * 03.18 前缀和扩展
+     * 2602. 使数组元素全部相等的最少操作次数
+     *
+     * @param nums
+     * @param queries
+     * @return
+     */
+    public List<Long> minOperations(int[] nums, int[] queries) {
+        List<Long> list = new ArrayList<>();
+        int n = nums.length;
+
+        quickSort(nums, 0, n - 1);
+        long[] array = new long[n + 1];
+        array[0] = 0;
+        for (int i = 0; i < n; i++) {
+            array[i + 1] = array[i] + nums[i];
+        }
+
+        for (int x : queries) {
+            int i = -1;
+            int j = n + 1;
+            while (i + 1 < j) {
+                int mid = i + (j - i) / 2;
+                if (nums[mid] <= x) {
+                    j = mid;
+                } else {
+                    i = mid;
+                }
+            }
+            list.add(Math.abs((long) x * j - array[j]) + Math.abs(array[n] - array[j] - ((long) x * (n - j))));
+        }
+        return list;
+    }
+
+    public void quickSort(int[] nums, int l, int r) {
+        if (r <= l) {
+            return;
+        }
+        int i = l;
+        int j = r;
+        while (i < j) {
+            while (i < j && nums[j] >= nums[l]) {
+                j--;
+            }
+            while (i < j && nums[i] <= nums[l]) {
+                i++;
+            }
+            swap(nums, i, j);
+        }
+        swap(nums, i, l);
+        quickSort(nums, l, i - 1);
+        quickSort(nums, i + 1, r);
+    }
+
+    public void swap(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
 }
 
 
