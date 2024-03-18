@@ -14,7 +14,8 @@ public class Main {
         Question question = new Question();
         Daily daily = new Daily();
         LCR.string.Question question1 = new LCR.string.Question();
-        System.out.println(daily.minOperations(new int[]{3,1,6,8},new int[]{1,5}));
+        int numMax = Integer.MAX_VALUE;
+        System.out.println(numMax);
     }
 }
 

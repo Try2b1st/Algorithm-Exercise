@@ -115,18 +115,56 @@ public class Question {
         message = message.trim();
         int n = message.length() - 1;
         StringBuilder sb = new StringBuilder();
-        while(n >= 0){
+        while (n >= 0) {
             int i = n;
-            while(n >=0 && message.charAt(n) != ' '){
+            while (n >= 0 && message.charAt(n) != ' ') {
                 n--;
             }
-            sb.append(message, n+1, i+1);
+            sb.append(message, n + 1, i + 1);
             sb.append(" ");
-            while(n >= 0 && message.charAt(n) == ' '){
+            while (n >= 0 && message.charAt(n) == ' ') {
                 n--;
             }
         }
         return sb.toString().trim();
+    }
+
+
+    /**
+     * LCR 192. 把字符串转换成整数 (atoi)
+     *
+     * @param str
+     * @return
+     */
+    public int myAtoi(String str) {
+        str = str.trim();
+
+        int b = Integer.MAX_VALUE / 10;
+        int ans = 0;
+
+        int n = str.length();
+        if (n == 0) {
+            return 0;
+        }
+        int flag = 1;
+        int j = 1;
+        if (str.charAt(0) == '-') {
+            flag = -1;
+        } else if (str.charAt(0) != '+') {
+            j = 0;
+        }
+        for (int i = j; i < n; i++) {
+            char c = str.charAt(i);
+            if (c < '0' || c > '9') {
+                break;
+            }
+            if (ans > b || (c - '0' > 7 && ans == b)) {
+                return flag == 1 ? Integer.MAX_VALUE : Integer.MIN_VALUE;
+            } else {
+                ans = ans * 10 + (c - '0');
+            }
+        }
+        return ans * flag;
     }
 }
 
