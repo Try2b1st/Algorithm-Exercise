@@ -1827,6 +1827,31 @@ public class Daily {
         }
         return res;
     }
+
+    /**
+     * 03.18 每日一题
+     * 303. 区域和检索 - 数组不可变
+     */
+    class NumArray {
+        private int[] array;
+
+        public NumArray(int[] nums) {
+            int n = nums.length;
+            array = new int[n];
+            array[0] = nums[0];
+            for (int i = 1; i < n; i++) {
+                array[i] = array[i - 1] + nums[i];
+            }
+        }
+
+        public int sumRange(int left, int right) {
+            if (left == 0) {
+                return array[right];
+            } else {
+                return array[right] - array[left - 1];
+            }
+        }
+    }
 }
 
 
