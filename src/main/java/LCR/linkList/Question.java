@@ -93,10 +93,31 @@ public class Question {
             fast = fast.next;
         }
 
-        while(fast != null){
+        while (fast != null) {
             fast = fast.next;
             slow = slow.next;
         }
         return slow;
+    }
+
+
+    /**
+     * LCR 141. 训练计划 III
+     *
+     * @param head
+     * @return
+     */
+    public ListNode trainningPlan(ListNode head) {
+        return reverseLinked(null,head);
+    }
+    public ListNode reverseLinked(ListNode pre, ListNode current) {
+        if (current == null) {
+            return pre;
+        }
+
+        ListNode next = current.next;
+        current.next = pre;
+
+        return reverseLinked(current,next);
     }
 }
