@@ -30,6 +30,7 @@ public class Question {
      * @return
      */
     List<Integer> list = new ArrayList<>();
+
     public int[] reverseBookList(ListNode head) {
         if (head == null) {
             return new int[0];
@@ -59,20 +60,43 @@ public class Question {
      * @return
      */
     public ListNode deleteNode(ListNode head, int val) {
-        if(head.val == val){
+        if (head.val == val) {
             return head.next;
         }
         ListNode pre = head;
         ListNode current = head.next;
-        while(true){
-            if(current.val != val){
+        while (true) {
+            if (current.val != val) {
                 pre = current;
                 current = current.next;
-            }else{
+            } else {
                 pre.next = current.next;
                 break;
             }
         }
         return head;
+    }
+
+
+    /**
+     * LCR 140. 训练计划 II
+     *
+     * @param head
+     * @param cnt
+     * @return
+     */
+    public ListNode trainingPlan(ListNode head, int cnt) {
+        ListNode slow = head;
+        ListNode fast = head;
+
+        for (int i = 0; i < cnt; i++) {
+            fast = fast.next;
+        }
+
+        while(fast != null){
+            fast = fast.next;
+            slow = slow.next;
+        }
+        return slow;
     }
 }
