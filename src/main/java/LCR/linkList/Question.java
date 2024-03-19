@@ -108,8 +108,9 @@ public class Question {
      * @return
      */
     public ListNode trainningPlan(ListNode head) {
-        return reverseLinked(null,head);
+        return reverseLinked(null, head);
     }
+
     public ListNode reverseLinked(ListNode pre, ListNode current) {
         if (current == null) {
             return pre;
@@ -118,6 +119,50 @@ public class Question {
         ListNode next = current.next;
         current.next = pre;
 
-        return reverseLinked(current,next);
+        return reverseLinked(current, next);
+    }
+
+
+    /**
+     * LCR 142. 训练计划 IV
+     *
+     * @param l1
+     * @param l2
+     * @return
+     */
+    public ListNode trainningPlan(ListNode l1, ListNode l2) {
+        ListNode current1 = l1;
+        ListNode current2 = l2;
+
+        if (current1 == null && current2 == null) {
+            return null;
+        }
+        if (current1 == null) {
+            return current2;
+        }
+        if (current2 == null) {
+            return current1;
+        }
+
+        ListNode head = new ListNode();
+        ListNode ans = new ListNode();
+        if (current2.val <= current1.val) {
+            ans = current2;
+        }else{
+            ans = current1;
+        }
+
+        while (current1 != null || current2 != null) {
+            if (current1 == null || current2 != null && current2.val <= current1.val) {
+                head.next = current2;
+                head = head.next;
+                current2 = current2.next;
+            } else {
+                head.next = current1;
+                head = head.next;
+                current1 = current1.next;
+            }
+        }
+        return ans;
     }
 }
