@@ -49,4 +49,30 @@ public class Question {
             list.add(head.val);
         }
     }
+
+
+    /**
+     * LCR 136. 删除链表的节点
+     *
+     * @param head
+     * @param val
+     * @return
+     */
+    public ListNode deleteNode(ListNode head, int val) {
+        if(head.val == val){
+            return head.next;
+        }
+        ListNode pre = head;
+        ListNode current = head.next;
+        while(true){
+            if(current.val != val){
+                pre = current;
+                current = current.next;
+            }else{
+                pre.next = current.next;
+                break;
+            }
+        }
+        return head;
+    }
 }
