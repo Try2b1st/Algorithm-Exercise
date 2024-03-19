@@ -1914,6 +1914,77 @@ public class Daily {
         nums[i] = nums[j];
         nums[j] = temp;
     }
+
+
+    /**
+     * 03.19 每日一题
+     * 1793. 好子数组的最大分数
+     *
+     * @param nums
+     * @param k
+     * @return
+     */
+    public int maximumScore(int[] nums, int k) {
+        int l = k;
+        int r = k;
+        int n = nums.length;
+
+        int minNumber = nums[k];
+        int result = minNumber;
+        l--;
+        r++;
+
+        for (int i = 0; i < n; i++) {
+            if (r >= n - 1 || (l > 0 && nums[l - 1] > nums[r + 1])) {
+                l--;
+                minNumber = Math.min(minNumber, nums[l]);
+            } else {
+                r++;
+                minNumber = Math.min(minNumber, nums[r]);
+            }
+            result = Math.max(result, minNumber * (r - l + 1));
+        }
+        return result;
+
+    }
+
+    public int maximumScoreByStack(int[] nums, int k) {
+        int n = nums.length;
+        Stack<Integer> stack = new Stack<>();
+
+        int[] left = new int[n];
+        for (int i = 0; i < n; i++) {
+            int x = nums[i];
+            while (!stack.isEmpty() && x <= nums[stack.peek()]) {
+                stack.pop();
+            }
+            left[i] = stack.isEmpty() ? -1 : stack.peek();
+            stack.push(i);
+        }
+
+        stack.clear();
+        int[] right = new int[n];
+        for (int i = n - 1; i >= 0; i--) {
+            int x = nums[i];
+            while (!stack.isEmpty() && x <= nums[stack.peek()]) {
+                stack.pop();
+            }
+            right[i] = stack.isEmpty() ? n : stack.peek();
+            stack.push(i);
+        }
+
+        int ans = nums[k];
+        for (int i = 0; i < n; i++) {
+            int l = left[i];
+            int r = right[i];
+            int number = nums[i];
+            if (l < k && r > k) {
+                ans = Math.max(ans, number * (r - l - 1));
+            }
+        }
+        return ans;
+    }
+
 }
 
 
