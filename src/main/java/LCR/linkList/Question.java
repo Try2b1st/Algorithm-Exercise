@@ -207,7 +207,43 @@ public class Question {
             }
             x = x.next;
         }
-
         return myHead;
     }
+
+    public Node copyRandomListByMeager(Node head) {
+        if (head == null) {
+            return null;
+        }
+        Node myhead = head;
+
+        //1.拼接
+        while (head != null) {
+            Node node = new Node(head.val);
+            node.next = head.next;
+            head.next = node;
+            head = node.next;
+        }
+
+        //2.确定random
+        head = myhead;
+        while (head != null) {
+            if(head.random != null){
+                head.next.random = head.random.next;
+            }
+            head = head.next.next;
+        }
+
+        //3.拆分
+        Node fast = myhead.next;
+        Node cur = myhead;
+        myhead = myhead.next;
+        while (cur.next != null) {
+            cur.next = fast.next;
+            fast.next = fast.next.next;
+            cur = cur.next;
+            fast = cur.next;
+        }
+        return myhead;
+    }
+
 }
