@@ -1,8 +1,6 @@
 package LCR.linkList;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class Question {
     public class ListNode {
@@ -148,7 +146,7 @@ public class Question {
         ListNode ans = new ListNode();
         if (current2.val <= current1.val) {
             ans = current2;
-        }else{
+        } else {
             ans = current1;
         }
 
@@ -164,5 +162,52 @@ public class Question {
             }
         }
         return ans;
+    }
+
+    public class Node {
+        int val;
+        Node next;
+        Node random;
+
+        public Node(int val) {
+            this.val = val;
+            this.next = null;
+            this.random = null;
+        }
+    }
+
+    /**
+     * LCR 154. 复杂链表的复制
+     *
+     * @param head
+     * @return
+     */
+    public Node copyRandomList(Node head) {
+        if (head == null) {
+            return null;
+        }
+        Node node = new Node(head.val);
+        Node myHead = node;
+        Map<Node, Node> map = new HashMap<>();
+        map.put(head, node);
+        Node x = head;
+        head = head.next;
+
+        while (head != null) {
+            Node next = new Node(head.val);
+            node.next = next;
+            node = next;
+            map.put(head, next);
+            head = head.next;
+        }
+
+        while (x != null) {
+            if (map.containsKey(x)) {
+                map.get(x).random = map.get(x.random);
+            }
+            x = x.next;
+        }
+
+        return myHead;
     }
 }
