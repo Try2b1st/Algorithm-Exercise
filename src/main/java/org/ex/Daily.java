@@ -2009,6 +2009,39 @@ public class Daily {
         }
         return sum;
     }
+
+    /**
+     * 每日一题扩展 快速幂
+     * 50. Pow(x, n)
+     *
+     * @param x
+     * @param n
+     * @return
+     */
+    public double myPow(double x, int n) {
+        if (n == 0) {
+            return 1d;
+        }
+        if (x == 0) {
+            return 0d;
+        }
+        long b = n;
+        if (n < 0) {
+            x = 1 / x;
+            b *= -1;
+        }
+
+        double sum = 1;
+
+        while (b > 0) {
+            if ((b & 1) == 1) {
+                sum *= x;
+            }
+            x *= x;
+            b = b >> 1;
+        }
+        return sum;
+    }
 }
 
 
