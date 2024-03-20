@@ -227,7 +227,7 @@ public class Question {
         //2.确定random
         head = myhead;
         while (head != null) {
-            if(head.random != null){
+            if (head.random != null) {
                 head.next.random = head.random.next;
             }
             head = head.next.next;
@@ -244,6 +244,25 @@ public class Question {
             fast = cur.next;
         }
         return myhead;
+    }
+
+
+    /**
+     * LCR 171. 训练计划 V
+     *
+     * @param headA
+     * @param headB
+     * @return
+     */
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        ListNode a = headA;
+        ListNode b = headB;
+        while (a != b) {
+            a = a != null ? a.next : headB;
+            b = b != null ? b.next : headA;
+        }
+
+        return a;
     }
 
 }
