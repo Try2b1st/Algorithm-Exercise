@@ -1985,7 +1985,32 @@ public class Daily {
         return ans;
     }
 
+
+    /**
+     * 03.20 每日一题
+     * 1969. 数组元素的最小非零乘积
+     *
+     * @param p
+     * @return
+     */
+    public int minNonZeroProduct(int p) {
+        long result = 1;
+        long max = (1L << p) - 1;
+        result = max % MOD * pow(max - 1, p - 1) % MOD;
+        return (int) result % MOD;
+    }
+
+    public long pow(long x, int y) {
+        x %= MOD;
+        long sum = 1;
+        for (int i = 0; i < y; i++) {
+            sum = sum * x % MOD;
+            x = x * x % MOD;
+        }
+        return sum;
+    }
 }
+
 
 
 
