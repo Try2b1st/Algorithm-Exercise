@@ -1,5 +1,6 @@
 package LCR.stack;
 
+import java.util.ArrayList;
 import java.util.Stack;
 
 public class Question {
@@ -25,7 +26,7 @@ public class Question {
             if (!stackOut.isEmpty()) {
                 return stackOut.pop();
             }
-            if(stackIn.isEmpty()){
+            if (stackIn.isEmpty()) {
                 return -1;
             }
             while (!stackIn.isEmpty()) {
@@ -34,5 +35,44 @@ public class Question {
             return stackOut.pop();
 
         }
+    }
+
+
+    /**
+     * LCR 147. 最小栈
+     */
+    public class MinStack {
+        private Stack<Integer> main;
+        private Stack<Integer> min;
+
+        /**
+         * initialize your data structure here.
+         */
+        public MinStack() {
+            main = new Stack<>();
+            min = new Stack<>();
+        }
+
+        public void push(int x) {
+            main.push(x);
+            if (min.isEmpty() || x <= min.peek()) {
+                min.push(x);
+            }
+        }
+
+        public void pop() {
+            if(min.peek().equals(main.pop())){
+                min.pop();
+            }
+        }
+
+        public int top() {
+            return main.peek();
+        }
+
+        public int getMin() {
+            return min.peek();
+        }
+
     }
 }
