@@ -61,7 +61,7 @@ public class Question {
         }
 
         public void pop() {
-            if(min.peek().equals(main.pop())){
+            if (min.peek().equals(main.pop())) {
                 min.pop();
             }
         }
@@ -73,6 +73,31 @@ public class Question {
         public int getMin() {
             return min.peek();
         }
-
     }
+
+
+    /**
+     * LCR 148. 验证图书取出顺序
+     * 栈的压入、弹出序列
+     *
+     * @param putIn
+     * @param takeOut
+     * @return
+     */
+    public boolean validateBookSequences(int[] putIn, int[] takeOut) {
+        int in;
+        int max = putIn.length;
+        int out = 0;
+        Stack<Integer> stack = new Stack<>();
+
+        for (in = 0; in < max; in++) {
+            stack.push(putIn[in]);
+            while (!stack.isEmpty() && out <max && stack.peek() == takeOut[out]) {
+                stack.pop();
+                out++;
+            }
+        }
+        return out == max && in == max;
+    }
+
 }
