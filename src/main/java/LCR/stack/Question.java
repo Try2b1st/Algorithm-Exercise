@@ -1,7 +1,6 @@
 package LCR.stack;
 
-import java.util.ArrayList;
-import java.util.Stack;
+import java.util.*;
 
 public class Question {
 
@@ -92,12 +91,47 @@ public class Question {
 
         for (in = 0; in < max; in++) {
             stack.push(putIn[in]);
-            while (!stack.isEmpty() && out <max && stack.peek() == takeOut[out]) {
+            while (!stack.isEmpty() && out < max && stack.peek() == takeOut[out]) {
                 stack.pop();
                 out++;
             }
         }
         return out == max && in == max;
+    }
+
+
+    /**
+     * LCR 184. 设计自助结算系统
+     */
+    public class Checkout {
+
+        private Deque<Integer> pr;
+        private Deque<Integer> deque;
+
+        public Checkout() {
+            pr = new LinkedList<>();
+            deque = new LinkedList<>();
+        }
+
+        public int get_max() {
+            return pr.isEmpty() ? -1 : pr.getFirst();
+        }
+
+        public void add(int value) {
+            deque.addLast(value);
+            while(!pr.isEmpty() && pr.getLast() < value){
+                pr.removeLast();
+            }
+            pr.addLast(value);
+        }
+
+        public int remove() {
+            if(!deque.isEmpty()){
+                if(Objects.equals(pr.getFirst(), deque.getFirst())) pr.removeFirst();
+                return deque.removeFirst();
+            }
+            return -1;
+        }
     }
 
 }
