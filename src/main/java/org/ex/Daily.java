@@ -2042,6 +2042,48 @@ public class Daily {
         }
         return sum;
     }
+
+
+    /**
+     * 03.21 每日一题
+     * 2671. 频率跟踪器
+     */
+    public class FrequencyTracker {
+        private Map<Integer, Integer> map;
+        private Map<Integer, Integer> mapCount;
+
+        public FrequencyTracker() {
+            map = new HashMap<>();
+            mapCount = new HashMap<>();
+        }
+
+        public void add(int number) {
+            int count = map.getOrDefault(number,0) + 1;
+            if(count - 1 != 0){
+                mapCount.put(count - 1, mapCount.getOrDefault(count - 1, 0) - 1);
+            }
+            mapCount.put(count, mapCount.getOrDefault(count, 0) + 1);
+            map.put(number, count);
+        }
+
+        public void deleteOne(int number) {
+            if (map.containsKey(number)) {
+                int count = map.get(number);
+                mapCount.put(count, mapCount.get(count) - 1);
+                if (count - 1 == 0) {
+                    map.remove(number);
+                } else {
+                    map.put(number, count);
+                    count--;
+                    mapCount.put(count, mapCount.getOrDefault(count, 0) + 1);
+                }
+            }
+        }
+
+        public boolean hasFrequency(int frequency) {
+            return mapCount.getOrDefault(frequency, 0) > 0;
+        }
+    }
 }
 
 
