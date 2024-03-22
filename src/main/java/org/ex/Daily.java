@@ -2058,8 +2058,8 @@ public class Daily {
         }
 
         public void add(int number) {
-            int count = map.getOrDefault(number,0) + 1;
-            if(count - 1 != 0){
+            int count = map.getOrDefault(number, 0) + 1;
+            if (count - 1 != 0) {
                 mapCount.put(count - 1, mapCount.getOrDefault(count - 1, 0) - 1);
             }
             mapCount.put(count, mapCount.getOrDefault(count, 0) + 1);
@@ -2084,6 +2084,55 @@ public class Daily {
             return mapCount.getOrDefault(frequency, 0) > 0;
         }
     }
+
+
+    /**
+     * 03.22
+     * 2617. 网格图中最少访问的格子数
+     *
+     * @param grid
+     * @return
+     */
+    public int minimumVisitedCells(int[][] grid) {
+        int m = grid.length;
+        int n = grid[0].length;
+
+        PriorityQueue<int[]>[] colHeads = new PriorityQueue[n];
+        Arrays.setAll(colHeads, i -> new PriorityQueue<int[]>((a, b) -> a[0] - b[0]));
+        PriorityQueue<int[]> rowH = new PriorityQueue<>((a, b) -> a[0] - b[0]);
+        int f = 0;
+
+        for (int i = 0; i < m; i++) {
+            rowH.clear();
+            for (int j = 0; j < n; j++) {
+                while (!rowH.isEmpty() && rowH.peek()[1] < j) {
+                    rowH.poll();
+                }
+
+                PriorityQueue<int[]> colH = colHeads[j];
+                while (!colH.isEmpty() && colH.peek()[1] < i) {
+                    colH.poll();
+                }
+
+                f = i > 0 || j > 0 ? Integer.MAX_VALUE : 1;
+
+                if (!rowH.isEmpty()) {
+                    f = rowH.peek()[0] + 1;
+                }
+                if (!colH.isEmpty()) {
+                    f = Math.min(f, colH.peek()[0] + 1);
+                }
+
+                int g = grid[i][j];
+                if (g > 0 && f < Integer.MAX_VALUE) {
+                    rowH.offer(new int[]{f, g + j});
+                    colH.offer(new int[]{f, g + i});
+                }
+            }
+        }
+        return f < Integer.MAX_VALUE ? f : -1;
+    }
+
 }
 
 
