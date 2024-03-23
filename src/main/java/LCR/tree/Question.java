@@ -201,8 +201,45 @@ public class Question {
             }
             lists.add(list);
         }
+        return lists;
+    }
 
 
+    /**
+     * LCR 151. 彩灯装饰记录 III
+     *
+     * @param root
+     * @return
+     */
+    public List<List<Integer>> decorateRecord3(TreeNode root) {
+        List<List<Integer>> lists = new ArrayList<>();
+        if (root == null) {
+            return lists;
+        }
+
+        Deque<TreeNode> deque = new LinkedList<>();
+        int count = 1;
+
+        deque.addLast(root);
+        while (!deque.isEmpty()) {
+            int n = deque.size();
+            List<Integer> list = new ArrayList<>();
+            for (int i = 0; i < n; i++) {
+                if(count % 2 == 0){
+                    TreeNode temp = deque.poll();
+                    if (temp.right != null) deque.addLast(temp.right);
+                    if (temp.left != null) deque.addLast(temp.left);
+                    list.add(temp.val);
+                }else{
+                    TreeNode temp = deque.removeLast();
+                    if (temp.left != null) deque.addFirst(temp.left);
+                    if (temp.right != null) deque.addFirst(temp.right);
+                    list.add(temp.val);
+                }
+            }
+            count++;
+            lists.add(list);
+        }
         return lists;
     }
 
