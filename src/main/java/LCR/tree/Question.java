@@ -1,8 +1,6 @@
 package LCR.tree;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class Question {
 
@@ -140,6 +138,40 @@ public class Question {
             return dfsToCheckSymmetricTree(left.left, right.right) && dfsToCheckSymmetricTree(left.right, right.left);
         }
         return false;
+    }
+
+
+    /**
+     * LCR 149. 彩灯装饰记录 I
+     *
+     * @param root
+     * @return
+     */
+    public int[] decorateRecord(TreeNode root) {
+        if (root == null) {
+            return new int[0];
+        }
+
+        Deque<TreeNode> deque = new LinkedList<>();
+        List<Integer> list = new ArrayList<>();
+
+        deque.addLast(root);
+        while (!deque.isEmpty()) {
+            int n = deque.size();
+            for (int i = 0; i < n; i++) {
+                TreeNode temp = deque.getFirst();
+                if (temp.left != null) deque.addLast(temp.left);
+                if (temp.right != null) deque.addLast(temp.right);
+                list.add(temp.val);
+            }
+        }
+        int n = list.size();
+        int[] result = new int[n];
+        for(int i = 0; i< n;i++){
+            result[i] = list.get(i);
+        }
+
+        return result;
     }
 
 }
