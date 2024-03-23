@@ -2133,6 +2133,18 @@ public class Daily {
         return f < Integer.MAX_VALUE ? f : -1;
     }
 
+
+    /**
+     * 03.23
+     * 2549. 统计桌面上的不同数字
+     *
+     * @param n
+     * @return
+     */
+    public int distinctIntegers(int n) {
+        return Math.max(n - 1, 1);
+    }
+
 }
 
 
