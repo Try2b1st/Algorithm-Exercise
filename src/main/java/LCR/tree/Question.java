@@ -77,7 +77,7 @@ public class Question {
             return false;
         }
 
-        return dfsToIsSubStructure(A,B) || isSubStructure(A.left,B) || isSubStructure(A.right,B);
+        return dfsToIsSubStructure(A, B) || isSubStructure(A.left, B) || isSubStructure(A.right, B);
     }
 
     /**
@@ -97,4 +97,28 @@ public class Question {
 
         return dfsToIsSubStructure(a.left, b.left) && dfsToIsSubStructure(a.right, b.right);
     }
+
+
+    /**
+     * LCR 144. 翻转二叉树
+     *
+     * @param root
+     * @return
+     */
+    public TreeNode mirrorTree(TreeNode root) {
+        changeLeftRight(root);
+        return root;
+    }
+
+    public void changeLeftRight(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        TreeNode temp = root.left;
+        root.left = root.right;
+        root.right = temp;
+        changeLeftRight(root.left);
+        changeLeftRight(root.right);
+    }
+
 }
