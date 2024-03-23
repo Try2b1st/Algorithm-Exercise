@@ -159,7 +159,7 @@ public class Question {
         while (!deque.isEmpty()) {
             int n = deque.size();
             for (int i = 0; i < n; i++) {
-                TreeNode temp = deque.getFirst();
+                TreeNode temp = deque.poll();
                 if (temp.left != null) deque.addLast(temp.left);
                 if (temp.right != null) deque.addLast(temp.right);
                 list.add(temp.val);
@@ -172,6 +172,38 @@ public class Question {
         }
 
         return result;
+    }
+
+
+    /**
+     * LCR 150. 彩灯装饰记录 II
+     *
+     * @param root
+     * @return
+     */
+    public List<List<Integer>> decorateRecord2(TreeNode root) {
+        List<List<Integer>> lists = new ArrayList<>();
+        if (root == null) {
+            return lists;
+        }
+
+        Deque<TreeNode> deque = new LinkedList<>();
+
+        deque.addLast(root);
+        while (!deque.isEmpty()) {
+            int n = deque.size();
+            List<Integer> list = new ArrayList<>();
+            for (int i = 0; i < n; i++) {
+                TreeNode temp = deque.poll();
+                if (temp.left != null) deque.addLast(temp.left);
+                if (temp.right != null) deque.addLast(temp.right);
+                list.add(temp.val);
+            }
+            lists.add(list);
+        }
+
+
+        return lists;
     }
 
 }
