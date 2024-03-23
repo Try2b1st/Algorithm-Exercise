@@ -121,4 +121,25 @@ public class Question {
         changeLeftRight(root.right);
     }
 
+
+    /**
+     * LCR 145. 判断对称二叉树
+     *
+     * @param root
+     * @return
+     */
+    public boolean checkSymmetricTree(TreeNode root) {
+        return dfsToCheckSymmetricTree(root.left, root.right);
+    }
+
+    public boolean dfsToCheckSymmetricTree(TreeNode left, TreeNode right) {
+        if (left == null && right == null) {
+            return true;
+        }
+        if (left != null && right != null && left.val == right.val) {
+            return dfsToCheckSymmetricTree(left.left, right.right) && dfsToCheckSymmetricTree(left.right, right.left);
+        }
+        return false;
+    }
+
 }
