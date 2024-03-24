@@ -346,7 +346,7 @@ public class Question {
             return null;
         }
         Node head = new Node();
-        pre= head;
+        pre = head;
 
         dfsTreeToDoubleList(root);
         head.right.left = pre;
@@ -365,6 +365,84 @@ public class Question {
         current.left = pre;
         pre = current;
         dfsTreeToDoubleList(current.right);
+    }
+
+
+    /**
+     * LCR 156. 序列化与反序列化二叉树
+     */
+    public class Codec {
+
+        // Encodes a tree to a single string.
+        public String serialize(TreeNode root) {
+            if (root == null) {
+                return null;
+            }
+            Deque<TreeNode> deque = new LinkedList<>();
+            deque.addLast(root);
+            StringBuilder sb = new StringBuilder();
+            sb.append(root.val).append(",");
+
+            while (!deque.isEmpty()) {
+                int n = deque.size();
+                for (int i = 0; i < n; i++) {
+                    TreeNode temp = deque.pop();
+
+                    if (temp.left == null) {
+                        sb.append("#").append(",");
+                    } else {
+                        deque.addLast(temp.left);
+                        sb.append(temp.left.val).append(",");
+                    }
+                    if (temp.right == null) {
+                        sb.append("#").append(",");
+                    } else {
+                        deque.addLast(temp.right);
+                        sb.append(temp.right.val).append(",");
+                    }
+                }
+            }
+            sb.deleteCharAt(sb.length() - 1);
+            return sb.toString();
+        }
+
+        // Decodes your encoded data to tree.
+        public TreeNode deserialize(String data) {
+            if (data == null) {
+                return null;
+            }
+            String[] arrays = data.split(",");
+            int count = 1;
+            Deque<TreeNode> deque = new LinkedList<>();
+            TreeNode root = new TreeNode(Integer.parseInt(arrays[0]));
+            deque.addLast(root);
+
+            while (!deque.isEmpty()) {
+                int n = deque.size();
+                for (int i = 0; i < n; i++) {
+                    TreeNode temp = deque.pop();
+                    if(temp == null) break;
+                    String left = arrays[count++];
+                    String right = arrays[count++];
+                    if (!left.equals("#")) {
+                        temp.left = new TreeNode(Integer.parseInt(left));
+                        deque.addLast(temp.left);
+                    } else {
+                        temp.left = null;
+                        deque.addLast(null);
+                    }
+                    if (!right.equals("#")) {
+                        temp.right = new TreeNode(Integer.parseInt(right));
+                        deque.addLast(temp.right);
+                    } else {
+                        temp.right = null;
+                        deque.addLast(null);
+                    }
+                }
+            }
+            return root;
+        }
+
     }
 
 }
