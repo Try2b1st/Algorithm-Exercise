@@ -311,4 +311,60 @@ public class Question {
         list.remove(list.size() - 1);
     }
 
+
+    public class Node {
+        public int val;
+        public Node left;
+        public Node right;
+
+        public Node() {
+        }
+
+        public Node(int _val) {
+            val = _val;
+        }
+
+        public Node(int _val, Node _left, Node _right) {
+            val = _val;
+            left = _left;
+            right = _right;
+        }
+    }
+
+    ;
+
+    /**
+     * LCR 155. 将二叉搜索树转化为排序的双向链表
+     *
+     * @param root
+     * @return
+     */
+    Node pre;
+
+    public Node treeToDoublyList(Node root) {
+        if (root == null) {
+            return null;
+        }
+        Node head = new Node();
+        pre= head;
+
+        dfsTreeToDoubleList(root);
+        head.right.left = pre;
+        pre.right = head.right;
+
+        return head.right;
+    }
+
+    public void dfsTreeToDoubleList(Node current) {
+        if (current == null) {
+            return;
+        }
+
+        dfsTreeToDoubleList(current.left);
+        pre.right = current;
+        current.left = pre;
+        pre = current;
+        dfsTreeToDoubleList(current.right);
+    }
+
 }
