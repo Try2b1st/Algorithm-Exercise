@@ -14,8 +14,13 @@ public class Main {
         Question question = new Question();
         Daily daily = new Daily();
         LCR.string.Question question1 = new LCR.string.Question();
-        int numMax = Integer.MAX_VALUE;
-        System.out.println(numMax);
+
+        int[] postorder = new int[]{4,9,6,5,8};
+        int[] post = postorder;
+        Arrays.sort(postorder);
+        int[] mid = postorder;
+        System.out.println(Arrays.toString(post));
+        System.out.println(Arrays.toString(mid));
     }
 }
 

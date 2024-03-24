@@ -167,7 +167,7 @@ public class Question {
         }
         int n = list.size();
         int[] result = new int[n];
-        for(int i = 0; i< n;i++){
+        for (int i = 0; i < n; i++) {
             result[i] = list.get(i);
         }
 
@@ -225,12 +225,12 @@ public class Question {
             int n = deque.size();
             List<Integer> list = new ArrayList<>();
             for (int i = 0; i < n; i++) {
-                if(count % 2 == 0){
+                if (count % 2 == 0) {
                     TreeNode temp = deque.poll();
                     if (temp.right != null) deque.addLast(temp.right);
                     if (temp.left != null) deque.addLast(temp.left);
                     list.add(temp.val);
-                }else{
+                } else {
                     TreeNode temp = deque.removeLast();
                     if (temp.left != null) deque.addFirst(temp.left);
                     if (temp.right != null) deque.addFirst(temp.right);
@@ -241,6 +241,30 @@ public class Question {
             lists.add(list);
         }
         return lists;
+    }
+
+
+    /**
+     * LCR 152. 验证二叉搜索树的后序遍历序列
+     *
+     * @param postorder
+     * @return
+     */
+    public boolean verifyTreeOrder(int[] postorder) {
+        int n = postorder.length;
+        Stack<Integer> stack = new Stack<>();
+        int father = Integer.MAX_VALUE;
+
+        for (int i = n - 1; i >= 0; i--) {
+            if(postorder[i] > father){
+                return false;
+            }
+            while(!stack.isEmpty() && stack.peek() > postorder[i]){
+                father = stack.pop();
+            }
+            stack.push(postorder[i]);
+        }
+        return true;
     }
 
 }
