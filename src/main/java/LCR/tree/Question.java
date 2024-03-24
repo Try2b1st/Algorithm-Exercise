@@ -256,15 +256,59 @@ public class Question {
         int father = Integer.MAX_VALUE;
 
         for (int i = n - 1; i >= 0; i--) {
-            if(postorder[i] > father){
+            if (postorder[i] > father) {
                 return false;
             }
-            while(!stack.isEmpty() && stack.peek() > postorder[i]){
+            while (!stack.isEmpty() && stack.peek() > postorder[i]) {
                 father = stack.pop();
             }
             stack.push(postorder[i]);
         }
         return true;
+    }
+
+
+    /**
+     * LCR 153. 二叉树中和为目标值的路径
+     *
+     * @param root
+     * @param target
+     * @return
+     */
+    List<List<Integer>> result;
+    int targetByPathTarget;
+    int count = 0;
+
+    public List<List<Integer>> pathTarget(TreeNode root, int target) {
+        result = new ArrayList<>();
+        if (root == null) {
+            return result;
+        }
+
+        targetByPathTarget = target;
+        List<Integer> list = new ArrayList<>();
+        dfsPathTarget(root, list);
+        return result;
+    }
+
+    public void dfsPathTarget(TreeNode root, List<Integer> list) {
+        if (root == null) {
+            return;
+        }
+        count += root.val;
+        list.add(root.val);
+        if (count == targetByPathTarget && root.left == null && root.right == null) {
+            result.add(new ArrayList<>(list));
+            count -= root.val;
+            list.remove(list.size() - 1);
+            return;
+        }
+
+        dfsPathTarget(root.left, list);
+        dfsPathTarget(root.right, list);
+
+        count -= root.val;
+        list.remove(list.size() - 1);
     }
 
 }
