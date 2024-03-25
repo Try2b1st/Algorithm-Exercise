@@ -2145,6 +2145,28 @@ public class Daily {
         return Math.max(n - 1, 1);
     }
 
+
+    /**
+     * 03.25
+     * 518. 零钱兑换 II
+     *
+     * @param amount
+     * @param coins
+     * @return
+     */
+    public int change(int amount, int[] coins) {
+        int[] dp = new int[amount + 1];
+
+        dp[0] = 0;
+
+        for (int x : coins) {
+            for (int i = x; i < amount + 1; i++) {
+                dp[i] = Math.min(dp[i],dp[i - x] + 1);
+            }
+        }
+        return dp[amount];
+    }
+
 }
 
 
