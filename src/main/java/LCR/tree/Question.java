@@ -514,6 +514,7 @@ public class Question {
      * @return
      */
     boolean flag = true;
+
     public boolean isBalanced(TreeNode root) {
         if (root == null) {
             return true;
@@ -525,7 +526,7 @@ public class Question {
     }
 
     public int dfsToCount(TreeNode root) {
-        if(!flag){
+        if (!flag) {
             return 0;
         }
         if (root == null) {
@@ -534,11 +535,44 @@ public class Question {
         int left = dfsToCount(root.left);
         int right = dfsToCount(root.right);
 
-        if(!(Math.abs(left - right) <= 1)){
+        if (!(Math.abs(left - right) <= 1)) {
             flag = false;
         }
         return Math.max(left, right) + 1;
     }
 
 
+    /**
+     * LCR 193. 二叉搜索树的最近公共祖先
+     *
+     * @param root
+     * @param p
+     * @param q
+     * @return
+     */
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if (p.val > q.val) {
+            TreeNode temp = p;
+            p = q;
+            q = temp;
+        }
+
+        while (root != null) {
+            if (root == p || root == q) {
+                return root;
+            }
+            if (p.val < root.val && root.val < q.val) {
+                return root;
+            }
+            if (root.val > q.val) {
+                root = root.left;
+                continue;
+            }
+            if (root.val < p.val) {
+                root = root.right;
+                continue;
+            }
+        }
+        return null;
+    }
 }
