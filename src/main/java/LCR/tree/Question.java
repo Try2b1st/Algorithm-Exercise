@@ -505,4 +505,40 @@ public class Question {
         if (root == null) return 0;
         return Math.max(calculateDepth1(root.left), calculateDepth1(root.right)) + 1;
     }
+
+
+    /**
+     * LCR 176. 判断是否为平衡二叉树
+     *
+     * @param root
+     * @return
+     */
+    boolean flag = true;
+    public boolean isBalanced(TreeNode root) {
+        if (root == null) {
+            return true;
+        }
+        int left = dfsToCount(root.left);
+        int right = dfsToCount(root.right);
+
+        return flag && Math.abs(left - right) <= 1;
+    }
+
+    public int dfsToCount(TreeNode root) {
+        if(!flag){
+            return 0;
+        }
+        if (root == null) {
+            return 0;
+        }
+        int left = dfsToCount(root.left);
+        int right = dfsToCount(root.right);
+
+        if(!(Math.abs(left - right) <= 1)){
+            flag = false;
+        }
+        return Math.max(left, right) + 1;
+    }
+
+
 }
