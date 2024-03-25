@@ -421,7 +421,7 @@ public class Question {
                 int n = deque.size();
                 for (int i = 0; i < n; i++) {
                     TreeNode temp = deque.pop();
-                    if(temp == null) break;
+                    if (temp == null) break;
                     String left = arrays[count++];
                     String right = arrays[count++];
                     if (!left.equals("#")) {
@@ -454,15 +454,17 @@ public class Question {
      * @return
      */
     List<Integer> sortList;
+
     public int findTargetNode(TreeNode root, int cnt) {
         sortList = new ArrayList<>();
 
         dfsToFindTargetNode(root);
 
-        return sortList.get(cnt);
+        return sortList.get(sortList.size() - cnt);
     }
-    public void dfsToFindTargetNode(TreeNode root){
-        if(root == null){
+
+    public void dfsToFindTargetNode(TreeNode root) {
+        if (root == null) {
             return;
         }
 
@@ -471,4 +473,36 @@ public class Question {
         dfsToFindTargetNode(root.right);
     }
 
+
+    /**
+     * LCR 175. 计算二叉树的深度
+     *
+     * @param root
+     * @return
+     */
+    public int calculateDepth(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+
+        int ans = 0;
+        Deque<TreeNode> deque = new LinkedList<>();
+        deque.addLast(root);
+
+        while (!deque.isEmpty()) {
+            int n = deque.size();
+            ans++;
+            for (int i = 0; i < n; i++) {
+                TreeNode temp = deque.pop();
+                if (temp.left != null) deque.addLast(temp.left);
+                if (temp.right != null) deque.addLast(temp.right);
+            }
+        }
+        return ans;
+    }
+
+    public int calculateDepth1(TreeNode root) {
+        if (root == null) return 0;
+        return Math.max(calculateDepth1(root.left), calculateDepth1(root.right)) + 1;
+    }
 }
