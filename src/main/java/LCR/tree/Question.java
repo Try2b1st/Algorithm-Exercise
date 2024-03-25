@@ -445,4 +445,30 @@ public class Question {
 
     }
 
+
+    /**
+     * LCR 174. 寻找二叉搜索树中的目标节点
+     *
+     * @param root
+     * @param cnt
+     * @return
+     */
+    List<Integer> sortList;
+    public int findTargetNode(TreeNode root, int cnt) {
+        sortList = new ArrayList<>();
+
+        dfsToFindTargetNode(root);
+
+        return sortList.get(cnt);
+    }
+    public void dfsToFindTargetNode(TreeNode root){
+        if(root == null){
+            return;
+        }
+
+        dfsToFindTargetNode(root.left);
+        sortList.add(root.val);
+        dfsToFindTargetNode(root.right);
+    }
+
 }
