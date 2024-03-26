@@ -2169,6 +2169,7 @@ public class Daily {
 
 
     /**
+     * 03.26
      * 2642. 设计可以求最短路径的图类
      */
     public class Graph {
@@ -2266,7 +2267,7 @@ public class Daily {
                 }
 
                 //x 之前出堆过
-                if(d > dist[x]){
+                if (d > dist[x]) {
                     continue;
                 }
 
@@ -2280,6 +2281,53 @@ public class Daily {
                 }
             }
             return -1;
+        }
+    }
+
+    public class GraphByFloyd {
+        private static final int INF = Integer.MAX_VALUE / 3;
+        int[][] graph;
+
+        public GraphByFloyd(int n, int[][] edges) {
+            graph = new int[n][n];
+            for (int i = 0; i < n; i++) {
+                Arrays.fill(graph[i], INF);
+                graph[i][i] = 0;
+            }
+
+            for(int[] e : edges){
+                graph[e[0]][e[1]] = e[2];
+            }
+
+            for (int k = 0; k < n; k++) {
+                for (int i = 0; i < n; i++) {
+                    for (int j = 0; j < n; j++) {
+                        graph[i][j] = Math.min(graph[i][j], graph[i][k] + graph[k][j]);
+                    }
+                }
+            }
+        }
+
+        public void addEdge(int[] edge) {
+            int x = edge[0];
+            int y = edge[1];
+            int d = edge[2];
+            int n = graph.length;
+
+            if (d > graph[x][y]) {
+                return;
+            }
+
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    graph[i][j] = Math.min(graph[i][j], graph[i][x] + d + graph[y][j]);
+                }
+            }
+        }
+
+        public int shortestPath(int node1, int node2) {
+            int ans = graph[node1][node2];
+            return ans < INF ? ans : -1;
         }
     }
 
