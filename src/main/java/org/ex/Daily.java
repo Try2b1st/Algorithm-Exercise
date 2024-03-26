@@ -2161,10 +2161,126 @@ public class Daily {
 
         for (int x : coins) {
             for (int i = x; i < amount + 1; i++) {
-                dp[i] = Math.min(dp[i],dp[i - x] + 1);
+                dp[i] = Math.min(dp[i], dp[i - x] + 1);
             }
         }
         return dp[amount];
+    }
+
+
+    /**
+     * 2642. 设计可以求最短路径的图类
+     */
+    public class Graph {
+        // 防止更新最短路时加法溢出
+        private static final int INF = Integer.MAX_VALUE / 2;
+        int[][] graph;
+
+        public Graph(int n, int[][] edges) {
+            graph = new int[n][n];
+            for (int[] row : graph) {
+                Arrays.fill(row, INF);
+            }
+
+            for (int i = 0; i < n; i++) {
+                graph[i][i] = 0;
+            }
+
+            for (int[] edge : edges) {
+                addEdge(edge);
+            }
+        }
+
+        public void addEdge(int[] edge) {
+            graph[edge[0]][edge[1]] = edge[2];
+        }
+
+        public int shortestPath(int node1, int node2) {
+            int n = graph.length;
+            int[] dist = new int[n];
+            boolean[] visited = new boolean[n];
+            Arrays.fill(dist, INF);
+            dist[node1] = 0;
+            Arrays.fill(visited, false);
+            visited[node1] = true;
+
+            while (true) {
+                //找到未访问过的最小节点
+                int x = -1;
+                for (int i = 0; i < n; i++) {
+                    if (!visited[i] && (x == -1 || dist[i] < dist[x])) {
+                        x = i;
+                    }
+                }
+
+                //节点全访问
+                if (x < 0 || dist[x] == INF) {
+                    return -1;
+                }
+
+                //到达目的节点
+                if (x == node2) {
+                    return dist[x];
+                }
+
+                //更新
+                visited[x] = true;
+                for (int j = 0; j < n; j++) {
+                    if (!visited[j]) {
+                        dist[j] = Math.min(dist[j], dist[x] + graph[x][j]);
+                    }
+                }
+            }
+        }
+    }
+
+    public class GraphByStack {
+        List<int[]>[] graph;
+
+        public GraphByStack(int n, int[][] edges) {
+            graph = new ArrayList[n];
+            Arrays.setAll(graph, i -> new ArrayList<>());
+            for (int[] e : edges) {
+                addEdge(e);
+            }
+        }
+
+        public void addEdge(int[] edge) {
+            graph[edge[0]].add(new int[]{edge[1], edge[2]});
+        }
+
+        public int shortestPath(int node1, int node2) {
+            int[] dist = new int[graph.length];
+            Arrays.fill(dist, Integer.MAX_VALUE);
+            dist[node1] = 0;
+            PriorityQueue<int[]> queue = new PriorityQueue<>((a, b) -> (a[0] - b[0]));
+            queue.offer(new int[]{0, node1});
+
+            while (!queue.isEmpty()) {
+                int[] temp = queue.poll();
+                int d = temp[0];
+                int x = temp[1];
+
+                if (x == node2) {
+                    return d;
+                }
+
+                //x 之前出堆过
+                if(d > dist[x]){
+                    continue;
+                }
+
+                for (int[] e : graph[x]) {
+                    int nextD = e[1];
+                    int nextX = e[0];
+                    if (nextD + d < dist[nextX]) {
+                        dist[nextX] = nextD + d;
+                        queue.offer(new int[]{dist[nextX], nextX});
+                    }
+                }
+            }
+            return -1;
+        }
     }
 
 }
