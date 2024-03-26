@@ -18,4 +18,35 @@ public class Question {
         }
         return result;
     }
+
+
+    /**
+     * LCR 134. Pow(x, n)
+     *
+     * @param x
+     * @param n
+     * @return
+     */
+    public double myPow(double x, int n) {
+        if (x == 0 || n == 0) {
+            return 0d;
+        }
+
+        double ans = 0.0;
+
+        long b = n;
+        if (n < 0) {
+            x = 1/x;
+            b *= -1;
+        }
+
+        while (b > 0) {
+            if ((b & 1) == 1) {
+                ans += x;
+            }
+            x = x * x;
+            b >>= 1;
+        }
+        return ans;
+    }
 }
