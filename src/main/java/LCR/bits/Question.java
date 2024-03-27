@@ -65,4 +65,27 @@ public class Question {
         }
         return ones;
     }
+
+
+    /**
+     * LCR 190. 加密运算
+     *
+     * @param dataA
+     * @param dataB
+     * @return
+     */
+    public int encryptionCalculate(int dataA, int dataB) {
+
+        while (dataB != 0) {
+            //进位
+            int c = (dataA & dataB) << 1;
+            //无进位和
+            int n = dataA ^ dataB;
+
+            dataA = n;
+            dataB = c;
+
+        }
+        return dataA;
+    }
 }
