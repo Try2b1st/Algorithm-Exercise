@@ -36,7 +36,7 @@ public class Question {
 
         long b = n;
         if (n < 0) {
-            x = 1/x;
+            x = 1 / x;
             b *= -1;
         }
 
@@ -48,5 +48,21 @@ public class Question {
             b >>= 1;
         }
         return ans;
+    }
+
+
+    /**
+     * LCR 178. 训练计划 VI
+     *
+     * @param actions
+     * @return
+     */
+    public int trainingPlan(int[] actions) {
+        int ones = 0, twos = 0;
+        for (int x : actions) {
+            ones = (ones ^ x) & ~twos;
+            twos = (twos ^ x) & ~ones;
+        }
+        return ones;
     }
 }
