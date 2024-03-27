@@ -2295,7 +2295,7 @@ public class Daily {
                 graph[i][i] = 0;
             }
 
-            for(int[] e : edges){
+            for (int[] e : edges) {
                 graph[e[0]][e[1]] = e[2];
             }
 
@@ -2329,6 +2329,30 @@ public class Daily {
             int ans = graph[node1][node2];
             return ans < INF ? ans : -1;
         }
+    }
+
+
+    /**
+     * 03.27
+     * 2580. 统计将重叠区间合并成组的方案数
+     *
+     * @param ranges
+     * @return
+     */
+    public int countWays(int[][] ranges) {
+        Arrays.sort(ranges, (o1, o2) -> o1[0] - o2[0]);
+        int currentMax = -1;
+        int MOD = 1000000007;
+        int result = 1;
+        for (int[] range : ranges) {
+            if (currentMax < range[0]) {
+                result = result * 2 %MOD;
+            }
+            currentMax = Math.max(range[1], currentMax);
+        }
+
+
+        return result;
     }
 
 }
