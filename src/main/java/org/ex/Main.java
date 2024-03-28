@@ -14,7 +14,6 @@ public class Main {
         Question question = new Question();
         Daily daily = new Daily();
         LCR.dp.Question question1 = new LCR.dp.Question();
-        question1.articleMatch("aaa","aaaa");
 
     }
 }
