@@ -98,6 +98,33 @@ public class Question {
         Arrays.sort(dp);
         return dp[0];
     }
+
+
+    /**
+     * LCR 165. 解密数字
+     *
+     * @param ciphertext
+     * @return
+     */
+    public int crackNumber(int ciphertext) {
+        String s = String.valueOf(ciphertext);
+        int n = s.length();
+
+        int[] dp = new int[n + 1];
+        dp[0] = 1;
+        dp[1] = 1;
+
+        for (int i = 2; i <= n; i++) {
+            String temp = s.substring(i - 2, i);
+            if(temp.compareTo("10") >= 0 && temp.compareTo("25") <= 0){
+                dp[i] = dp[i - 2] + dp[i -1];
+            }else{
+                dp[i] = dp[i - 1];
+            }
+        }
+
+        return dp[n];
+    }
 }
 
 
