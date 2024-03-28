@@ -2346,13 +2346,32 @@ public class Daily {
         int result = 1;
         for (int[] range : ranges) {
             if (currentMax < range[0]) {
-                result = result * 2 %MOD;
+                result = result * 2 % MOD;
             }
             currentMax = Math.max(range[1], currentMax);
         }
 
 
         return result;
+    }
+
+
+    /**
+     * 1997. 访问完所有房间的第一天
+     *
+     * @param nextVisit
+     * @return
+     */
+    public int firstDayBeenInAllRooms(int[] nextVisit) {
+        int n = nextVisit.length;
+        long[] dp = new long[n];
+        Arrays.fill(dp, 0);
+
+        for (int i = 0; i < n - 1; i++) {
+            int j = nextVisit[i];
+            dp[i + 1] = (2 + dp[i] - dp[j] + dp[i] + MOD) % MOD;
+        }
+        return (int) dp[n - 1];
     }
 
 }

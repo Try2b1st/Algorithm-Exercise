@@ -47,4 +47,21 @@ public class Question {
 
         return dp[num];
     }
+
+
+    /**
+     * LCR 137. 模糊搜索验证
+     *
+     * @param s
+     * @param p
+     * @return
+     */
+    public boolean articleMatch(String s, String p) {
+        int n = s.length();
+        int m = p.length();
+        boolean[][] dp = new boolean[n + 1][m + 1];
+
+
+        return dp[n][m];
+    }
 }
