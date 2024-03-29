@@ -2375,6 +2375,38 @@ public class Daily {
         return (int) dp[n - 1];
     }
 
+
+    /**
+     * 03.29
+     * 2908. 元素和最小的山形三元组 I
+     *
+     * @param nums
+     * @return
+     */
+    public int minimumSum(int[] nums) {
+        int ans = Integer.MAX_VALUE;
+        int n = nums.length;
+        int[] pre = new int[n];
+        int[] suf = new int[n];
+        pre[0] = Integer.MAX_VALUE;
+        suf[n - 1] = Integer.MAX_VALUE;
+
+        for (int i = 1; i < n; i++) {
+            pre[i] = Math.min(pre[i - 1], nums[i - 1]);
+        }
+
+        for (int i = n - 2; i >= 0; i--) {
+            suf[i] = Math.min(suf[i + 1], nums[i + 1]);
+        }
+
+        for (int i = 1; i < n - 1; i++) {
+            if(pre[i] < nums[i] && suf[i] < nums[i]){
+                ans = Math.min(ans,pre[i] + nums[i] + suf[i]);
+            }
+        }
+
+        return ans == Integer.MAX_VALUE ? -1 : ans;
+    }
 }
 
 

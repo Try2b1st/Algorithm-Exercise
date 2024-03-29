@@ -125,6 +125,41 @@ public class Question {
 
         return dp[n];
     }
+
+
+    /**
+     * LCR 166. 珠宝的最高价值
+     *
+     * @param frame
+     * @return
+     */
+    public int jewelleryValue(int[][] frame) {
+
+    }
+
+
+    /**
+     * LCR 185. 统计结果概率
+     *
+     * @param num
+     * @return
+     */
+    public double[] statisticsProbability(int num) {
+
+    }
+
+
+    /**
+     * LCR 187. 破冰游戏
+     *
+     * @param num
+     * @param target
+     * @return
+     */
+    public int iceBreakingGame(int num, int target) {
+
+        return iceBreakingGame(num - 1,target);
+    }
 }
 
 
