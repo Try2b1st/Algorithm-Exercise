@@ -116,9 +116,9 @@ public class Question {
 
         for (int i = 2; i <= n; i++) {
             String temp = s.substring(i - 2, i);
-            if(temp.compareTo("10") >= 0 && temp.compareTo("25") <= 0){
-                dp[i] = dp[i - 2] + dp[i -1];
-            }else{
+            if (temp.compareTo("10") >= 0 && temp.compareTo("25") <= 0) {
+                dp[i] = dp[i - 2] + dp[i - 1];
+            } else {
                 dp[i] = dp[i - 1];
             }
         }
@@ -134,7 +134,28 @@ public class Question {
      * @return
      */
     public int jewelleryValue(int[][] frame) {
+        int n = frame.length;
+        int m = frame[0].length;
 
+        //0 下 1右
+        int[][] dp = new int[n][m];
+        for (int i = 0; i < n; i++) {
+            Arrays.fill(dp[i], Integer.MIN_VALUE);
+        }
+        dp[0][0] = frame[0][0];
+        for (int i = 1; i < m; i++) {
+            dp[0][i] = dp[0][i - 1] + frame[0][i];
+        }
+        for (int i = 1; i < n; i++) {
+            dp[i][0] = dp[i - 1][0] + frame[i][0];
+        }
+
+        for (int i = 1; i < n; i++) {
+            for (int j = 1; j < m; j++) {
+                dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]) + frame[i][j];
+            }
+        }
+        return dp[n - 1][m - 1];
     }
 
 
@@ -145,7 +166,7 @@ public class Question {
      * @return
      */
     public double[] statisticsProbability(int num) {
-
+        return null;
     }
 
 
@@ -158,7 +179,7 @@ public class Question {
      */
     public int iceBreakingGame(int num, int target) {
 
-        return iceBreakingGame(num - 1,target);
+        return iceBreakingGame(num - 1, target);
     }
 }
 
