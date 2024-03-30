@@ -74,7 +74,7 @@ public class Question {
         for (int i = 0; i < m; i++) {
             Arrays.fill(visited[i], false);
         }
-        dfsToWardrobeFinishing(m, n, 0, 0, cnt);
+        dfsToWardrobeFinishing(m,n,0,0,cnt);
         return sum;
     }
 
@@ -99,4 +99,27 @@ public class Question {
         return result;
     }
 
+
+    /**
+     * LCR 146. 螺旋遍历二维数组
+     *
+     * @param array
+     * @return
+     */
+    public int[] spiralArray(int[][] array) {
+        if(array.length == 0) return new int[0];
+        int l = 0, r = array[0].length - 1, t = 0, b = array.length - 1, x = 0;
+        int[] res = new int[(r + 1) * (b + 1)];
+        while(true) {
+            for(int i = l; i <= r; i++) res[x++] = array[t][i]; // left to right
+            if(++t > b) break;
+            for(int i = t; i <= b; i++) res[x++] = array[i][r]; // top to bottom
+            if(l > --r) break;
+            for(int i = r; i >= l; i--) res[x++] = array[b][i]; // right to left
+            if(t > --b) break;
+            for(int i = b; i >= t; i--) res[x++] = array[i][l]; // bottom to top
+            if(++l > r) break;
+        }
+        return res;
+    }
 }
