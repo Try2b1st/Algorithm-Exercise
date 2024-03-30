@@ -58,4 +58,45 @@ public class Question {
         return result;
     }
 
+
+    /**
+     * LCR 130. 衣橱整理
+     *
+     * @param m
+     * @param n
+     * @param cnt
+     * @return
+     */
+    int sum = 0;
+
+    public int wardrobeFinishing(int m, int n, int cnt) {
+        visited = new boolean[m][n];
+        for (int i = 0; i < m; i++) {
+            Arrays.fill(visited[i], false);
+        }
+        dfsToWardrobeFinishing(m, n, 0, 0, cnt);
+        return sum;
+    }
+
+    public void dfsToWardrobeFinishing(int m, int n, int x, int y, int cnt) {
+        if (x >= m || y >= n || visited[x][y]) return;
+        if ((sums(x) + sums(y)) <= cnt) {
+            sum++;
+            return;
+        }
+
+        visited[x][y] = true;
+        dfsToWardrobeFinishing(m, n, x + 1, y, cnt);
+        dfsToWardrobeFinishing(m, n, x, y + 1, cnt);
+    }
+
+    public int sums(int x) {
+        int result = 0;
+        while (x != 0) {
+            result += x % 10;
+            x /= 10;
+        }
+        return result;
+    }
+
 }
