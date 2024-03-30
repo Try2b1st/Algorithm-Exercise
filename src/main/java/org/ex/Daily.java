@@ -2400,12 +2400,37 @@ public class Daily {
         }
 
         for (int i = 1; i < n - 1; i++) {
-            if(pre[i] < nums[i] && suf[i] < nums[i]){
-                ans = Math.min(ans,pre[i] + nums[i] + suf[i]);
+            if (pre[i] < nums[i] && suf[i] < nums[i]) {
+                ans = Math.min(ans, pre[i] + nums[i] + suf[i]);
             }
         }
 
         return ans == Integer.MAX_VALUE ? -1 : ans;
+    }
+
+
+    /**
+     * 03.30
+     * 2952. 需要添加的硬币的最小数量
+     *
+     * @param coins
+     * @param target
+     * @return
+     */
+    public int minimumAddedCoins(int[] coins, int target) {
+        Arrays.sort(coins);
+        int s = 1;
+        int ans = 0;
+        int i = 0;
+        while (s <= target) {
+            if (i < coins.length && coins[i] <= s) {
+                s += coins[i++];
+            } else {
+                ans++;
+                s *= 2;
+            }
+        }
+        return ans;
     }
 }
 

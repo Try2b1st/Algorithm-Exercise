@@ -166,7 +166,13 @@ public class Question {
      * @return
      */
     public double[] statisticsProbability(int num) {
-        return null;
+        double[] result = new double[num * 5 + 1];
+        result[0] = Math.pow(1.0 / 6.0, num);
+
+        for (int i = 1; i < result.length; i++) {
+            result[i] = result[i - 1] * (num - i);
+        }
+        return result;
     }
 
 
