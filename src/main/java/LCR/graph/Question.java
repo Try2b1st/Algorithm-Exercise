@@ -145,9 +145,38 @@ public class Question {
 
         int result = Integer.MIN_VALUE;
 
-        for(int i = 1;i < n;i++){
-            result = Math.max(prices[i] - mix[i],result);
+        for (int i = 1; i < n; i++) {
+            result = Math.max(prices[i] - mix[i], result);
         }
-        return  result;
+        return result;
+    }
+
+
+    /**
+     * LCR 162. 数字 1 的个数
+     *
+     * @param num
+     * @return
+     */
+    public int digitOneInNumber(int num) {
+        int digit = 1;
+        int ans = 0;
+        int height = num / 10;
+        int low = 0;
+        int cur = num % 10;
+        while (height != 0 || cur != 0) {
+            if (cur == 1) {
+                ans += height * digit + low + 1;
+            } else if (cur == 0) {
+                ans += height * digit;
+            } else {
+                ans += height * digit + digit;
+            }
+            low += digit * cur;
+            cur = height % 10;
+            height = height / 10;
+            digit *= 10;
+        }
+        return ans;
     }
 }
