@@ -166,11 +166,17 @@ public class Question {
      * @return
      */
     public double[] statisticsProbability(int num) {
-        double[] result = new double[num * 5 + 1];
-        result[0] = Math.pow(1.0 / 6.0, num);
+        double[] result = new double[6];
+        Arrays.fill(result, 1.0 / 6.0);
 
-        for (int i = 1; i < result.length; i++) {
-            result[i] = result[i - 1] * (num - i);
+        for (int i = 2; i <= num; i++) {
+            double[] temp = new double[i * 5 + 1];
+            for (int j = 0; j < result.length; j++) {
+                for (int k = 0; k < 6; k++) {
+                    temp[j + k] += result[j] * (1.0 / 6.0);
+                }
+            }
+            result = temp;
         }
         return result;
     }
@@ -184,9 +190,13 @@ public class Question {
      * @return
      */
     public int iceBreakingGame(int num, int target) {
-
-        return iceBreakingGame(num - 1, target);
+        int x = 0;
+        for (int i = 2; i < num; i++) {
+            x = (x + target) % num;
+        }
+        return x;
     }
+
 }
 
 
