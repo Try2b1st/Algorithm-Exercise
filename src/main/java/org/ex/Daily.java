@@ -2442,7 +2442,20 @@ public class Daily {
      * @return
      */
     public boolean isValidSerialization(String preorder) {
-        return false;
+        String[] arrays = preorder.split(",");
+        Stack<String> stack = new Stack<>();
+
+        for (String temp : arrays) {
+            while (!stack.isEmpty() && Objects.equals(stack.peek(), "#")) {
+                if (Objects.equals(temp, "#")) {
+                    stack.pop();
+                    if(stack.isEmpty()) return false;
+                    stack.pop();
+                }
+            }
+            stack.push(temp);
+        }
+        return stack.size() == 1 && Objects.equals(stack.peek(), "#");
     }
 }
 
