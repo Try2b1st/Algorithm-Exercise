@@ -2432,6 +2432,18 @@ public class Daily {
         }
         return ans;
     }
+
+
+    /**
+     * 03.31
+     * 331. 验证二叉树的前序序列化
+     *
+     * @param preorder
+     * @return
+     */
+    public boolean isValidSerialization(String preorder) {
+        return false;
+    }
 }
 
 

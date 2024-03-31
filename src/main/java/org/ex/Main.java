@@ -14,7 +14,8 @@ public class Main {
         Question question = new Question();
         Daily daily = new Daily();
         LCR.dp.Question question1 = new LCR.dp.Question();
-        question1.jewelleryValue(new int[][]{{1,2,5},{3,2,1}});
+        LCR.graph.Question question2 = new LCR.graph.Question();
+        question2.findKthNumber(1000);
     }
 }
 
