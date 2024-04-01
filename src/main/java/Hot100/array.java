@@ -153,4 +153,86 @@ public class array {
             }
         }
     }
+
+
+    /**
+     * 240. 搜索二维矩阵 II
+     *
+     * @param matrix
+     * @param target
+     * @return
+     */
+    public boolean searchMatrix(int[][] matrix, int target) {
+        int i = matrix.length - 1;
+        int j = 0;
+
+        while (i >= 0 && j < matrix[0].length) {
+            if (matrix[i][j] < target) {
+                j++;
+            } else if (matrix[i][j] > target) {
+                i--;
+            } else {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    public class ListNode {
+        int val;
+        ListNode next;
+
+        ListNode() {
+        }
+
+        ListNode(int val) {
+            this.val = val;
+        }
+
+        ListNode(int val, ListNode next) {
+            this.val = val;
+            this.next = next;
+        }
+    }
+
+
+    /**
+     * 合并链表
+     *
+     * @param list1
+     * @param list2
+     * @return
+     */
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+        ListNode ans = new ListNode();
+        ListNode head = new ListNode();
+        head = ans;
+
+        while (list1 != null || list2 != null) {
+            if(list2 != null && list1 == null){
+                ans.next = list2;
+                list2 = list2.next;
+                ans = ans.next;
+            }
+            if(list1 != null && list2 == null){
+                ans.next = list1;
+                list1 = list1.next;
+                ans = ans.next;
+            }
+            if(list1 != null && list2 != null){
+                if(list1.val <= list2.val){
+                    ans.next = list1;
+                    list1 = list1.next;
+                    ans = ans.next;
+                }else{
+                    ans.next = list2;
+                    list2 = list2.next;
+                    ans = ans.next;
+                }
+            }
+        }
+
+        return head.next;
+    }
 }
