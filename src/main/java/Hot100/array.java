@@ -210,22 +210,22 @@ public class array {
         head = ans;
 
         while (list1 != null || list2 != null) {
-            if(list2 != null && list1 == null){
+            if (list2 != null && list1 == null) {
                 ans.next = list2;
                 list2 = list2.next;
                 ans = ans.next;
             }
-            if(list1 != null && list2 == null){
+            if (list1 != null && list2 == null) {
                 ans.next = list1;
                 list1 = list1.next;
                 ans = ans.next;
             }
-            if(list1 != null && list2 != null){
-                if(list1.val <= list2.val){
+            if (list1 != null && list2 != null) {
+                if (list1.val <= list2.val) {
                     ans.next = list1;
                     list1 = list1.next;
                     ans = ans.next;
-                }else{
+                } else {
                     ans.next = list2;
                     list2 = list2.next;
                     ans = ans.next;
@@ -234,5 +234,46 @@ public class array {
         }
 
         return head.next;
+    }
+
+
+    /**
+     * 148. 排序链表
+     *
+     * @param head
+     * @return
+     */
+    public ListNode sortList(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+
+        ListNode slow = head;
+        ListNode fast = head.next;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        ListNode temp = slow.next;
+        slow.next = null;
+        ListNode left = sortList(head);
+        ListNode right = sortList(temp);
+        ListNode h = new ListNode(0);
+        ListNode ans = h;
+
+        while (left != null && right != null) {
+            if (left.val <= right.val) {
+                h.next = left;
+                left = left.next;
+            } else {
+                h.next = right;
+                right = right.next;
+            }
+            h = h.next;
+        }
+        h.next = left == null ? right : left;
+        return ans.next;
     }
 }
