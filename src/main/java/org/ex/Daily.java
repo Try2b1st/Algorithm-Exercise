@@ -2449,13 +2449,35 @@ public class Daily {
             while (!stack.isEmpty() && Objects.equals(stack.peek(), "#")) {
                 if (Objects.equals(temp, "#")) {
                     stack.pop();
-                    if(stack.isEmpty()) return false;
+                    if (stack.isEmpty()) return false;
                     stack.pop();
                 }
             }
             stack.push(temp);
         }
         return stack.size() == 1 && Objects.equals(stack.peek(), "#");
+    }
+
+
+    /**
+     * 04.01
+     * 2810. 故障键盘
+     *
+     * @param s
+     * @return
+     */
+    public String finalString(String s) {
+        StringBuilder sb = new StringBuilder();
+
+        for(int i = 0; i< s.length();i++){
+            if(s.charAt(i) == 'i'){
+                sb.reverse();
+            }else{
+                sb.append(s.charAt(i));
+            }
+        }
+
+        return sb.toString();
     }
 }
 
