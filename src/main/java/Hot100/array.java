@@ -95,42 +95,47 @@ public class array {
      * @param matrix
      */
     public void setZeroes(int[][] matrix) {
-        Set<Integer> h = new HashSet<>();
-        Set<Integer> l = new HashSet<>();
-        int x = matrix.length;
-        int y = matrix[0].length;
+        int m = matrix.length;
+        int n = matrix[0].length;
+        boolean r0 = false;
+        boolean l0 = false;
 
-        for (int i = 0; i < x; i++) {
-            if (h.contains(i)) {
-                continue;
-            }
-            for (int j = 0; j < y; j++) {
-                if (l.contains(j)) {
-                    continue;
-                }
-                if (matrix[i][j] == 0) {
-                    h.add(i);
-                    l.add(j);
-                }
+        for (int i = 0; i < n; i++) {
+            if (matrix[0][i] == 0){
+                r0 = true;
+                break;
             }
         }
-        for (int temp : h) {
-            setHZeroes(matrix, temp, y);
+        for (int i = 0; i < m; i++) {
+            if (matrix[i][0] == 0) {
+                l0 = true;
+                break;
+            }
         }
-        for (int temp : l) {
-            setLZeroes(matrix, temp, x);
-        }
-    }
 
-    public void setHZeroes(int[][] matrix, int h, int maxL) {
-        for (int i = 0; i < maxL; i++) {
-            matrix[h][i] = 0;
+        for (int i = 1; i < m; i++) {
+            for (int j = 1; j < n; j++) {
+                if (matrix[i][j] == 0) matrix[i][0] = matrix[0][j] = 0;
+            }
         }
-    }
 
-    public void setLZeroes(int[][] matrix, int l, int maxH) {
-        for (int i = 0; i < maxH; i++) {
-            matrix[i][l] = 0;
+        for (int i = 1; i < n; i++) {
+            if (matrix[0][i] == 0){
+                for(int j = 0; j < m;j++) matrix[j][i] = 0;
+            }
         }
+        for (int i = 1; i < m; i++) {
+            if (matrix[i][0] == 0) {
+                for(int j = 0; j< n;j++) matrix[i][j] = 0;
+            }
+        }
+
+        if(r0) Arrays.fill(matrix[0],0);
+        if(l0){
+            for(int i = 0; i< m;i++){
+                matrix[i][0] = 0;
+            }
+        }
+
     }
 }
