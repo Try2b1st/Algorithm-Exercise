@@ -1,9 +1,6 @@
 package Hot100;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class array {
     /**
@@ -101,7 +98,7 @@ public class array {
         boolean l0 = false;
 
         for (int i = 0; i < n; i++) {
-            if (matrix[0][i] == 0){
+            if (matrix[0][i] == 0) {
                 r0 = true;
                 break;
             }
@@ -120,22 +117,40 @@ public class array {
         }
 
         for (int i = 1; i < n; i++) {
-            if (matrix[0][i] == 0){
-                for(int j = 0; j < m;j++) matrix[j][i] = 0;
+            if (matrix[0][i] == 0) {
+                for (int j = 0; j < m; j++) matrix[j][i] = 0;
             }
         }
         for (int i = 1; i < m; i++) {
             if (matrix[i][0] == 0) {
-                for(int j = 0; j< n;j++) matrix[i][j] = 0;
+                for (int j = 0; j < n; j++) matrix[i][j] = 0;
             }
         }
 
-        if(r0) Arrays.fill(matrix[0],0);
-        if(l0){
-            for(int i = 0; i< m;i++){
+        if (r0) Arrays.fill(matrix[0], 0);
+        if (l0) {
+            for (int i = 0; i < m; i++) {
                 matrix[i][0] = 0;
             }
         }
+    }
 
+
+    /**
+     * 48. 旋转图像
+     *
+     * @param matrix
+     */
+    public void rotate(int[][] matrix) {
+        int n = matrix.length;
+        for (int i = 0; i < n / 2; i++) {
+            for (int j = 0; j < (n + 1) / 2; j++) {
+                int tmp = matrix[i][j];
+                matrix[i][j] = matrix[n - 1 - j][i];
+                matrix[n - 1 - j][i] = matrix[n - 1 - i][n - 1 - j];
+                matrix[n - 1 - i][n - 1 - j] = matrix[j][n - 1 - i];
+                matrix[j][n - 1 - i] = tmp;
+            }
+        }
     }
 }
