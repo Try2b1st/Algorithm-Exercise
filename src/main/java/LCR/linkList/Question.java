@@ -265,4 +265,84 @@ public class Question {
         return a;
     }
 
+
+    /**
+     * 146. LRU 缓存
+     */
+    public class LRUCache {
+        private final int capacity;
+
+        private static class Node {
+            int key;
+            int value;
+
+            Node pre, next;
+
+            public Node(int key, int value) {
+                this.key = key;
+                this.value = value;
+            }
+        }
+
+        //哨兵
+        private final Node dummy = new Node(0, 0);
+        private final Map<Integer, Node> keyToNode = new HashMap<>();
+
+        public LRUCache(int capacity) {
+            this.capacity = capacity;
+            dummy.next = dummy;
+            dummy.pre = dummy;
+        }
+
+        public int get(int key) {
+            Node node = getNode(key);
+            return node == null ? -1 : node.value;
+        }
+
+        public void put(int key, int value) {
+            Node node = getNode(key);
+
+            if (node != null) {
+                node.value = value;
+                return;
+            }
+
+            node = new Node(key,value);
+            keyToNode.put(key,node);
+            putNode(node);
+
+            if(keyToNode.size() > capacity){
+                Node remove = dummy.pre;
+                keyToNode.remove(remove.key);
+                removeNode(remove);
+            }
+
+        }
+
+        private Node getNode(int key) {
+            if (keyToNode.containsKey(key)) {
+                return null;
+            }
+            Node node = keyToNode.get(key);
+
+            removeNode(node);
+            putNode(node);
+
+            return node;
+        }
+
+        private void removeNode(Node x) {
+            x.pre.next = x.next;
+            x.next.pre = x.pre;
+        }
+
+        private void putNode(Node x) {
+            x.pre = dummy;
+            x.next = dummy.next;
+
+            dummy.next.pre = x;
+            dummy.next = x;
+        }
+    }
+
 }
