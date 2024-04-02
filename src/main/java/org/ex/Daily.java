@@ -2469,15 +2469,43 @@ public class Daily {
     public String finalString(String s) {
         StringBuilder sb = new StringBuilder();
 
-        for(int i = 0; i< s.length();i++){
-            if(s.charAt(i) == 'i'){
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == 'i') {
                 sb.reverse();
-            }else{
+            } else {
                 sb.append(s.charAt(i));
             }
         }
 
         return sb.toString();
+    }
+
+
+    /**
+     * 04.02
+     * 894. 所有可能的真二叉树
+     *
+     * @param n
+     * @return
+     */
+    private static List<TreeNode>[] f = new ArrayList[11];
+
+    {
+        Arrays.setAll(f, i -> new ArrayList<>());
+
+        for (int i = 2; i < 11; i++) {
+            for (int j = 1; j < i; j++) {
+                for (TreeNode left : f[j]) {
+                    for (TreeNode right : f[i - j]) {
+                        f[i].add(new TreeNode(0, left, right));
+                    }
+                }
+            }
+        }
+    }
+
+    public List<TreeNode> allPossibleFBT(int n) {
+        return f[n /2 ==0 ? 0 : (n + 1)/2];
     }
 }
 
