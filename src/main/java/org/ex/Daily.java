@@ -2505,7 +2505,43 @@ public class Daily {
     }
 
     public List<TreeNode> allPossibleFBT(int n) {
-        return f[n /2 ==0 ? 0 : (n + 1)/2];
+        return f[n / 2 == 0 ? 0 : (n + 1) / 2];
+    }
+
+
+    /**
+     * 1379. 找出克隆二叉树中的相同节点
+     *
+     * @param original
+     * @param cloned
+     * @param target
+     * @return
+     */
+    public final TreeNode getTargetCopy(final TreeNode original, final TreeNode cloned, final TreeNode target) {
+        return dfsToGetTargetCopy(original,cloned,target);
+    }
+
+    private TreeNode dfsToGetTargetCopy(TreeNode original,TreeNode root, TreeNode target) {
+
+        if (original == target) {
+            return root;
+        }
+
+        if (root.left != null) {
+            TreeNode res = dfsToGetTargetCopy(original.left,root.left, target);
+            if(res != null){
+                return res;
+            }
+        }
+
+        if (root.right != null) {
+            TreeNode res = dfsToGetTargetCopy(original.left,root.right, target);
+            if(res != null){
+                return res;
+            }
+        }
+
+        return null;
     }
 }
 
