@@ -2518,30 +2518,108 @@ public class Daily {
      * @return
      */
     public final TreeNode getTargetCopy(final TreeNode original, final TreeNode cloned, final TreeNode target) {
-        return dfsToGetTargetCopy(original,cloned,target);
+        return dfsToGetTargetCopy(original, cloned, target);
     }
 
-    private TreeNode dfsToGetTargetCopy(TreeNode original,TreeNode root, TreeNode target) {
+    private TreeNode dfsToGetTargetCopy(TreeNode original, TreeNode root, TreeNode target) {
 
         if (original == target) {
             return root;
         }
 
         if (root.left != null) {
-            TreeNode res = dfsToGetTargetCopy(original.left,root.left, target);
-            if(res != null){
+            TreeNode res = dfsToGetTargetCopy(original.left, root.left, target);
+            if (res != null) {
                 return res;
             }
         }
 
         if (root.right != null) {
-            TreeNode res = dfsToGetTargetCopy(original.left,root.right, target);
-            if(res != null){
+            TreeNode res = dfsToGetTargetCopy(original.left, root.right, target);
+            if (res != null) {
                 return res;
             }
         }
 
         return null;
+    }
+
+
+    /**
+     * 04.04
+     * 2192. 有向无环图中一个节点的所有祖先
+     *
+     * @param n
+     * @param edges
+     * @return
+     */
+    public List<List<Integer>> getAncestors(int n, int[][] edges) {
+        List<Integer>[] g = new ArrayList[n];
+        Arrays.setAll(g, i -> new ArrayList<>());
+
+        for (int[] e : edges) {
+            g[e[1]].add(e[0]);
+        }
+
+        List<List<Integer>> ans = new ArrayList<>();
+
+        for (int i = 0; i < n; i++) {
+            List<Integer> temp = new ArrayList<>();
+            boolean[] vis = new boolean[n];
+            Arrays.fill(vis, false);
+
+            dfsToGetAncestors(i, g, vis);
+            vis[i] = false;
+
+            for (int j = 0; j < n; j++) {
+                if (vis[j]) temp.add(j);
+            }
+
+            ans.add(temp);
+        }
+
+        return ans;
+    }
+
+    private void dfsToGetAncestors(int i, List<Integer>[] g, boolean[] vis) {
+        vis[i] = true;
+        for (int j : g[i]) {
+            if (!vis[j]) {
+                dfsToGetAncestors(j, g, vis);
+            }
+        }
+    }
+
+
+    /**
+     * 04.05
+     * 1026. 节点与其祖先之间的最大差值
+     *
+     * @param root
+     * @return
+     */
+    int maxAncestor = 0;
+
+    public int maxAncestorDiff(TreeNode root) {
+        int min = root.val;
+        int max = root.val;
+
+        dfsToMaxAncestorDiff(root.left, min, max);
+        dfsToMaxAncestorDiff(root.right, min, max);
+
+        return maxAncestor;
+    }
+
+    private void dfsToMaxAncestorDiff(TreeNode root, int min, int max) {
+        if (root == null) {
+            return;
+        }
+        maxAncestor = Math.max(maxAncestor, Math.max(Math.abs(min - root.val), Math.abs(max - root.val)));
+        min = Math.min(min, root.val);
+        max = Math.max(max, root.val);
+
+        dfsToMaxAncestorDiff(root.left, min, max);
+        dfsToMaxAncestorDiff(root.right, min, max);
     }
 }
 
