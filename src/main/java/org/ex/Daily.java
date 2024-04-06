@@ -2621,6 +2621,45 @@ public class Daily {
         dfsToMaxAncestorDiff(root.left, min, max);
         dfsToMaxAncestorDiff(root.right, min, max);
     }
+
+
+    /**
+     * 04.06
+     * 1483. 树节点的第 K 个祖先
+     */
+    class TreeAncestor {
+        private int[][] pa;
+
+        public TreeAncestor(int n, int[] parent) {
+            int m = 32 - Integer.numberOfLeadingZeros(n);
+            pa = new int[n][m];
+
+            for (int i = 0; i < n; i++) {
+                pa[i][0] = parent[i];
+            }
+
+            for (int i = 1; i < m; i++) {
+                for (int j = 0; j < n; j++) {
+                    int p = pa[j][i - 1];
+                    pa[j][i] = p < 0 ? -1 : pa[p][i - 1];
+                }
+            }
+        }
+
+        public int getKthAncestor(int node, int k) {
+            int m = 32 - Integer.numberOfLeadingZeros(k);
+            for (int i = 0; i < m; i++) {
+                if (((k >> i) & 1) > 0) {
+                    node = pa[node][i];
+                    if(node < 0){
+                        break;
+                    }
+                }
+            }
+            return node;
+        }
+    }
+
 }
 
 
