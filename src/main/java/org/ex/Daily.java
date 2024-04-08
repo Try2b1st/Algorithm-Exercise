@@ -2670,12 +2670,15 @@ public class Daily {
             Node next;
             Node last; // 记录最后一个儿子
             boolean isDeleted = false;
-            Node (String _name) {
+
+            Node(String _name) {
                 name = _name;
             }
         }
+
         Map<String, Node> map = new HashMap<>();
         Node head = new Node(""), tail = new Node("");
+
         public ThroneInheritance(String name) {
             Node root = new Node(name);
             root.next = tail;
@@ -2708,6 +2711,39 @@ public class Daily {
             }
             return ans;
         }
+    }
+
+
+    /**
+     * 04.08
+     * 2009. 使数组连续的最少操作数
+     *
+     * @param nums
+     * @return
+     */
+    public int minOperations(int[] nums) {
+        int n = nums.length;
+        if (n == 1) {
+            return 0;
+        }
+        Arrays.sort(nums);
+        int m = 1;
+        for (int i = 1; i < n; i++) {
+            if (nums[i] != nums[i - 1]) {
+                nums[m++] = nums[i];
+            }
+        }
+
+        int left = 0;
+        int ans = 0;
+
+        for (int i = 1; i < m; i++) {
+            if (nums[i] - nums[left] > n - 1) {
+                left++;
+            }
+            ans = Math.max(ans, i - left + 1);
+        }
+        return n - ans ;
     }
 }
 
