@@ -2743,7 +2743,37 @@ public class Daily {
             }
             ans = Math.max(ans, i - left + 1);
         }
-        return n - ans ;
+        return n - ans;
+    }
+
+
+    /**
+     * 04.09
+     * 2529. 正整数和负整数的最大计数
+     *
+     * @param nums
+     * @return
+     */
+    public int maximumCount(int[] nums) {
+        int neg = lowerBound(nums, 0);
+        int pos = nums.length - lowerBound(nums, 1);
+        return Math.max(neg, pos);
+    }
+
+    private int lowerBound(int[] nums, int target) {
+        int left = -1;
+        int right = nums.length;
+        while (left + 1 < right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] >= target) {
+                right = mid;
+            } else {
+                left = mid;
+            }
+        }
+        // 此时 left 等于 right - 1
+        // 因为 nums[right - 1] < target 且 nums[right] >= target，所以答案是 right
+        return right;
     }
 }
 
