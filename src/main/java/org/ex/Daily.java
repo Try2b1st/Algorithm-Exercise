@@ -2775,6 +2775,27 @@ public class Daily {
         // 因为 nums[right - 1] < target 且 nums[right] >= target，所以答案是 right
         return right;
     }
+
+
+    /**
+     * 04.10
+     * 1702. 修改后的最大二进制字符串
+     *
+     * @param binary
+     * @return
+     */
+    public String maximumBinaryString(String binary) {
+        int i = binary.indexOf('0');
+        if (i < 0) { // binary 全是 '1'
+            return binary;
+        }
+        char[] s = binary.toCharArray();
+        int cnt1 = 0;
+        for (i++; i < s.length; i++) {
+            cnt1 += s[i] - '0'; // 统计 [i, n-1] 中 '1' 的个数
+        }
+        return "1".repeat(s.length - 1 - cnt1) + '0' + "1".repeat(cnt1);
+    }
 }
 
 
