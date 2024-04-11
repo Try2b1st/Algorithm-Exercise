@@ -1,6 +1,6 @@
 package Hot100.doublePoint;
 
-public class point {
+public class Point {
 
     /**
      * 11. 盛最多水的容器

@@ -2796,6 +2796,84 @@ public class Daily {
         }
         return "1".repeat(s.length - 1 - cnt1) + '0' + "1".repeat(cnt1);
     }
+
+
+    /**
+     * 04.11
+     * 1766. 互质树
+     *
+     * @param nums
+     * @param edges
+     * @return
+     */
+    static int MAX = 51;
+    static int[][] coprime = new int[MAX][MAX];
+
+    //预处理
+    static {
+        for (int i = 1; i < MAX; i++) {
+            int k = 0;
+            for (int j = 1; j < MAX; j++) {
+                if (gcd(i, j) == 1) {
+                    coprime[i][k++] = j;
+                }
+            }
+        }
+    }
+
+    public int[] getCoprimes(int[] nums, int[][] edges) {
+        int n = nums.length;
+        List<Integer>[] g = new ArrayList[n];
+        Arrays.setAll(g, i -> new ArrayList<>());
+
+        for (int[] e : edges) {
+            int x = e[0];
+            int y = e[1];
+            g[x].add(y);
+            g[y].add(x);
+        }
+
+        int[] ans = new int[n];
+        Arrays.fill(ans, -1);
+        int[] valDepth = new int[MAX];
+        int[] valNodeId = new int[MAX];
+        dfsToGetCoprimes(0, -1, g, 1, nums, ans, valDepth, valNodeId);
+        return ans;
+    }
+
+    private void dfsToGetCoprimes(int x, int fa, List<Integer>[] g, int depth, int[] nums, int[] ans, int[] valDepth, int[] valNodeId) {
+        int num = nums[x];
+
+        List<Integer> list = g[x];
+
+        int maxDepth = 0;
+        for (int j : coprime[num]) {
+            if (j == 0) {
+                break;
+            }
+            if (valDepth[j] > maxDepth) {
+                maxDepth = valDepth[j];
+                ans[x] = valNodeId[j];
+            }
+        }
+
+        int tempValDepth = valDepth[num];
+        int tempValNodeId = valNodeId[num];
+
+        valDepth[num] = depth;
+        valNodeId[num] = x;
+
+        for (int i : list) {
+            if (i != fa) dfsToGetCoprimes(i, x, g, depth + 1, nums, ans, valDepth, valNodeId);
+        }
+
+        valDepth[num] = tempValDepth;
+        valNodeId[num] = tempValNodeId;
+    }
+
+    private static int gcd(int x, int y) {
+        return y == 0 ? x : gcd(y, x % y);
+    }
 }
 
 
