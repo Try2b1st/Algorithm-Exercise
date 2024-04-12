@@ -2874,6 +2874,27 @@ public class Daily {
     private static int gcd(int x, int y) {
         return y == 0 ? x : gcd(y, x % y);
     }
+
+
+    /**
+     * 04.12
+     * 2923. 找到冠军 I
+     *
+     * @param grid
+     * @return
+     */
+    public int findChampion(int[][] grid) {
+        int ans = 0;
+        int n = grid.length;
+
+        for(int i = 1; i< n;i++){
+            if(grid[i][ans] == 1){
+                ans = i;
+            }
+        }
+
+        return ans;
+    }
 }
 
 
