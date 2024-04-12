@@ -56,15 +56,17 @@ public class Tree {
      */
     List<Integer> list;
     int K;
+
     public int kthSmallest(TreeNode root, int k) {
         list = new ArrayList<>();
-        K=k;
+        K = k;
         midToKthSmallest(root);
         return list.get(k - 1);
     }
-    private void midToKthSmallest(TreeNode root){
-        if(root == null) return;
-        if(list.size() == K) return;
+
+    private void midToKthSmallest(TreeNode root) {
+        if (root == null) return;
+        if (list.size() == K) return;
 
         midToKthSmallest(root.left);
         list.add(root.val);
@@ -72,5 +74,29 @@ public class Tree {
     }
 
 
+    /**
+     * 114. 二叉树展开为链表
+     *
+     * @param root
+     */
+    public void flatten(TreeNode root) {
+        while (root != null) {
+            if (root.left == null) {
+                root = root.right;
+            } else {
+                TreeNode pre = root.left;
+
+                while (pre.right != null) {
+                    pre = pre.right;
+                }
+
+                pre.right = root.right;
+                root.right = root.left;
+                root.left = null;
+
+                root = root.right;
+            }
+        }
+    }
 
 }
