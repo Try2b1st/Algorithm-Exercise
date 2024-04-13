@@ -2887,12 +2887,43 @@ public class Daily {
         int ans = 0;
         int n = grid.length;
 
-        for(int i = 1; i< n;i++){
-            if(grid[i][ans] == 1){
+        for (int i = 1; i < n; i++) {
+            if (grid[i][ans] == 1) {
                 ans = i;
             }
         }
 
+        return ans;
+    }
+
+
+    /**
+     * 2924. 找到冠军 II
+     *
+     * @param n
+     * @param edges
+     * @return
+     */
+    public int findChampion(int n, int[][] edges) {
+        boolean[] result = new boolean[n];
+        Arrays.fill(result, true);
+
+
+        for (int[] edge : edges) {
+            result[edge[1]] = false;
+        }
+
+        int count = 0;
+        int ans = -1;
+        for(int i = 0; i< n;i++){
+            if(result[i]){
+                ans= i;
+                count++;
+            }
+            if(count>=2){
+                return -1;
+            }
+        }
         return ans;
     }
 }
