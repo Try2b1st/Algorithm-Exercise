@@ -109,19 +109,19 @@ public class Tree {
      * @param targetSum
      * @return
      */
-    Map<Integer, Integer> prefixMap;
+    Map<Long, Integer> prefixMap;
     int target;
 
     public int pathSum(TreeNode root, int targetSum) {
         prefixMap = new HashMap<>();
         target = targetSum;
 
-        prefixMap.put(0, 1);
+        prefixMap.put(0L, 1);
 
-        return recur(root,0);
+        return recur(root,0L);
     }
 
-    private int recur(TreeNode root, int curSum) {
+    private int recur(TreeNode root, Long curSum) {
         if (root == null) {
             return 0;
         }
