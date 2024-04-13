@@ -1,7 +1,9 @@
 package Hot100;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Tree {
 
@@ -99,4 +101,43 @@ public class Tree {
         }
     }
 
+
+    /**
+     * 437. 路径总和 III
+     *
+     * @param root
+     * @param targetSum
+     * @return
+     */
+    Map<Integer, Integer> prefixMap;
+    int target;
+
+    public int pathSum(TreeNode root, int targetSum) {
+        prefixMap = new HashMap<>();
+        target = targetSum;
+
+        prefixMap.put(0, 1);
+
+        return recur(root,0);
+    }
+
+    private int recur(TreeNode root, int curSum) {
+        if (root == null) {
+            return 0;
+        }
+
+        int res = 0;
+        curSum += root.val;
+
+        res += prefixMap.getOrDefault(curSum - target, 0);
+        prefixMap.put(curSum, prefixMap.getOrDefault(curSum, 0) + 1);
+
+        int left = recur(root.left, curSum);
+        int right = recur(root.right, curSum);
+
+        prefixMap.put(curSum,prefixMap.get(curSum) - 1);
+
+        return res + left + right;
+
+    }
 }
