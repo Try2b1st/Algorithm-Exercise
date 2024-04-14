@@ -64,10 +64,10 @@ public class Link {
      * @return
      */
     public ListNode mergeKLists(ListNode[] lists) {
-        PriorityQueue<ListNode> pq = new PriorityQueue<>((a,b) -> a.val - b.val);
+        PriorityQueue<ListNode> pq = new PriorityQueue<>((a, b) -> a.val - b.val);
 
-        for(ListNode head : lists){
-            if(head !=null){
+        for (ListNode head : lists) {
+            if (head != null) {
                 pq.offer(head);
             }
         }
@@ -75,9 +75,9 @@ public class Link {
         ListNode head = new ListNode();
         ListNode cur = head;
 
-        while(!pq.isEmpty()){
+        while (!pq.isEmpty()) {
             ListNode temp = pq.poll();
-            if(temp.next != null){
+            if (temp.next != null) {
                 pq.offer(temp.next);
             }
             cur.next = temp;
@@ -85,5 +85,42 @@ public class Link {
         }
 
         return head.next;
+    }
+
+
+    /**
+     * 2. 两数相加
+     *
+     * @param l1
+     * @param l2
+     * @return
+     */
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode res = new ListNode(0);
+        ListNode cur = res;
+
+        int carry = 0;
+        while (l1 != null || l2 != null) {
+            if (l2 == null) {
+                cur.val = (l1.val + carry) % 10;
+                carry = (l1.val + carry) / 10;
+                l1 = l1.next;
+            } else if (l1 == null) {
+                cur.val = (l2.val + carry) % 10;
+                carry = (l2.val + carry) / 10;
+                l2 = l2.next;
+            } else {
+                cur.val = (l2.val + l1.val + carry) % 10;
+                carry = (l2.val + l1.val + carry) / 10;
+                l1 = l1.next;
+                l2=l2.next;
+            }
+            if (l1 != null || l2 != null) {
+                cur.next = new ListNode(0);
+                cur = cur.next;
+            }
+        }
+
+        return res;
     }
 }
