@@ -2915,16 +2915,62 @@ public class Daily {
 
         int count = 0;
         int ans = -1;
-        for(int i = 0; i< n;i++){
-            if(result[i]){
-                ans= i;
+        for (int i = 0; i < n; i++) {
+            if (result[i]) {
+                ans = i;
                 count++;
             }
-            if(count>=2){
+            if (count >= 2) {
                 return -1;
             }
         }
         return ans;
+    }
+
+
+    /**
+     * 04.14
+     * 705. 设计哈希集合
+     */
+    public class MyHashSet {
+        int[] bs = new int[40000];
+
+        public MyHashSet() {
+        }
+
+        public void add(int key) {
+            int buckIndex = key / 32;
+            int bitIndex = key % 32;
+            setVal(buckIndex, bitIndex, true);
+        }
+
+        public void remove(int key) {
+            int buckIndex = key / 32;
+            int bitIndex = key % 32;
+            setVal(buckIndex, bitIndex, false);
+
+        }
+
+        public boolean contains(int key) {
+            int buckIndex = key / 32;
+            int bitIndex = key % 32;
+            return getVal(buckIndex,bitIndex);
+        }
+
+        private void setVal(int buckIndex, int bitIndex, boolean val) {
+            if (val) {
+                int i = bs[buckIndex] | (1 << bitIndex);
+                bs[buckIndex] = i;
+            } else {
+                int i = bs[buckIndex] & (~(1 << bitIndex));
+                bs[buckIndex] = i;
+            }
+        }
+
+        private boolean getVal(int buckIndex,int bitIndex){
+            int i = bs[buckIndex] >> bitIndex & 1;
+            return i == 1;
+        }
     }
 }
 
