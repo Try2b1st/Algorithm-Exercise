@@ -157,11 +157,36 @@ public class Tree {
         TreeNode left = lowestCommonAncestor(root.left, p, q);
         TreeNode right = lowestCommonAncestor(root.right, p, q);
 
-        if(left != null && right != null)  return root;
-        if(left != null){
+        if (left != null && right != null) return root;
+        if (left != null) {
             return left;
-        }else{
+        } else {
             return right;
         }
+    }
+
+
+    /**
+     * 124. 二叉树中的最大路径和
+     *
+     * @param root
+     * @return
+     */
+    int max = Integer.MIN_VALUE;
+
+    public int maxPathSum(TreeNode root) {
+        dfs(root);
+        return max;
+    }
+
+    private int dfsToMaxPathSum(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+
+        int left = dfsToMaxPathSum(root.left);
+        int right = dfsToMaxPathSum(root.right);
+        max = Math.max(max, left + right + root.val);
+        return Math.max(Math.max(left,right) + root.val,0);
     }
 }
