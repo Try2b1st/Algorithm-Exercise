@@ -272,7 +272,7 @@ public class Question {
     public class LRUCache {
         private final int capacity;
 
-        private static class Node {
+        private class Node {
             int key;
             int value;
 
