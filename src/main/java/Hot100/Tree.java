@@ -118,7 +118,7 @@ public class Tree {
 
         prefixMap.put(0L, 1);
 
-        return recur(root,0L);
+        return recur(root, 0L);
     }
 
     private int recur(TreeNode root, Long curSum) {
@@ -135,10 +135,33 @@ public class Tree {
         int left = recur(root.left, curSum);
         int right = recur(root.right, curSum);
 
-        prefixMap.put(curSum,prefixMap.get(curSum) - 1);
+        prefixMap.put(curSum, prefixMap.get(curSum) - 1);
 
         return res + left + right;
     }
 
 
+    /**
+     * 236. 二叉树的最近公共祖先
+     *
+     * @param root
+     * @param p
+     * @param q
+     * @return
+     */
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if (root == p || root == q) {
+            return root;
+        }
+
+        TreeNode left = lowestCommonAncestor(root.left, p, q);
+        TreeNode right = lowestCommonAncestor(root.right, p, q);
+
+        if(left != null && right != null)  return root;
+        if(left != null){
+            return left;
+        }else{
+            return right;
+        }
+    }
 }
