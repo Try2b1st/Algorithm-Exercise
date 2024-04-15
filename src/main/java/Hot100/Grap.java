@@ -1,8 +1,6 @@
 package Hot100;
 
-import java.util.Deque;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class Grap {
 
@@ -24,13 +22,13 @@ public class Grap {
                 if (grid[i][j] == 2) {
                     deque.addLast(new int[]{i, j});
                 }
-                if(grid[i][j] == 1){
-                    flag =true;
+                if (grid[i][j] == 1) {
+                    flag = true;
                 }
             }
         }
 
-        if(deque.isEmpty() && !flag) return 0;
+        if (deque.isEmpty() && !flag) return 0;
 
         int ans = 0;
         while (!deque.isEmpty()) {
@@ -62,6 +60,50 @@ public class Grap {
                 }
             }
         }
-        return ans -1;
+        return ans - 1;
+    }
+
+
+    /**
+     * 207. 课程表
+     *
+     * @param numCourses
+     * @param prerequisites
+     * @return
+     */
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        int[] result = new int[numCourses];
+        Arrays.fill(result, 0);
+
+        for (int[] temp : prerequisites) {
+            result[temp[1]] += 1;
+        }
+
+        Deque<Integer> deque = new LinkedList<>();
+        for (int i = 0; i< numCourses;i++) {
+            if (result[i] == 0) {
+                deque.addLast(i);
+            }
+        }
+
+        while (!deque.isEmpty()) {
+            int x = deque.pollFirst();
+            for (int[] temp : prerequisites) {
+                if (x == temp[0]) {
+                    result[temp[1]] -= 1;
+                    if (result[temp[1]] == 0) {
+                        deque.addLast(temp[1]);
+                    }
+                }
+            }
+        }
+
+        for (int x : result) {
+            if (x != 0) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
