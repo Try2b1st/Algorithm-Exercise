@@ -75,8 +75,14 @@ public class Grap {
         int[] result = new int[numCourses];
         Arrays.fill(result, 0);
 
+        List<List<Integer>> adjacency = new ArrayList<>();
+        for(int i = 0; i < numCourses; i++){
+            adjacency.add(new ArrayList<>());
+        }
+
         for (int[] temp : prerequisites) {
             result[temp[1]] += 1;
+            adjacency.get(temp[0]).add(temp[1]);
         }
 
         Deque<Integer> deque = new LinkedList<>();
@@ -88,12 +94,10 @@ public class Grap {
 
         while (!deque.isEmpty()) {
             int x = deque.pollFirst();
-            for (int[] temp : prerequisites) {
-                if (x == temp[0]) {
-                    result[temp[1]] -= 1;
-                    if (result[temp[1]] == 0) {
-                        deque.addLast(temp[1]);
-                    }
+            for(int i : adjacency.get(x)){
+                result[i] -= 1;
+                if(result[i] == 0){
+                    deque.addLast(i);
                 }
             }
         }
