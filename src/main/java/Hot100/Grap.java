@@ -76,7 +76,7 @@ public class Grap {
         Arrays.fill(result, 0);
 
         List<List<Integer>> adjacency = new ArrayList<>();
-        for(int i = 0; i < numCourses; i++){
+        for (int i = 0; i < numCourses; i++) {
             adjacency.add(new ArrayList<>());
         }
 
@@ -86,7 +86,7 @@ public class Grap {
         }
 
         Deque<Integer> deque = new LinkedList<>();
-        for (int i = 0; i< numCourses;i++) {
+        for (int i = 0; i < numCourses; i++) {
             if (result[i] == 0) {
                 deque.addLast(i);
             }
@@ -94,9 +94,9 @@ public class Grap {
 
         while (!deque.isEmpty()) {
             int x = deque.pollFirst();
-            for(int i : adjacency.get(x)){
+            for (int i : adjacency.get(x)) {
                 result[i] -= 1;
-                if(result[i] == 0){
+                if (result[i] == 0) {
                     deque.addLast(i);
                 }
             }
@@ -109,5 +109,52 @@ public class Grap {
         }
 
         return true;
+    }
+
+
+    /**
+     * 208. 实现 Trie (前缀树)
+     */
+    public class Trie {
+        class TrieNode {
+            boolean end;
+            TrieNode[] tns = new TrieNode[26];
+        }
+
+        TrieNode root;
+
+        public Trie() {
+            root = new TrieNode();
+        }
+
+        public void insert(String word) {
+            TrieNode cur = root;
+            for (int i = 0; i < word.length(); i++) {
+                int index = word.charAt(i) - 'a';
+                if (cur.tns[index] == null) cur.tns[index] = new TrieNode();
+                cur = cur.tns[index];
+            }
+            cur.end = true;
+        }
+
+        public boolean search(String word) {
+            TrieNode cur = root;
+            for (int i = 0; i < word.length(); i++) {
+                int index = word.charAt(i) - 'a';
+                if(cur.tns[index] == null) return false;
+                cur = cur.tns[index];
+            }
+            return cur.end;
+        }
+
+        public boolean startsWith(String prefix) {
+            TrieNode cur = root;
+            for (int i = 0; i < prefix.length(); i++) {
+                int index = prefix.charAt(i) - 'a';
+                if(cur.tns[index] == null) return false;
+                cur = cur.tns[index];
+            }
+            return true;
+        }
     }
 }
