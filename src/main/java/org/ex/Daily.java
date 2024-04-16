@@ -2954,7 +2954,7 @@ public class Daily {
         public boolean contains(int key) {
             int buckIndex = key / 32;
             int bitIndex = key % 32;
-            return getVal(buckIndex,bitIndex);
+            return getVal(buckIndex, bitIndex);
         }
 
         private void setVal(int buckIndex, int bitIndex, boolean val) {
@@ -2967,7 +2967,7 @@ public class Daily {
             }
         }
 
-        private boolean getVal(int buckIndex,int bitIndex){
+        private boolean getVal(int buckIndex, int bitIndex) {
             int i = bs[buckIndex] >> bitIndex & 1;
             return i == 1;
         }
@@ -2982,6 +2982,7 @@ public class Daily {
         static class Node {
             int key, value;
             Node next;
+
             Node(int _key, int _value) {
                 key = _key;
                 value = _value;
@@ -3063,6 +3064,64 @@ public class Daily {
             int hash = Integer.hashCode(key);
             hash ^= (hash >>> 16);
             return hash % nodes.length;
+        }
+    }
+
+
+    /**
+     * 924. 尽量减少恶意软件的传播
+     *
+     * @param graph
+     * @param initial
+     * @return
+     */
+    int nodeId;
+    int size;
+
+    public int minMalwareSpread(int[][] graph, int[] initial) {
+        int n = graph.length;
+        boolean[] vis = new boolean[n];
+        boolean[] isInitial = new boolean[n];
+        int mn = Integer.MAX_VALUE;
+        for (int x : initial) {
+            isInitial[x] = true;
+            mn = Math.min(mn, x);
+        }
+
+        int ans = -1;
+        int maxSize = 0;
+        for (int i : initial) {
+            if (vis[i]) {
+                continue;
+            }
+            nodeId = -1;
+            size = 0;
+            dfsToMinMalwareSpread(i, graph, vis, isInitial);
+
+            if(nodeId > 0){
+                if(maxSize < size){
+                    ans = nodeId;
+                }else if(maxSize == size && nodeId < ans){
+                    ans = nodeId;
+                }
+            }
+        }
+
+        return ans < 0 ? mn : ans;
+    }
+
+    private void dfsToMinMalwareSpread(int x, int[][] graph, boolean[] vis, boolean[] isInitial) {
+        vis[x] = true;
+        size++;
+
+        if(nodeId != -2 && isInitial[x]){
+            nodeId = nodeId == -1 ? x : -2;
+        }
+
+        for (int i = 0; i < graph.length; i++) {
+            if(graph[x][i] == 1 && !vis[i]){
+                dfsToMinMalwareSpread(i,graph,vis,isInitial);
+            }
         }
     }
 }
