@@ -1,6 +1,7 @@
 package org.ex;
 
 
+import Hot100.Dp;
 import org.ex.graphTheory.Connection;
 import org.ex.graphTheory.Question;
 
@@ -11,11 +12,9 @@ import java.util.Arrays;
  */
 public class Main {
     public static void main(String[] args) {
-        Question question = new Question();
-        Daily daily = new Daily();
-        LCR.dp.Question question1 = new LCR.dp.Question();
-        LCR.graph.Question question2 = new LCR.graph.Question();
-        question2.findKthNumber(1000);
+        Dp dp = new Dp();
+        int i = dp.longestValidParentheses("(()");
+        System.out.println(i);
     }
 
     int nodeId;

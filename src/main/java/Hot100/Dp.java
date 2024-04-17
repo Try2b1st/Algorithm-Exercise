@@ -1,7 +1,6 @@
 package Hot100;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Dp {
 
@@ -67,4 +66,63 @@ public class Dp {
 
         return ans;
     }
+
+
+    /**
+     * 32. 最长有效括号
+     *
+     * @param s
+     * @return
+     */
+    public int longestValidParentheses(String s) {
+        Stack<Character> stack = new Stack<>();
+
+        Deque<Integer> deque = new LinkedList<>();
+        for (char c : s.toCharArray()) {
+            if (c == ')') {
+                if (!stack.isEmpty() && stack.peek() == '(') {
+                    stack.pop();
+                    int count = 2;
+                    while (deque.getLast() != 1){
+                        count++;
+                        deque.removeLast();
+                    }
+                    deque.removeLast();
+                    for(int i = 0;i<count;i++){
+                        deque.addLast(0);
+                    }
+                }
+            } else {
+                stack.push(c);
+                deque.addLast(1);
+            }
+        }
+
+        int ans = 0;
+        int n = deque.size();
+        int count = 0;
+        for (int i = 0; i < n; i++) {
+            int x = deque.removeFirst();
+            if (x == 0) {
+                count++;
+            } else {
+                ans = Math.max(ans, count);
+                count = 0;
+            }
+        }
+        ans = Math.max(ans, count);
+        return ans;
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
