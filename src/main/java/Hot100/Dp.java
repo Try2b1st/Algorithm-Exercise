@@ -18,7 +18,7 @@ public class Dp {
         List<Integer> origin1 = new ArrayList<>();
         origin1.add(1);
         result.add(origin1);
-        if(numRows == 1){
+        if (numRows == 1) {
             return result;
         }
 
@@ -26,7 +26,7 @@ public class Dp {
         origin2.add(1);
         origin2.add(1);
         result.add(origin2);
-        if(numRows == 2){
+        if (numRows == 2) {
             return result;
         }
 
@@ -41,5 +41,30 @@ public class Dp {
             result.add(list);
         }
         return result;
+    }
+
+
+    /**
+     * 152. 乘积最大子数组
+     *
+     * @param nums
+     * @return
+     */
+    public int maxProduct(int[] nums) {
+        int n = nums.length;
+        int curMax = nums[0];
+        int curMin = nums[0];
+        int ans = nums[0];
+
+        for (int i = 1; i < n; i++) {
+            int max = curMax;
+            int min = curMin;
+
+            curMax = Math.max(nums[i], Math.max(max * nums[i], min * nums[i]));
+            curMin = Math.min(nums[i], Math.min(max * nums[i], min * nums[i]));
+            ans = Math.max(ans, curMax);
+        }
+
+        return ans;
     }
 }
