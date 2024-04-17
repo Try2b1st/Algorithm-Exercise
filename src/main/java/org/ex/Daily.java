@@ -2979,7 +2979,7 @@ public class Daily {
      * 706. 设计哈希映射
      */
     class MyHashMap {
-        static class Node {
+        class Node {
             int key, value;
             Node next;
 
