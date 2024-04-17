@@ -1,9 +1,6 @@
 package Hot100;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class Dui {
 
@@ -44,8 +41,38 @@ public class Dui {
         if (k <= big.size()) {
             return quickSort(big, k);
         } else if (k > big.size() + equal.size()) {
-            return quickSort(small, k -big.size() - equal.size());
+            return quickSort(small, k - big.size() - equal.size());
         }
         return pivot;
+    }
+
+
+    /**
+     * 295. 数据流的中位数
+     */
+    public class MedianFinder {
+        PriorityQueue<Integer> l = new PriorityQueue<>((a, b) -> b - a);
+        PriorityQueue<Integer> r = new PriorityQueue<>((a, b) -> a - b);
+
+        public MedianFinder() {
+        }
+
+        public void addNum(int num) {
+            if (l.size() == r.size()) {
+                r.offer(num);
+                l.offer(r.poll());
+            } else {
+                l.offer(num);
+                r.offer(l.poll());
+            }
+        }
+
+        public double findMedian() {
+            if (l.size() != r.size()) {
+                return l.peek();
+            } else {
+                return (l.peek() + r.peek()) / 2.0D;
+            }
+        }
     }
 }
