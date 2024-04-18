@@ -96,4 +96,100 @@ public class Search {
         }
         return nums[right];
     }
+
+
+    /**
+     * 4. 寻找两个正序数组的中位数
+     *
+     * @param nums1
+     * @param nums2
+     * @return
+     */
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        int aStart = 0;
+        int bStart = 0;
+        int sum = nums1.length + nums2.length;
+        double midNumber = 0.0;
+        double number1 = 0.0;
+        double number2 = 0.0;
+
+        if (sum != 0) {
+            if (sum % 2 != 0) {
+                for (int i = 0; i <= sum / 2; i++) {
+                    if (aStart < nums1.length && bStart < nums2.length) {
+                        if (nums1[aStart] == nums2[bStart]) {
+                            midNumber = nums1[aStart];
+                            aStart++;
+                            bStart++;
+                            i++;
+                        } else if (nums1[aStart] < nums2[bStart]) {
+                            midNumber = nums1[aStart];
+                            aStart++;
+                        } else {
+                            midNumber = nums2[bStart];
+                            bStart++;
+                        }
+                    } else if (aStart < nums1.length) {
+                        midNumber = nums1[aStart];
+                        aStart++;
+                    } else {
+                        midNumber = nums2[bStart];
+                        bStart++;
+                    }
+                }
+                return midNumber;
+            } else {
+                for (int i = 0; i <= sum / 2; i++) {
+                    if (aStart < nums1.length && bStart < nums2.length) {
+                        if (nums1[aStart] == nums2[bStart]) {
+                            number1 = nums1[aStart];
+                            aStart++;
+                            bStart++;
+                            i++;
+                        } else if (nums1[aStart] < nums2[bStart]) {
+                            number1 = nums1[aStart];
+                            aStart++;
+                        } else {
+                            number1 = nums2[bStart];
+                            bStart++;
+                        }
+                    } else if (aStart < nums1.length) {
+                        number1 = nums1[aStart];
+                        aStart++;
+                    } else {
+                        number1 = nums2[bStart];
+                        bStart++;
+                    }
+                }
+                aStart = 0;
+                bStart = 0;
+                for (int i = 0; i < sum / 2; i++) {
+                    if (aStart < nums1.length && bStart < nums2.length) {
+                        if (nums1[aStart] == nums2[bStart]) {
+                            number2 = nums1[aStart];
+                            aStart++;
+                            bStart++;
+                            i++;
+                        } else if (nums1[aStart] < nums2[bStart]) {
+                            number2 = nums1[aStart];
+                            aStart++;
+                        } else {
+                            number2 = nums2[bStart];
+                            bStart++;
+                        }
+                    } else if (aStart < nums1.length) {
+                        number2 = nums1[aStart];
+                        aStart++;
+                    } else {
+                        number2 = nums2[bStart];
+                        bStart++;
+                    }
+                }
+                midNumber = (number1 + number2) / 2.0;
+                return midNumber;
+            }
+        } else {
+            return 0;
+        }
+    }
 }
