@@ -3098,10 +3098,10 @@ public class Daily {
             size = 0;
             dfsToMinMalwareSpread(i, graph, vis, isInitial);
 
-            if(nodeId > 0){
-                if(maxSize < size){
+            if (nodeId > 0) {
+                if (maxSize < size) {
                     ans = nodeId;
-                }else if(maxSize == size && nodeId < ans){
+                } else if (maxSize == size && nodeId < ans) {
                     ans = nodeId;
                 }
             }
@@ -3114,15 +3114,59 @@ public class Daily {
         vis[x] = true;
         size++;
 
-        if(nodeId != -2 && isInitial[x]){
+        if (nodeId != -2 && isInitial[x]) {
             nodeId = nodeId == -1 ? x : -2;
         }
 
         for (int i = 0; i < graph.length; i++) {
-            if(graph[x][i] == 1 && !vis[i]){
-                dfsToMinMalwareSpread(i,graph,vis,isInitial);
+            if (graph[x][i] == 1 && !vis[i]) {
+                dfsToMinMalwareSpread(i, graph, vis, isInitial);
             }
         }
+    }
+
+
+    /**
+     * 2007. 从双倍数组中还原原数组
+     *
+     * @param changed
+     * @return
+     */
+    public int[] findOriginalArray(int[] changed) {
+        int n = changed.length;
+        if (n % 2 == 1 || n == 0) {
+            return new int[0];
+        }
+
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int x : changed) {
+            map.put(x, map.getOrDefault(x, 0) + 1);
+        }
+        Arrays.sort(changed);
+
+        boolean flag = true;
+        int[] ans = new int[n];
+        int count = 0;
+        for (int x : changed) {
+            if (map.containsKey(x)) {
+                if (map.containsKey(x * 2)) {
+                    map.put(x, map.get(x) - 1);
+                    map.put(x * 2, map.get(x * 2) - 1);
+                    if (map.get(x) == 0) map.remove(x);
+                    if (map.get(x * 2) == 0) map.remove(x * 2);
+                    ans[count++] = x;
+                } else {
+                    flag = false;
+                    break;
+                }
+            }
+        }
+
+        if (flag) {
+            return Arrays.copyOfRange(ans,0,n /2);
+        }
+
+        return new int[0];
     }
 }
 

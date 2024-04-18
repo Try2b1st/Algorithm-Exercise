@@ -12,9 +12,9 @@ import java.util.Arrays;
  */
 public class Main {
     public static void main(String[] args) {
-        Dp dp = new Dp();
-        int i = dp.longestValidParentheses("(()");
-        System.out.println(i);
+        Daily daily = new Daily();
+        int[] originalArray = daily.findOriginalArray(new int[]{0,0,0,0});
+        System.out.println(Arrays.toString(originalArray));
     }
 
     int nodeId;
