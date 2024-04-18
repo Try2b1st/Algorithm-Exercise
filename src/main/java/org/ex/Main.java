@@ -12,9 +12,9 @@ import java.util.Arrays;
  */
 public class Main {
     public static void main(String[] args) {
-        Daily daily = new Daily();
-        int[] originalArray = daily.findOriginalArray(new int[]{4,4,16,20,8,8,2,10});
-        System.out.println(Arrays.toString(originalArray));
+        Dp dp = new Dp();
+        String s = dp.longestPalindrome("bb");
+        System.out.println(s);
     }
 
     int nodeId;

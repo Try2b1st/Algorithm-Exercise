@@ -143,6 +143,49 @@ public class Dp {
         }
         return result[m - 1][n - 1];
     }
+
+
+    /**
+     * 5. 最长回文子串
+     *
+     * @param s
+     * @return
+     */
+    public String longestPalindrome(String s) {
+        int len = s.length();
+        if (len < 2) {
+            return s;
+        }
+
+        int maxLen = 1;
+        String ans = s.substring(0, 1);
+
+        for (int i = 1; i <= len - 1; i++) {
+            int left = i - 1;
+            int right = i + 1;
+            char c = s.charAt(i);
+            int curLen = 1;
+            while (left >= 0 && s.charAt(left) == c) {
+                curLen++;
+                left--;
+            }
+            while (right < len && s.charAt(right) == c) {
+                curLen++;
+                right++;
+            }
+
+            while (left >= 0 && right < len && s.charAt(left) == s.charAt(right)) {
+                left--;
+                right++;
+                curLen += 2;
+            }
+            if (curLen > maxLen) {
+                maxLen = curLen;
+                ans = s.substring(left + 1, right);
+            }
+        }
+        return ans;
+    }
 }
 
 
