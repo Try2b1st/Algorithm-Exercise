@@ -1,6 +1,8 @@
 package Hot100;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Skill {
 
@@ -49,7 +51,7 @@ public class Skill {
             if (nums[i] == 0) {
                 nums[i] = nums[p0];
                 nums[p0] = 0;
-                if(p0 < p1){
+                if (p0 < p1) {
                     nums[i] = nums[p1];
                     nums[p1] = 1;
                 }
@@ -61,6 +63,75 @@ public class Skill {
                 p1++;
             }
         }
+    }
+
+
+    /**
+     * 31. 下一个排列
+     *
+     * @param nums
+     */
+    public void nextPermutation(int[] nums) {
+        int n = nums.length;
+        if (n <= 1) {
+            return;
+        }
+
+        for (int i = n - 1; i > 0; i--) {
+            int x = nums[i - 1];
+            if (x < nums[i]) {
+                int index = i + 1;
+                while (index < n && x < nums[index]) {
+                    index++;
+                }
+                index--;
+                nums[i - 1] = nums[index];
+                nums[index] = x;
+                reNums(nums, i, n - 1);
+                return;
+            }
+        }
+        reNums(nums, 0, n - 1);
+    }
+
+    public void reNums(int[] nums, int left, int right) {
+        while (left < right) {
+            int temp = nums[right];
+            nums[right] = nums[left];
+            nums[left] = temp;
+            left++;
+            right--;
+        }
+    }
+
+
+    /**
+     * 287. 寻找重复数
+     *
+     * @param nums
+     * @return
+     */
+    public int findDuplicate(int[] nums) {
+        int n = nums.length;
+
+        int left = -1;
+        int right = n;
+
+        while (left + 1 < right) {
+            int count = 0;
+            int mid = left + (right - left) / 2;
+            for (int x : nums) {
+                if(mid >= x){
+                    count++;
+                }
+            }
+            if(count >= mid){
+                right = mid;
+            }else{
+                left = mid;
+            }
+        }
+        return right;
     }
 }
 
