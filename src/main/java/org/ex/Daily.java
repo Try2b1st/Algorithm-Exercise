@@ -3163,7 +3163,7 @@ public class Daily {
         }
 
         if (flag) {
-            return Arrays.copyOfRange(ans,0,n /2);
+            return Arrays.copyOfRange(ans, 0, n / 2);
         }
 
         return new int[0];
