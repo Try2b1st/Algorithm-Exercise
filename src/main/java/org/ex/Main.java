@@ -2,6 +2,7 @@ package org.ex;
 
 
 import Hot100.Dp;
+import Hot100.Skill;
 import org.ex.graphTheory.Connection;
 import org.ex.graphTheory.Question;
 
@@ -12,9 +13,8 @@ import java.util.Arrays;
  */
 public class Main {
     public static void main(String[] args) {
-        Dp dp = new Dp();
-        String s = dp.longestPalindrome("bb");
-        System.out.println(s);
+        Skill skill = new Skill();
+        skill.sortColors(new int[]{2,0,2,1,1,0});
     }
 
     int nodeId;
