@@ -13,8 +13,14 @@ import java.util.Arrays;
  */
 public class Main {
     public static void main(String[] args) {
-        Skill skill = new Skill();
-        skill.sortColors(new int[]{2,0,2,1,1,0});
+        Contest contest = new Contest();
+//        int i = contest.minimumOperations(new int[][]{
+//                {4,5,0,1},
+//                {1,9,0,8},
+//                {2,2,5,3},
+//                {2,0,9,3}
+//        });
+        int i = contest.minimumOperations(new int[][]{{1, 0, 2}, {1, 0, 2}});
     }
 
     int nodeId;
