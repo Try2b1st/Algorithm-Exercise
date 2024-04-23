@@ -3208,6 +3208,33 @@ public class Daily {
         }
         return -1;
     }
+
+
+    /**
+     * 02.23
+     * 1052. 爱生气的书店老板
+     *
+     * @param customers
+     * @param grumpy
+     * @param minutes
+     * @return
+     */
+    public int maxSatisfied(int[] customers, int[] grumpy, int minutes) {
+        int[] s = new int[2];
+        int ans1 = Integer.MIN_VALUE;
+
+        for (int i = 0; i < customers.length; i++) {
+            s[grumpy[i]] += customers[i];
+            if (i < minutes - 1) {
+                continue;
+            }
+            ans1 = Math.max(ans1,s[1]);
+
+            s[grumpy[i]] -= grumpy[i - minutes - 1] == 1 ? customers[i - minutes - 1] : 0;
+        }
+
+        return s[0] + ans1;
+    }
 }
 
 
