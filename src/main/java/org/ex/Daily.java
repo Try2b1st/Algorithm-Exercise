@@ -3281,6 +3281,36 @@ public class Daily {
         }
         return res + 1;
     }
+
+    /**
+     * @param root
+     * @param start
+     * @return
+     */
+    private int ans;
+
+    public int amountOfTime(TreeNode root, int start) {
+        dfs(root, start);
+        return ans;
+    }
+
+    private int dfs(TreeNode node, int start) {
+        if (node == null) {
+            return 0;
+        }
+        int lLen = dfs(node.left, start);
+        int rLen = dfs(node.right, start);
+        if (node.val == start) {
+            ans = -Math.min(lLen, rLen);
+            return 1;
+        }
+        if(lLen > 0 || rLen > 0){
+            ans = Math.max(ans,Math.abs(lLen) + Math.abs(rLen));
+            return Math.max(lLen,rLen) + 1;
+        }
+
+        return Math.min(lLen, rLen) - 1;
+    }
 }
 
 
