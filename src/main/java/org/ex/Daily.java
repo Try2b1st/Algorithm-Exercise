@@ -3304,13 +3304,44 @@ public class Daily {
             ans = -Math.min(lLen, rLen);
             return 1;
         }
-        if(lLen > 0 || rLen > 0){
-            ans = Math.max(ans,Math.abs(lLen) + Math.abs(rLen));
-            return Math.max(lLen,rLen) + 1;
+        if (lLen > 0 || rLen > 0) {
+            ans = Math.max(ans, Math.abs(lLen) + Math.abs(rLen));
+            return Math.max(lLen, rLen) + 1;
         }
 
         return Math.min(lLen, rLen) - 1;
     }
+
+
+    /**
+     * 04.25
+     * 2739. 总行驶距离
+     *
+     * @param mainTank
+     * @param additionalTank
+     * @return
+     */
+    public int distanceTraveled(int mainTank, int additionalTank) {
+        int ans = 0;
+
+        while (mainTank > 0) {
+            if (mainTank >= 5) {
+                ans += 50;
+                mainTank-=5;
+                if(additionalTank > 0){
+                    mainTank++;
+                    additionalTank--;
+                }
+            }else{
+                ans+=mainTank * 10;
+                break;
+            }
+        }
+
+        return ans;
+    }
+
+
 }
 
 
