@@ -3327,13 +3327,13 @@ public class Daily {
         while (mainTank > 0) {
             if (mainTank >= 5) {
                 ans += 50;
-                mainTank-=5;
-                if(additionalTank > 0){
+                mainTank -= 5;
+                if (additionalTank > 0) {
                     mainTank++;
                     additionalTank--;
                 }
-            }else{
-                ans+=mainTank * 10;
+            } else {
+                ans += mainTank * 10;
                 break;
             }
         }
@@ -3341,6 +3341,54 @@ public class Daily {
         return ans;
     }
 
+
+    /**
+     * 04.26
+     * 1146. 快照数组
+     */
+    public class SnapshotArray {
+        int curSnapId;
+        int[] array;
+
+        Map<Integer, List<int[]>> history;
+
+        public SnapshotArray(int length) {
+            curSnapId = 0;
+            history = new HashMap<>();
+        }
+
+        public void set(int index, int val) {
+            history.computeIfAbsent(index, i -> new ArrayList<>()).add(new int[]{curSnapId, val});
+        }
+
+        public int snap() {
+            curSnapId++;
+            return curSnapId - 1;
+        }
+
+        public int get(int index, int snap_id) {
+            List<int[]> list = history.get(index);
+            int i = search(list,snap_id);
+            return list.get(i)[1];
+        }
+
+        private int search(List<int[]> list, int snapId) {
+            int left = -1;
+            int right = list.size();
+
+            while (left + 1 < right) {
+                int mid = left + (right - left) / 2;
+
+                if(list.get(mid)[0] < snapId){
+                    left = mid;
+                }else{
+                    right = mid;
+                }
+            }
+
+            return left;
+        }
+    }
 
 }
 
