@@ -7,6 +7,7 @@ import java.util.*;
 
 /**
  * 4.21
+ * 4.28
  */
 public class Contest {
 
@@ -226,11 +227,11 @@ public class Contest {
                 int w = t[1];
                 int i = t[2];
 
-                if(dis[y] - w != dis[x]){
+                if (dis[y] - w != dis[x]) {
                     continue;
                 }
                 ans[i] = true;
-                if(!vis[x]){
+                if (!vis[x]) {
                     vis[x] = true;
                     queue.add(x);
                 }
@@ -239,6 +240,118 @@ public class Contest {
         return ans;
     }
 
+
+    /**
+     * 100285. 找出与数组相加的整数 I
+     *
+     * @param nums1
+     * @param nums2
+     * @return
+     */
+    public int addedInteger(int[] nums1, int[] nums2) {
+        int sum1 = 0;
+        for (int i : nums1) {
+            sum1 += i;
+        }
+
+        int sum2 = 0;
+        for (int i : nums2) {
+            sum2 += i;
+        }
+        return (sum2 - sum1) / nums2.length;
+    }
+
+
+    /**
+     * 100287. 找出与数组相加的整数 II
+     *
+     * @param nums1
+     * @param nums2
+     * @return
+     */
+    public int minimumAddedInteger(int[] nums1, int[] nums2) {
+        Arrays.sort(nums1);
+        Arrays.sort(nums2);
+
+        for (int i = 2; i >= 0; i--) {
+            int diff = nums2[0] - nums1[i];
+
+            int j = 0;
+            for (int k = i; k < nums1.length; k++) {
+                if (j < nums2.length && nums2[j] - nums1[k] == diff && ++j == nums2.length) {
+                    // nums2 是 {nums1[i] + diff} 的子序列
+                    return diff;
+                }
+            }
+        }
+        return 0;
+    }
+
+
+    /**
+     * 100282. 数组最后一个元素的最小值
+     *
+     * @param n
+     * @param x
+     * @return
+     */
+    public long minEnd(int n, int x) {
+        n--;
+        int i = 0;
+        int j = 0;
+        long ans = x;
+        while ((n >> j) > 0) {
+            if (((ans >> i) & 1) == 0) {
+                ans |= (long) ((n >> j) & 1) << i;
+                j++;
+            }
+            i++;
+        }
+        return ans;
+    }
+
+
+    /**
+     * 100257. 找出唯一性数组的中位数
+     *
+     * @param nums
+     * @return
+     */
+    public int medianOfUniquenessArray(int[] nums) {
+        int n = nums.length;
+        long k = ((long) n * (n + 1) / 2 + 1) / 2;
+        int left = 0;
+        int right = n;
+        while (left + 1 < right) {
+            int mid = (left + right) / 2;
+            if (check(nums, mid, k)) {
+                right = mid;
+            } else {
+                left = mid;
+            }
+        }
+        return right;
+    }
+
+    private boolean check(int[] nums, int upper, long k) {
+        long cnt = 0;
+        int l = 0;
+        HashMap<Integer, Integer> freq = new HashMap<>();
+        for (int r = 0; r < nums.length; r++) {
+            freq.merge(nums[r], 1, Integer::sum);
+            while (freq.size() > upper) {
+                int out = nums[l++];
+                if (freq.merge(out, -1, Integer::sum) == 0) {
+                    freq.remove(out);
+                }
+            }
+            cnt += r - l + 1;
+            if (cnt >= k) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
 
 
