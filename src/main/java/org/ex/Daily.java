@@ -3368,7 +3368,7 @@ public class Daily {
 
         public int get(int index, int snap_id) {
             List<int[]> list = history.get(index);
-            int i = search(list,snap_id);
+            int i = search(list, snap_id);
             return list.get(i)[1];
         }
 
@@ -3379,9 +3379,9 @@ public class Daily {
             while (left + 1 < right) {
                 int mid = left + (right - left) / 2;
 
-                if(list.get(mid)[0] < snapId){
+                if (list.get(mid)[0] < snapId) {
                     left = mid;
-                }else{
+                } else {
                     right = mid;
                 }
             }
@@ -3411,6 +3411,52 @@ public class Daily {
         return res.reverse().toString();
     }
 
+
+    /**
+     * 4.29
+     * 1329. 将矩阵按对角线排序
+     *
+     * @param mat
+     * @return
+     */
+    public int[][] diagonalSort(int[][] mat) {
+        int n = mat.length;
+        int m = mat[0].length;
+
+        int[] a = new int[Math.min(n, m)];
+
+        int sum = m + n - 1;
+        int startX = n - 1;
+        int startY = 0;
+        for (int i = 0; i < sum; i++) {
+            int tempX = startX;
+            int tempY = startY;
+            int count = 0;
+            Arrays.fill(a,Integer.MAX_VALUE);
+
+            while (tempX < n && tempY < m) {
+                a[count++] = mat[tempX][tempY];
+                tempX++;
+                tempY++;
+            }
+            Arrays.sort(a);
+            tempX = startX;
+            tempY = startY;
+            count= 0;
+            while (tempX < n && tempY < m) {
+                mat[tempX][tempY] = a[count++];
+                tempX++;
+                tempY++;
+            }
+
+            if (startX == 0) {
+                startY++;
+            } else {
+                startX--;
+            }
+        }
+        return mat;
+    }
 }
 
 
