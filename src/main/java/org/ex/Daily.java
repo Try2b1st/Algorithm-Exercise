@@ -3432,7 +3432,7 @@ public class Daily {
             int tempX = startX;
             int tempY = startY;
             int count = 0;
-            Arrays.fill(a,Integer.MAX_VALUE);
+            Arrays.fill(a, Integer.MAX_VALUE);
 
             while (tempX < n && tempY < m) {
                 a[count++] = mat[tempX][tempY];
@@ -3442,7 +3442,7 @@ public class Daily {
             Arrays.sort(a);
             tempX = startX;
             tempY = startY;
-            count= 0;
+            count = 0;
             while (tempX < n && tempY < m) {
                 mat[tempX][tempY] = a[count++];
                 tempX++;
@@ -3456,6 +3456,46 @@ public class Daily {
             }
         }
         return mat;
+    }
+
+
+    /**
+     * 05.04
+     * 1235. 规划兼职工作
+     *
+     * @param startTime
+     * @param endTime
+     * @param profit
+     * @return
+     */
+    public int jobScheduling(int[] startTime, int[] endTime, int[] profit) {
+        int n = startTime.length;
+        int[] dp = new int[n + 1];
+        int[][] job = new int[n][];
+
+        for (int i = 0; i < n; i++) {
+            job[i] = new int[]{startTime[i], endTime[i], profit[i]};
+        }
+        Arrays.sort(job, (a, b) -> a[1] - b[1]);
+
+        for (int i = 0; i < n; i++) {
+            int j = search(job, i, job[i][0]);
+            dp[i + 1] = Math.max(dp[i], dp[j + 1] + job[i][2]);
+        }
+        return n;
+    }
+
+    private int search(int[][] jobs, int right, int upper) {
+        int left = -1;
+        while (left + 1 < right) {
+            int mid = (left + right) >>> 1;
+            if (jobs[mid][1] <= upper) {
+                left = mid;
+            } else {
+                right = mid;
+            }
+        }
+        return left;
     }
 }
 
