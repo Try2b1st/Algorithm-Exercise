@@ -3497,6 +3497,35 @@ public class Daily {
         }
         return left;
     }
+
+
+    /**
+     * 05.05
+     * 1652. 拆炸弹
+     *
+     * @param code
+     * @param k
+     * @return
+     */
+    public int[] decrypt(int[] code, int k) {
+        int n = code.length;
+        int[] result = new int[n];
+        if (k == 0) return result;
+        int[] sum = new int[2 * n];
+
+        for (int i = 1; i <= 2 * n; i++) {
+            sum[i] = sum[i - 1] + code[(i - 1) % n];
+        }
+
+        for(int i = 1; i <= n;i++){
+            if(k < 0){
+                result[i - 1] = sum[i - 1 + n] - sum[i - 1 + n - k];
+            }else{
+                result[i - 1] = sum[i + k] - sum[i];
+            }
+        }
+        return result;
+    }
 }
 
 
