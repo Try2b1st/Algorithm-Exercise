@@ -3517,14 +3517,44 @@ public class Daily {
             sum[i] = sum[i - 1] + code[(i - 1) % n];
         }
 
-        for(int i = 1; i <= n;i++){
-            if(k < 0){
+        for (int i = 1; i <= n; i++) {
+            if (k < 0) {
                 result[i - 1] = sum[i - 1 + n] - sum[i - 1 + n - k];
-            }else{
+            } else {
                 result[i - 1] = sum[i + k] - sum[i];
             }
         }
         return result;
+    }
+
+
+    /**
+     * 05.06
+     * 741. 摘樱桃
+     *
+     * @param grid
+     * @return
+     */
+    public int cherryPickup(int[][] grid) {
+        int n = grid.length;
+        int[][] f = new int[n + 1][n + 1];
+        for (int[] temp : f) {
+            Arrays.fill(temp, Integer.MAX_VALUE);
+        }
+        f[1][1] = grid[0][0];
+        for (int t = 1; t < n * 2 - 1; t++) {
+            for (int j = Math.min(t, n - 1); j >= Math.max(t - n + 1, 0); j--) {
+                for (int k = Math.min(t, n - 1); k >= j; k--) {
+                    if (grid[t - j][j] < 0 || grid[t - k][k] < 0) {
+                        f[j + 1][k + 1] = Integer.MIN_VALUE;
+                    } else {
+                        f[j + 1][k + 1] = Math.max(Math.max(f[j + 1][k + 1], f[j + 1][k]), Math.max(f[j][k + 1], f[j][k])) +
+                                grid[t - j][j] + (k != j ? grid[t - k][k] : 0);
+                    }
+                }
+            }
+        }
+        return Math.max(f[n][n], 0);
     }
 }
 
