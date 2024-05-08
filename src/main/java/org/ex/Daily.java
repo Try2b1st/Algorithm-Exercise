@@ -3556,6 +3556,29 @@ public class Daily {
         }
         return Math.max(f[n][n], 0);
     }
+
+
+    /**
+     * 05.08
+     * 2079. 给植物浇水
+     *
+     * @param plants
+     * @param capacity
+     * @return
+     */
+    public int wateringPlants(int[] plants, int capacity) {
+        int cur = capacity;
+        int ans = 0;
+        for (int i = 0; i < plants.length; i++) {
+            if(plants[i] < cur){
+                ans += 2 * i + 1;
+            }else{
+                cur-=plants[i];
+                ans+=1;
+            }
+        }
+        return ans;
+    }
 }
 
 

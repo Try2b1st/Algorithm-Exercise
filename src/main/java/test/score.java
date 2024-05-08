@@ -23,13 +23,14 @@ public class score {
 
         scanner.close();
 
-        score_processing(scores);
+        score_processing(scores,length);
     }
-    public static void score_processing(float[] score) {
+
+    public static void score_processing(float[] score, int length) {
         int count = 0;
         float sum = 0;
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10 && i < length; i++) {
             if (score[i] >= 0 && score[i] <= 100) {
                 count++;
                 sum += score[i];
