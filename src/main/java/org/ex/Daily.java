@@ -3570,13 +3570,53 @@ public class Daily {
         int cur = capacity;
         int ans = 0;
         for (int i = 0; i < plants.length; i++) {
-            if(plants[i] < cur){
+            if (plants[i] < cur) {
                 ans += 2 * i + 1;
-            }else{
-                cur-=plants[i];
-                ans+=1;
+            } else {
+                cur -= plants[i];
+                ans += 1;
             }
         }
+        return ans;
+    }
+
+
+    /**
+     * 05.09
+     * 2105. 给植物浇水 II
+     *
+     * @param plants
+     * @param capacityA
+     * @param capacityB
+     * @return
+     */
+    public int minimumRefill(int[] plants, int capacityA, int capacityB) {
+        int n = plants.length;
+        boolean flag = n % 2 == 0;
+        int mid = n / 2;
+        int ans = 0;
+        int curA = capacityA;
+        int curB = capacityB;
+
+        for (int i = 0; i < mid; i++) {
+            if (plants[i] > curA) {
+                curA = capacityA;
+                ans++;
+            }
+            curA -= plants[i];
+        }
+
+        if(flag) mid--;
+        for (int i = n - 1; i > mid; i--) {
+            if (plants[i] > curB) {
+                curB = capacityB;
+                ans++;
+            }
+            curB -= plants[i];
+        }
+
+        if(curA < plants[mid] && curB < plants[mid]) ans++;
+
         return ans;
     }
 }
