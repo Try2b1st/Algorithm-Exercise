@@ -3619,6 +3619,26 @@ public class Daily {
 
         return ans;
     }
+
+
+    /**
+     * 05.10
+     * 2960. 统计已测试设备
+     *
+     * @param batteryPercentages
+     * @return
+     */
+    public int countTestedDevices(int[] batteryPercentages) {
+        int ans = 0;
+
+        for(int i : batteryPercentages){
+            if(i - ans > 0){
+                ans++;
+            }
+        }
+
+        return ans;
+    }
 }
 
 
