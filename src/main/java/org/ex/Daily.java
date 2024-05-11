@@ -3606,7 +3606,7 @@ public class Daily {
             curA -= plants[i];
         }
 
-        if(flag) mid--;
+        if (flag) mid--;
         for (int i = n - 1; i > mid; i--) {
             if (plants[i] > curB) {
                 curB = capacityB;
@@ -3615,7 +3615,7 @@ public class Daily {
             curB -= plants[i];
         }
 
-        if(curA < plants[mid] && curB < plants[mid]) ans++;
+        if (curA < plants[mid] && curB < plants[mid]) ans++;
 
         return ans;
     }
@@ -3631,12 +3631,57 @@ public class Daily {
     public int countTestedDevices(int[] batteryPercentages) {
         int ans = 0;
 
-        for(int i : batteryPercentages){
-            if(i - ans > 0){
+        for (int i : batteryPercentages) {
+            if (i - ans > 0) {
                 ans++;
             }
         }
 
+        return ans;
+    }
+
+
+    /**
+     * 05.11
+     * 2391. 收集垃圾的最少总时间
+     *
+     * @param garbage
+     * @param travel
+     * @return
+     */
+    public int garbageCollection(String[] garbage, int[] travel) {
+        char[] cs = new char[]{'M', 'P', 'G'};
+        int n = garbage.length;
+
+        int ans = 0;
+        for (char c : cs) {
+            int temp = 0;
+            for (int i = 0; i < n; i++) {
+                char[] s = garbage[i].toCharArray();
+                for (char cur : s) {
+                    if (cur == c) {
+                        temp++;
+                    }
+                }
+                if (i != 0) temp += travel[i - 1];
+            }
+            for (int i = n - 1; i > 0; i--) {
+                char[] s = garbage[i].toCharArray();
+                boolean flag = false;
+                for (char cur : s) {
+                    if (cur == c) {
+                        flag = true;
+                        break;
+                    }
+                }
+                if (!flag){
+                    temp -= travel[i - 1];
+                }else{
+                    break;
+                }
+            }
+            ans += temp;
+        }
         return ans;
     }
 }
