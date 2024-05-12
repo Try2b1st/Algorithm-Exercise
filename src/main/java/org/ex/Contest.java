@@ -352,6 +352,117 @@ public class Contest {
         }
         return false;
     }
+
+
+    /*
+      05.12 周赛
+     */
+
+    /**
+     * 100296. 两个字符串的排列差
+     *
+     * @param s
+     * @param t
+     * @return
+     */
+    public int findPermutationDifference(String s, String t) {
+        char[] ss = s.toCharArray();
+        char[] ts = t.toCharArray();
+        int n = ss.length;
+        Map<Character, Integer> map = new HashMap<>();
+
+        for (int i = 0; i < n; i++) {
+            map.put(ss[i], i);
+        }
+
+        int ans = 0;
+        for (int i = 0; i < n; i++) {
+            ans += Math.abs(map.get(ts[i]) - i);
+        }
+        return ans;
+    }
+
+
+    /**
+     * 100274. 从魔法师身上吸取的最大能量
+     *
+     * @param energy
+     * @param k
+     * @return
+     */
+    public int maximumEnergy(int[] energy, int k) {
+        int n = energy.length;
+
+        int ans = Integer.MIN_VALUE;
+        for (int i = n - 1; i >= 0; i--) {
+            if (i + k < n) {
+                energy[i] = energy[i + k];
+            }
+        }
+
+        for (int j : energy) {
+            ans = Math.max(ans, j);
+        }
+        return ans;
+    }
+
+
+    /**
+     * 100281. 矩阵中的最大得分
+     *
+     * @param grid
+     * @return
+     */
+    public int maxScore(List<List<Integer>> grid) {
+        int m = grid.size();
+        int n = grid.get(0).size();
+        int[][] array = new int[m][n];
+        int ans = Integer.MIN_VALUE;
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                array[i][j] = grid.get(i).get(j);
+            }
+        }
+
+        int[][] score = new int[m][n];
+
+        for (int i = m - 1; i >= 0; i--) {
+            for (int j = n - 1; j >= 0; j--) {
+                int tempScore = Integer.MIN_VALUE;
+
+                for (int k = j + 1; k < n; k++) {
+                    tempScore = Math.max(tempScore,
+                            Math.max(array[i][k] - array[i][j] + score[i][k],
+                                    array[i][k] - array[i][j]));
+                }
+
+                for (int k = i + 1; k < m; k++) {
+                    tempScore = Math.max(tempScore,
+                            Math.max(array[k][j] - array[i][j] + score[k][j],
+                                    array[k][j] - array[i][j]));
+                }
+
+                score[i][j] = tempScore == Integer.MIN_VALUE ? 0 : tempScore;
+                if (!(i == m - 1 && j == n- 1)) ans = Math.max(score[i][j], ans);
+            }
+        }
+
+        return ans;
+    }
+
+    /**
+     * 100312. 找出分数最低的排列
+     *
+     * @param nums
+     * @return
+     */
+    public int[] findPermutation(int[] nums) {
+        int n = nums.length;
+        int[] ans = new int[n];
+
+        return ans;
+    }
 }
 
 

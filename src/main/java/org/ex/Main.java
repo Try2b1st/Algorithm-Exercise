@@ -6,7 +6,9 @@ import Hot100.Skill;
 import org.ex.graphTheory.Connection;
 import org.ex.graphTheory.Question;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author 下水道的小老鼠
@@ -14,13 +16,20 @@ import java.util.Arrays;
 public class Main {
     public static void main(String[] args) {
         Contest contest = new Contest();
-//        int i = contest.minimumOperations(new int[][]{
-//                {4,5,0,1},
-//                {1,9,0,8},
-//                {2,2,5,3},
-//                {2,0,9,3}
-//        });
-        int i = contest.minimumOperations(new int[][]{{1, 0, 2}, {1, 0, 2}});
+        int[][] a = new int[][]{
+                {4, 3, 2},
+                {3, 2, 1}
+        };
+        List<List<Integer>> list = new ArrayList<>();
+        for (int[] temp : a) {
+            List<Integer> l = new ArrayList<>();
+            for (int x : temp) {
+                l.add(x);
+            }
+            list.add(l);
+        }
+        int i = contest.maxScore(list);
+        System.out.println(i);
     }
 
     int nodeId;
