@@ -3708,6 +3708,32 @@ public class Daily {
         memo.put(n, res); // 记忆化
         return res;
     }
+
+
+    /**
+     * 05.14
+     * 2244. 完成所有任务需要的最少轮数
+     *
+     * @param tasks
+     * @return
+     */
+    public int minimumRounds(int[] tasks) {
+        Map<Integer, Integer> map = new HashMap<>();
+
+        int ans = 0;
+        for (int i : tasks) {
+            map.put(i, map.getOrDefault(i, 0) + 1);
+        }
+
+        Set<Map.Entry<Integer, Integer>> entries = map.entrySet();
+        for (Map.Entry<Integer, Integer> entry : entries) {
+            int count = entry.getValue();
+            if (count == 1) return -1;
+            ans += count / 3;
+            ans += count % 3 == 0 ? 0 : 1;
+        }
+        return ans;
+    }
 }
 
 
