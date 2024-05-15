@@ -3734,6 +3734,40 @@ public class Daily {
         }
         return ans;
     }
+
+
+    /**
+     * 05.15
+     * 2589. 完成所有任务的最少时间
+     *
+     * @param tasks
+     * @return
+     */
+    public int findMinimumTime(int[][] tasks) {
+        Arrays.sort(tasks, (a, b) -> a[1] - b[1]);
+        int n = tasks.length;
+        int ans = 0;
+        int max = tasks[n - 1][1];
+        boolean[] run = new boolean[max + 1];
+
+        for(int[] cur : tasks){
+            int work = cur[2];
+            int end = cur[1];
+            int start = cur[0];
+
+            for(int i = start; i<=end;i++){
+                if(run[i]) work--;
+            }
+            for(int i = end; work > 0;i--){
+                if(!run[i]) {
+                    work--;
+                    run[i] = true;
+                    ans++;
+                }
+            }
+        }
+        return ans;
+    }
 }
 
 
