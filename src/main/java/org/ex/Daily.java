@@ -3750,16 +3750,16 @@ public class Daily {
         int max = tasks[n - 1][1];
         boolean[] run = new boolean[max + 1];
 
-        for(int[] cur : tasks){
+        for (int[] cur : tasks) {
             int work = cur[2];
             int end = cur[1];
             int start = cur[0];
 
-            for(int i = start; i<=end;i++){
-                if(run[i]) work--;
+            for (int i = start; i <= end; i++) {
+                if (run[i]) work--;
             }
-            for(int i = end; work > 0;i--){
-                if(!run[i]) {
+            for (int i = end; work > 0; i--) {
+                if (!run[i]) {
                     work--;
                     run[i] = true;
                     ans++;
@@ -3767,6 +3767,23 @@ public class Daily {
             }
         }
         return ans;
+    }
+
+
+    /**
+     * 05.16
+     * 1953. 你可以工作的最大周数
+     */
+    class Solution {
+        public long numberOfWeeks(int[] milestones) {
+            long s = 0;
+            int m = 0;
+            for (int x : milestones) {
+                s += x;
+                m = Math.max(m, x);
+            }
+            return m > s - m + 1 ? (s - m) * 2 + 1 : s;
+        }
     }
 }
 
