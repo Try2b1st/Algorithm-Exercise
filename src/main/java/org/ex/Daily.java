@@ -3785,6 +3785,33 @@ public class Daily {
             return m > s - m + 1 ? (s - m) * 2 + 1 : s;
         }
     }
+
+
+    /**
+     * 05.18
+     * 2644. 找出可整除性得分最大的整数
+     *
+     * @param nums
+     * @param divisors
+     * @return
+     */
+    public int maxDivScore(int[] nums, int[] divisors) {
+        int ans = Integer.MAX_VALUE;
+        int maxS = 0;
+
+        for (int i : divisors) {
+            int s = 0;
+            for (int j : nums) {
+                if (j % i == 0) s++;
+            }
+            if(s == maxS) ans = Math.min(ans,i);
+            if(s > maxS){
+                maxS = s;
+                ans = i;
+            }
+        }
+        return ans;
+    }
 }
 
 
