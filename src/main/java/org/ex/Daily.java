@@ -3804,14 +3804,37 @@ public class Daily {
             for (int j : nums) {
                 if (j % i == 0) s++;
             }
-            if(s == maxS) ans = Math.min(ans,i);
-            if(s > maxS){
+            if (s == maxS) ans = Math.min(ans, i);
+            if (s > maxS) {
                 maxS = s;
                 ans = i;
             }
         }
         return ans;
     }
+
+
+    /**
+     * 05.19
+     * 1535. 找出数组游戏的赢家
+     *
+     * @param arr
+     * @param k
+     * @return
+     */
+    public int getWinner(int[] arr, int k) {
+        int mx = arr[0];
+        int win = 0;
+        for (int i = 1; i < arr.length && win < k; i++) {
+            if (arr[i] > mx) { // 新的最大值
+                mx = arr[i];
+                win = 0;
+            }
+            win++; // 获胜回合 +1
+        }
+        return mx;
+    }
+
 }
 
 

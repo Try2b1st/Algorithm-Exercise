@@ -553,7 +553,8 @@ public class Contest {
      * @return
      */
     public int waysToReachStair(int k) {
-
+        int[] dp = new int[k + 1];
+        return dp[k];
     }
 
 }
