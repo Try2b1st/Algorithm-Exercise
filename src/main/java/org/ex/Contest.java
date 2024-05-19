@@ -444,7 +444,7 @@ public class Contest {
                 }
 
                 score[i][j] = tempScore == Integer.MIN_VALUE ? 0 : tempScore;
-                if (!(i == m - 1 && j == n- 1)) ans = Math.max(score[i][j], ans);
+                if (!(i == m - 1 && j == n - 1)) ans = Math.max(score[i][j], ans);
             }
         }
 
@@ -463,6 +463,99 @@ public class Contest {
 
         return ans;
     }
+
+    /*
+      05.19 周赛
+     */
+
+
+    /**
+     * 100310. 特殊数组 I
+     *
+     * @param nums
+     * @return
+     */
+    public boolean isArraySpecial(int[] nums) {
+        int i = -1;
+
+        for (int x : nums) {
+            int y = x % 2;
+            if (i == y) return false;
+            i = y;
+        }
+        return true;
+    }
+
+    /**
+     * 100308. 特殊数组 II
+     *
+     * @param nums
+     * @param queries
+     * @return
+     */
+    public boolean[] isArraySpecial(int[] nums, int[][] queries) {
+        int n = queries.length;
+        int m = nums.length;
+        int[] temp = new int[m];
+        boolean[] ans = new boolean[n];
+
+        int h = nums[m - 1] % 2;
+        int maxL = m;
+        for (int i = m - 2; i >= 0; i--) {
+            int x = nums[i] % 2;
+            if (x == h) {
+                Arrays.fill(temp, i + 1, maxL, i + 1);
+                maxL = i + 1;
+            }
+            h = x;
+        }
+
+        for (int i = 0; i < n; i++) {
+            ans[i] = temp[queries[i][1]] <= queries[i][0];
+        }
+        return ans;
+    }
+
+
+    /**
+     * 100300. 所有数对中数位不同之和
+     *
+     * @param nums
+     * @return
+     */
+    public long sumDigitDifferences(int[] nums) {
+        int n = nums.length;
+        long ans = 0;
+        while (nums[0] != 0) {
+            long[] temp = new long[10];
+            for (int i = 0; i < n; i++) {
+                temp[nums[i] % 10]++;
+                nums[i] /= 10;
+            }
+
+            long tempN = n;
+            for (int j = 0; j < 10; j++) {
+                long i = temp[j];
+                if(i == 0) continue;
+                ans += i * (tempN - i);
+                tempN -= i;
+            }
+        }
+
+        return ans;
+    }
+
+
+    /**
+     * 100298. 到达第 K 级台阶的方案数
+     *
+     * @param k
+     * @return
+     */
+    public int waysToReachStair(int k) {
+
+    }
+
 }
 
 

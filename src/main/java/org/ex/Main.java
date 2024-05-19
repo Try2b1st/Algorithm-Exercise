@@ -16,20 +16,8 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         Contest contest = new Contest();
-        int[][] a = new int[][]{
-                {4, 3, 2},
-                {3, 2, 1}
-        };
-        List<List<Integer>> list = new ArrayList<>();
-        for (int[] temp : a) {
-            List<Integer> l = new ArrayList<>();
-            for (int x : temp) {
-                l.add(x);
-            }
-            list.add(l);
-        }
-        int i = contest.maxScore(list);
-        System.out.println(i);
+        long ans = contest.sumDigitDifferences(new int[]{13,23,12});
+        System.out.println(ans);
     }
 
     int nodeId;
