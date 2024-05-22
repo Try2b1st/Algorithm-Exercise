@@ -3865,6 +3865,54 @@ public class Daily {
         return ans;
     }
 
+    /**
+     * 05.21
+     * 2769. 找出最大的可达成数字
+     *
+     * @param num
+     * @param t
+     * @return
+     */
+    public int theMaximumAchievableX(int num, int t) {
+        return num + 2 * t;
+    }
+
+
+    /**
+     * 05.22
+     * 2225. 找出输掉零场或一场比赛的玩家
+     *
+     * @param matches
+     * @return
+     */
+    public List<List<Integer>> findWinners(int[][] matches) {
+        List<List<Integer>> ans = new ArrayList<>();
+
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int[] i : matches) {
+            if (map.containsKey(i[1])) {
+                map.put(i[1], map.get(i[1]) + 1);
+            } else {
+                map.put(i[1], 1);
+            }
+            if (!map.containsKey(i[0])) map.put(i[0], 0);
+        }
+
+        List<Integer> losers = new ArrayList<>();
+        List<Integer> wins = new ArrayList<>();
+        ans.add(wins);
+        ans.add(losers);
+
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            if (entry.getValue() == 1) losers.add(entry.getKey());
+            if (entry.getValue() == 0) wins.add(entry.getKey());
+        }
+        Collections.sort(ans.get(0));
+        Collections.sort(ans.get(1));
+
+        return ans;
+    }
+
 }
 
 
