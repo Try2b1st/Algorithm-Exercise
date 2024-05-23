@@ -3913,6 +3913,39 @@ public class Daily {
         return ans;
     }
 
+
+    /**
+     * 05.23
+     * 2831. 找出最长等值子数组
+     *
+     * @param nums
+     * @param k
+     * @return
+     */
+    public int longestEqualSubarray(List<Integer> nums, int k) {
+        int n = nums.size();
+        List<Integer>[] lists = new List[n + 1];
+        Arrays.setAll(lists, i -> new ArrayList<>());
+
+        for (int i = 0; i < n; i++) {
+            int x = nums.get(i);
+            lists[x].add(i);
+        }
+        int ans = Integer.MIN_VALUE;
+        for (List<Integer> temp : lists) {
+            if(temp.size() <= ans) continue;
+
+            int left = 0;
+            for (int right = 0; right < temp.size(); right++) {
+                if(temp.get(right) - temp.get(left) - (right - left) > k){
+                    left++;
+                }
+                ans = Math.max(right - left + 1, ans);
+            }
+        }
+        return ans;
+    }
+
 }
 
 
