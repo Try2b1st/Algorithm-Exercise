@@ -536,7 +536,7 @@ public class Contest {
             long tempN = n;
             for (int j = 0; j < 10; j++) {
                 long i = temp[j];
-                if(i == 0) continue;
+                if (i == 0) continue;
                 ans += i * (tempN - i);
                 tempN -= i;
             }
@@ -555,6 +555,95 @@ public class Contest {
     public int waysToReachStair(int k) {
         int[] dp = new int[k + 1];
         return dp[k];
+    }
+
+
+    //05.25 双周赛
+
+    /**
+     * 100309. 求出出现两次数字的 XOR 值
+     *
+     * @param nums
+     * @return
+     */
+    public int duplicateNumbersXOR(int[] nums) {
+        int[] count = new int[51];
+
+        for (int i : nums) {
+            count[i] += 1;
+        }
+
+        int ans = 0;
+        for (int i = 1; i < count.length; i++) {
+            if (count[i] == 2) {
+                ans ^= i;
+            }
+        }
+        return ans;
+    }
+
+
+    /**
+     * 100303. 查询数组中元素的出现位置
+     *
+     * @param nums
+     * @param queries
+     * @param x
+     * @return
+     */
+    public int[] occurrencesOfElement(int[] nums, int[] queries, int x) {
+        List<Integer> list = new ArrayList<>();
+
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == x) {
+                list.add(i);
+            }
+        }
+
+        int n = queries.length;
+        int[] ans = new int[n];
+        Arrays.fill(ans, -1);
+        int m = list.size();
+        for (int i = 0; i < n; i++) {
+            if (queries[i] <= m) {
+                ans[i] = list.get(queries[i] - 1);
+            }
+        }
+        return ans;
+    }
+
+
+    /**
+     * 100313. 所有球里面不同颜色的数目
+     *
+     * @param limit
+     * @param queries
+     * @return
+     */
+    public int[] queryResults(int limit, int[][] queries) {
+        int[] color = new int[limit + 1];
+        int[] ans = new int[queries.length];
+        Map<Integer, Integer> map = new HashMap<>();
+
+        ans[0] = 1;
+        color[queries[0][0]] = queries[0][1];
+        map.put(queries[0][1], 1);
+
+        for (int i = 1; i < queries.length; i++) {
+            int x = queries[i][0];
+            int y = queries[i][1];
+
+            int xy = color[x];
+            if (xy != 0) {
+                map.put(xy, map.get(xy) - 1);
+                if (map.get(xy) == 0) map.remove(xy);
+            }
+            map.put(y,map.getOrDefault(y,0) + 1);
+            color[x] = y;
+            ans[i] = map.keySet().size();
+        }
+
+        return ans;
     }
 
 }
