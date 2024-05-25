@@ -3933,11 +3933,11 @@ public class Daily {
         }
         int ans = Integer.MIN_VALUE;
         for (List<Integer> temp : lists) {
-            if(temp.size() <= ans) continue;
+            if (temp.size() <= ans) continue;
 
             int left = 0;
             for (int right = 0; right < temp.size(); right++) {
-                if(temp.get(right) - temp.get(left) - (right - left) > k){
+                if (temp.get(right) - temp.get(left) - (right - left) > k) {
                     left++;
                 }
                 ans = Math.max(right - left + 1, ans);
@@ -3946,6 +3946,62 @@ public class Daily {
         return ans;
     }
 
+
+    /**
+     * 05.24
+     * 1673. 找出最具竞争力的子序列
+     *
+     * @param nums
+     * @param k
+     * @return
+     */
+    public int[] mostCompetitive(int[] nums, int k) {
+        Stack<Integer> stack = new Stack<>();
+        int n = nums.length;
+
+        for (int i = 0; i < n; i++) {
+            if (stack.isEmpty()) {
+                stack.push(nums[i]);
+                continue;
+            }
+            while (!stack.isEmpty() && stack.peek() > nums[i] && k - stack.size() <= (n - 1 - i)) {
+                stack.pop();
+            }
+            if (stack.size() < k) {
+                stack.push(nums[i]);
+            }
+        }
+
+        int[] ans = new int[k];
+        for (int i = k - 1; i >= 0; i--) {
+            ans[i] = stack.pop();
+        }
+
+        return ans;
+    }
+
+
+    /**
+     * 05.25
+     * 2903. 找出满足差值条件的下标 I
+     *
+     * @param nums
+     * @param indexDifference
+     * @param valueDifference
+     * @return
+     */
+    public int[] findIndices(int[] nums, int indexDifference, int valueDifference) {
+        int n = nums.length;
+
+        for (int i = n - 1; i >= indexDifference; i--) {
+            for (int j = i - indexDifference; j >= 0; j--) {
+                if (Math.abs(nums[i] - nums[j]) >= valueDifference) {
+                    return new int[]{i, j};
+                }
+            }
+        }
+        return new int[]{-1, -1};
+    }
 }
 
 
