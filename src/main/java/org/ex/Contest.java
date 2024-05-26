@@ -638,12 +638,99 @@ public class Contest {
                 map.put(xy, map.get(xy) - 1);
                 if (map.get(xy) == 0) map.remove(xy);
             }
-            map.put(y,map.getOrDefault(y,0) + 1);
+            map.put(y, map.getOrDefault(y, 0) + 1);
             color[x] = y;
             ans[i] = map.keySet().size();
         }
 
         return ans;
+    }
+
+
+    //05.26 周赛
+
+    /**
+     * 100323. 优质数对的总数 I
+     *
+     * @param nums1
+     * @param nums2
+     * @param k
+     * @return
+     */
+    public int numberOfPairs(int[] nums1, int[] nums2, int k) {
+        int count = 0;
+
+        for (int i = 0; i < nums2.length; i++) {
+            nums2[i] = nums2[i] * k;
+        }
+
+        for (int i : nums1) {
+            for (int j : nums2) {
+                if (i < j) continue;
+                if (i % j == 0) count++;
+            }
+        }
+        return count;
+    }
+
+    /**
+     * 100326. 压缩字符串 III
+     *
+     * @param word
+     * @return
+     */
+    public String compressedString(String word) {
+        if (word.isEmpty()) return "";
+        StringBuilder stringBuilder = new StringBuilder();
+        char[] cs = word.toCharArray();
+
+        char cur = cs[0];
+        int curCount = 1;
+        for (int i = 1; i < cs.length; i++) {
+            if (cur == cs[i] && curCount != 9) {
+                curCount++;
+            } else {
+                stringBuilder.append(curCount).append(cur);
+                cur = cs[i];
+                curCount = 1;
+            }
+        }
+        stringBuilder.append(curCount).append(cur);
+        return stringBuilder.toString();
+    }
+
+
+    /**
+     * 100321. 优质数对的总数 II
+     *
+     * @param nums1
+     * @param nums2
+     * @param k
+     * @return
+     */
+    public long numberOfPairsII(int[] nums1, int[] nums2, int k) {
+        long count = 0;
+        Map<Integer, Integer> map = new HashMap<>();
+
+        for (int i : nums1) {
+            if (i % k != 0) {
+                continue;
+            }
+            i /= k;
+            for (int d = 1; d * d <= i; d++) {
+                if (i % d > 0) {
+                    continue;
+                }
+                map.merge(d, 1, Integer::sum);
+                if (d * d < i) map.merge(i / d, 1, Integer::sum);
+            }
+        }
+
+        for (int z : nums2) {
+            count += map.getOrDefault(z, 0);
+        }
+
+        return count;
     }
 
 }
