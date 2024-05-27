@@ -4036,7 +4036,39 @@ public class Daily {
         }
 
         list.sort((a, b) -> b - a);
-        return list.get(k-1);
+        return list.get(k - 1);
+    }
+
+
+    /**
+     * 05.27
+     * 2028. 找出缺失的观测数据
+     *
+     * @param rolls
+     * @param mean
+     * @param n
+     * @return
+     */
+    public int[] missingRolls(int[] rolls, int mean, int n) {
+        int m = rolls.length;
+        int allSum = (n + m) * mean;
+        for (int i : rolls) {
+            allSum -= i;
+        }
+        int[] ans = new int[n];
+        if (n * 6 < allSum || n > allSum) return ans;
+
+        Arrays.fill(ans, allSum / n);
+        allSum %= n;
+
+        int count = 0;
+        while (allSum > 0) {
+            ans[count]++;
+            allSum--;
+            count++;
+            count %= n;
+        }
+        return ans;
     }
 }
 
