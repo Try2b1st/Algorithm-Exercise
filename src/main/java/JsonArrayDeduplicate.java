@@ -1,7 +1,7 @@
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.*;
 
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -11,26 +11,37 @@ import java.util.List;
 import java.util.Set;
 
 public class JsonArrayDeduplicate {
+
     public static void main(String[] args) {
-        String inputFilePath = "D:\\LeetCode\\LeetCode\\src\\main\\resources\\converted.json";  // 将此处替换为你的输入 JSON 文件路径
-        String outputFilePath = "D:\\LeetCode\\LeetCode\\src\\main\\resources\\new.json";  // 将此处替换为你的输出 JSON 文件路径
-
         try {
-            // 读取文件内容
-            String content = new String(Files.readAllBytes(Paths.get(inputFilePath)));
+            // 读取源数据的JSON文件
+            JSONReader reader = new JSONReader(new FileReader("src/main/resources/i_my_format_data.json"));
+            JSONArray data = reader.readObject(JSONArray.class);
 
-            // 将文件内容解析为 JSON 数组
-            JSONArray jsonArray = JSON.parseArray(content);
+            // 确定80%和20%的数据量
+            int totalData = data.size();
+            long splitIndex = (long) (0.8 * totalData);
 
-            // 使用 Set 去重
-            Set<JSONObject> jsonSet = new HashSet<>(jsonArray.toJavaList(JSONObject.class));
+            // 分割数据
+            JSONArray data80 = new JSONArray();
+            JSONArray data20 = new JSONArray();
 
-            // 将 Set 转换回 JSON 数组
-            JSONArray deduplicatedJsonArray = new JSONArray();
-            deduplicatedJsonArray.addAll(jsonSet);
+            for (long i = 0; i < totalData; i++) {
+                if (i < splitIndex) {
+                    data80.add(data.getJSONObject(Math.toIntExact(i)));
+                } else {
+                    data20.add(data.getJSONObject(Math.toIntExact(i)));
+                }
+            }
 
-            // 将去重后的 JSON 数组写入到新的 JSON 文件中
-            Files.write(Paths.get(outputFilePath), deduplicatedJsonArray.toJSONString().getBytes());
+            // 将分割后的数据写入两个新的JSON文件
+            Files.write(Paths.get("src/main/resources/data_80.json"), data80.toJSONString().getBytes());
+
+            Files.write(Paths.get("src/main/resources/data_20.json"), data20.toJSONString().getBytes());
+
+
+            System.out.println("数据已成功分割成80%和20%并保存到两个新的JSON文件中。");
+
         } catch (IOException e) {
             e.printStackTrace();
         }

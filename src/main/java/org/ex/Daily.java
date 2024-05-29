@@ -4070,6 +4070,26 @@ public class Daily {
         }
         return ans;
     }
+
+
+    /**
+     * 05.28
+     * 2951. 找出峰值
+     *
+     * @param mountain
+     * @return
+     */
+    public List<Integer> findPeaks(int[] mountain) {
+        List<Integer> ans = new ArrayList<>();
+
+        for(int i = 1; i < mountain.length - 1;i++){
+            int cur = mountain[i];
+            if(mountain[i - 1] < cur && mountain[i+1] < cur){
+                ans.add(i);
+            }
+        }
+        return ans;
+    }
 }
 
 
