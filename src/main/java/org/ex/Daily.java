@@ -4082,13 +4082,91 @@ public class Daily {
     public List<Integer> findPeaks(int[] mountain) {
         List<Integer> ans = new ArrayList<>();
 
-        for(int i = 1; i < mountain.length - 1;i++){
+        for (int i = 1; i < mountain.length - 1; i++) {
             int cur = mountain[i];
-            if(mountain[i - 1] < cur && mountain[i+1] < cur){
+            if (mountain[i - 1] < cur && mountain[i + 1] < cur) {
                 ans.add(i);
             }
         }
         return ans;
+    }
+
+
+    /**
+     * 05.29
+     * 2981. 找出出现至少三次的最长特殊子字符串 I
+     *
+     * @param s
+     * @return
+     */
+    public int maximumLength(String s) {
+        List<Integer>[] lists = new List[26];
+        Arrays.setAll(lists, i -> new ArrayList<>());
+
+        int i = 1;
+        char pre = s.charAt(0);
+        int n = s.length();
+        int count = 1;
+
+        while (n > i) {
+            while (i < n && s.charAt(i) == pre) {
+                count++;
+                i++;
+            }
+            lists[pre - 'a'].add(count);
+            if (i != n) pre = s.charAt(i);
+            i++;
+            count = 1;
+        }
+
+        int ans = 0;
+        for (List<Integer> list : lists) {
+            if (list.isEmpty()) continue;
+            list.sort((a, b) -> b - a);
+            list.add(0);
+            list.add(0);
+
+            ans = Math.max(ans,
+                    Math.max(list.get(0) - 2,
+                            Math.max(list.get(2),
+                                    Math.min(list.get(0) - 1, list.get(1)))));
+        }
+        return ans > 0 ? ans : -1;
+    }
+
+
+    /**
+     * 05.31
+     * 2965. 找出缺失和重复的数字
+     *
+     * @param grid
+     * @return
+     */
+    public int[] findMissingAndRepeatedValues(int[][] grid) {
+        int n = grid.length;
+        int xorAll = 0;
+        for (int[] row : grid) {
+            for (int x : row) {
+                xorAll ^= x;
+            }
+        }
+
+        int sum = ((n * n + 1) * (n * n)) / 2;
+        int ans1 = 0;
+
+        for (int[] ints : grid) {
+            for (int j = 0; j < n; j++) {
+                int cur = ints[j];
+                if ((xorAll & cur) == 0) {
+                    ans1 = cur;
+                } else {
+                    sum -= cur;
+                }
+
+            }
+        }
+
+        return new int[]{ans1, sum + ans1};
     }
 }
 

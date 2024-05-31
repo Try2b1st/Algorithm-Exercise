@@ -15,9 +15,9 @@ import java.util.List;
  */
 public class Main {
     public static void main(String[] args) {
-        Contest contest = new Contest();
-        long ans = contest.sumDigitDifferences(new int[]{13,23,12});
-        System.out.println(ans);
+        Daily daily = new Daily();
+        int i = daily.maximumLength("abcccccdddd");
+        System.out.println(i);
     }
 
     int nodeId;
