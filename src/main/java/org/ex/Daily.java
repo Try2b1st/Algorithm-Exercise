@@ -4168,6 +4168,29 @@ public class Daily {
 
         return new int[]{ans1, sum + ans1};
     }
+
+
+    /**
+     * 06.01
+     * 2928. 给小朋友们分糖果 I
+     *
+     * @param n
+     * @param limit
+     * @return
+     */
+    public int distributeCandies(int n, int limit) {
+        int ans = 0;
+        for (int i = 0; i <= limit; i++) {
+            int temp = n - i;
+            if (temp > 2 * limit) continue;
+            if (temp < 0) break;
+            int con = temp / 2 + 1;
+
+            ans += Math.min(temp,limit) * 2;
+            if(temp % 2 == 0) ans--;
+        }
+        return ans;
+    }
 }
 
 
