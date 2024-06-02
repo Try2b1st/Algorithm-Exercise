@@ -9,15 +9,21 @@ import org.ex.graphTheory.Question;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.PriorityQueue;
 
 /**
  * @author 下水道的小老鼠
  */
 public class Main {
     public static void main(String[] args) {
-        Daily daily = new Daily();
-        int i = daily.maximumLength("abcccccdddd");
-        System.out.println(i);
+        PriorityQueue<Character> priorityQueue = new PriorityQueue<>();
+        priorityQueue.offer('c');
+        priorityQueue.offer('z');
+        priorityQueue.offer('r');
+        priorityQueue.offer('a');
+        while(!priorityQueue.isEmpty()){
+            System.out.println(priorityQueue.poll() + "");
+        }
     }
 
     int nodeId;

@@ -733,6 +733,139 @@ public class Contest {
         return count;
     }
 
+    // 06.02 周赛
+
+    /**
+     * 100307. 候诊室中的最少椅子数
+     *
+     * @param s
+     * @return
+     */
+    public int minimumChairs(String s) {
+        Stack<Character> stack = new Stack<>();
+        int ans = 0;
+        for (int i = 0; i < s.length(); i++) {
+            ans = Math.max(ans, stack.size());
+            if (!stack.isEmpty()) {
+                if (s.charAt(i) == 'L') {
+                    stack.pop();
+                    continue;
+                }
+            }
+            stack.push(s.charAt(i));
+        }
+        ans = Math.max(ans, stack.size());
+        return ans;
+    }
+
+    /**
+     * 100311. 无需开会的工作日
+     *
+     * @param days
+     * @param meetings
+     * @return
+     */
+    public int countDays(int days, int[][] meetings) {
+        Arrays.sort(meetings, new Comparator<int[]>() {
+            @Override
+            public int compare(int[] o1, int[] o2) {
+                return o1[0] - o2[0];
+            }
+        });
+
+        int m = meetings.length;
+        int ans = 0;
+        ans += meetings[0][0] - 1;
+        int maxDay = meetings[0][1];
+
+
+        for (int i = 1; i < m; i++) {
+            if (maxDay < meetings[i][0]) {
+                ans += meetings[i][0] - maxDay - 1;
+            }
+            maxDay = Math.max(maxDay, meetings[i][1]);
+        }
+
+        ans += days - maxDay;
+
+        return ans;
+    }
+
+
+    /**
+     * 100322. 删除星号以后字典序最小的字符串
+     *
+     * @param s
+     * @return
+     */
+    public String clearStars(String s) {
+        char[] cs = s.toCharArray();
+        PriorityQueue<MyNode> priorityQueue = new PriorityQueue<>(new Comparator<MyNode>() {
+            @Override
+            public int compare(MyNode o1, MyNode o2) {
+                if (o1.getC() == o2.getC()) {
+                    return o2.getIndex() - o1.getIndex();
+                }
+                return o1.getC() - o2.getC();
+            }
+        });
+        for (int i = 0; i < cs.length; i++) {
+            if (cs[i] == '*') {
+                MyNode myNode = priorityQueue.poll();
+                if (myNode != null) {
+                    cs[myNode.getIndex()] = '*';
+                }
+                continue;
+            }
+            priorityQueue.offer(new MyNode(cs[i], i));
+        }
+        StringBuilder sb = new StringBuilder();
+        for (char c : cs) {
+            if (c != '*') sb.append(c);
+        }
+        return sb.toString();
+    }
+
+    public class MyNode {
+        private Character c;
+        private Integer index;
+
+        public MyNode(Character c, Integer index) {
+            this.c = c;
+            this.index = index;
+        }
+
+        public Character getC() {
+            return c;
+        }
+
+        public Integer getIndex() {
+            return index;
+        }
+    }
+
+    /**
+     * 100315. 找到按位于最接近 K 的子数组
+     *
+     * @param nums
+     * @param k
+     * @return
+     */
+    public int minimumDifference(int[] nums, int k) {
+        int n = nums.length;
+        int[] ansNums = new int[n];
+        ansNums[0] = nums[0];
+        for (int i = 1; i < n; i++) {
+            ansNums[i] = ansNums[i - 1] & nums[i];
+        }
+
+        int ans = Integer.MAX_VALUE;
+
+        for (int i = 0; i < n; i++) {
+            for(int i )
+        }
+    }
+
 }
 
 
