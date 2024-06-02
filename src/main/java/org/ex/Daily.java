@@ -4186,11 +4186,31 @@ public class Daily {
             if (temp < 0) break;
             int con = temp / 2 + 1;
 
-            ans += Math.min(temp,limit) * 2;
-            if(temp % 2 == 0) ans--;
+            ans += Math.min(temp, limit) * 2;
+            if (temp % 2 == 0) ans--;
         }
         return ans;
     }
+
+
+    /**
+     * 06.02
+     * 575. 分糖果
+     *
+     * @param candyType
+     * @return
+     */
+    public int distributeCandies(int[] candyType) {
+        int n = candyType.length;
+        Set<Integer> set = new HashSet<>();
+
+        for (int i : candyType) {
+            set.add(i);
+        }
+
+        return Math.min(set.size(), n / 2);
+    }
+
 }
 
 
