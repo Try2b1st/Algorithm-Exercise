@@ -852,18 +852,7 @@ public class Contest {
      * @return
      */
     public int minimumDifference(int[] nums, int k) {
-        int n = nums.length;
-        int[] ansNums = new int[n];
-        ansNums[0] = nums[0];
-        for (int i = 1; i < n; i++) {
-            ansNums[i] = ansNums[i - 1] & nums[i];
-        }
-
-        int ans = Integer.MAX_VALUE;
-
-        for (int i = 0; i < n; i++) {
-            for(int i )
-        }
+        return 0;
     }
 
 }
