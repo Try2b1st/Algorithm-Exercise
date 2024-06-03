@@ -4211,6 +4211,29 @@ public class Daily {
         return Math.min(set.size(), n / 2);
     }
 
+
+    /**
+     * 06.03
+     * 1103. 分糖果 II
+     *
+     * @param candies
+     * @param num_people
+     * @return
+     */
+    public int[] distributeCandiesII(int candies, int num_people) {
+        int[] ans = new int[num_people];
+        int m = (int) ((Math.sqrt(8.0 * candies + 1) - 1) / 2);
+        int k = m / num_people;
+        int e = m % num_people;
+
+        for (int i = 0; i < num_people; i++) {
+            ans[i] = (k * (k - 1) / 2 * num_people + (k) * (i + 1)) +
+                    e > i ? k * num_people + i + 1 : 0;
+        }
+
+        return ans;
+    }
+
 }
 
 
