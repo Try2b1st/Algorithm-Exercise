@@ -4234,6 +4234,50 @@ public class Daily {
         return ans;
     }
 
+
+    /**
+     * 06.04
+     * 3067. 在带权树网络中统计可连接服务器对数目
+     *
+     * @param edges
+     * @param signalSpeed
+     * @return
+     */
+    public int[] countPairsOfConnectableServers(int[][] edges, int signalSpeed) {
+        int n = edges.length + 1;
+        List<int[]>[] tree = new ArrayList[n];
+        Arrays.setAll(tree, i -> new ArrayList<>());
+        for (int[] edge : edges) {
+            int x = edge[0];
+            int y = edge[1];
+            int w = edge[2];
+            tree[x].add(new int[]{y, w});
+            tree[y].add(new int[]{x, w});
+        }
+        int[] ans = new int[n];
+        for (int i = 0; i < n; i++) {
+            int sum = 0;
+            for (int[] e : tree[i]) {
+                int cnt = dfsToCountPairsOfConnectableServers(e[0], i, e[1], tree,signalSpeed);
+                ans[i] += cnt * sum;
+                sum += cnt;
+            }
+        }
+
+        return ans;
+    }
+
+    private int dfsToCountPairsOfConnectableServers(int cur, int pre, int pathNum, List<int[]>[] tree,int signalSpeed) {
+        int cnt = pathNum % signalSpeed == 0 ? 1 : 0;
+        for (int[] temp : tree[cur]) {
+            int next = temp[0];
+            if (next != pre) {
+                cnt += dfsToCountPairsOfConnectableServers(next, cur, pathNum + temp[1], tree,signalSpeed);
+            }
+        }
+        return cnt;
+    }
+
 }
 
 
