@@ -16,14 +16,6 @@ import java.util.PriorityQueue;
  */
 public class Main {
     public static void main(String[] args) {
-        PriorityQueue<Character> priorityQueue = new PriorityQueue<>();
-        priorityQueue.offer('c');
-        priorityQueue.offer('z');
-        priorityQueue.offer('r');
-        priorityQueue.offer('a');
-        while(!priorityQueue.isEmpty()){
-            System.out.println(priorityQueue.poll() + "");
-        }
     }
 
     int nodeId;

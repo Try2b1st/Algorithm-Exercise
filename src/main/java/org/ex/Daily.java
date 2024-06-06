@@ -4258,7 +4258,7 @@ public class Daily {
         for (int i = 0; i < n; i++) {
             int sum = 0;
             for (int[] e : tree[i]) {
-                int cnt = dfsToCountPairsOfConnectableServers(e[0], i, e[1], tree,signalSpeed);
+                int cnt = dfsToCountPairsOfConnectableServers(e[0], i, e[1], tree, signalSpeed);
                 ans[i] += cnt * sum;
                 sum += cnt;
             }
@@ -4267,15 +4267,44 @@ public class Daily {
         return ans;
     }
 
-    private int dfsToCountPairsOfConnectableServers(int cur, int pre, int pathNum, List<int[]>[] tree,int signalSpeed) {
+    private int dfsToCountPairsOfConnectableServers(int cur, int pre, int pathNum, List<int[]>[] tree, int signalSpeed) {
         int cnt = pathNum % signalSpeed == 0 ? 1 : 0;
         for (int[] temp : tree[cur]) {
             int next = temp[0];
             if (next != pre) {
-                cnt += dfsToCountPairsOfConnectableServers(next, cur, pathNum + temp[1], tree,signalSpeed);
+                cnt += dfsToCountPairsOfConnectableServers(next, cur, pathNum + temp[1], tree, signalSpeed);
             }
         }
         return cnt;
+    }
+
+
+    /**
+     * 06.06
+     * 2938. 区分黑球与白球
+     *
+     * @param s
+     * @return
+     */
+    public long minimumSteps(String s) {
+        char[] cs = s.toCharArray();
+        int zero = cs.length - 1;
+        int one = 0;
+        long ans = 0;
+
+        while (zero > one) {
+            while (zero > one && cs[one] != '1') {
+                one++;
+            }
+            while (zero > one && cs[zero] != '0') {
+                zero--;
+            }
+            ans += zero - one;
+            zero--;
+            one++;
+        }
+
+        return ans;
     }
 
 }
