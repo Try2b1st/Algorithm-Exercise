@@ -4307,6 +4307,67 @@ public class Daily {
         return ans;
     }
 
+
+    public int maxOperations(int[] nums) {
+        int sum = nums[0] + nums[1];
+        int ans = 1;
+
+        int cur = 3;
+        while (cur < nums.length) {
+            if (nums[cur - 1] + nums[cur] == sum) ans++;
+            cur += 2;
+        }
+        return ans;
+    }
+
+
+    /**
+     * 06.10
+     * 881. 救生艇
+     *
+     * @param people
+     * @param limit
+     * @return
+     */
+    public int numRescueBoats(int[] people, int limit) {
+        Arrays.sort(people);
+
+        int right = people.length - 1;
+        int left = 0;
+        int ans = 0;
+
+        while (right > left) {
+            if (people[right] + people[left] <= limit) {
+                right--;
+                left++;
+            } else {
+                right--;
+            }
+            ans++;
+        }
+        return right == left ? ans + 1 : ans;
+    }
+
+
+    /**
+     * 06.11
+     * 419. 甲板上的战舰
+     *
+     * @param board
+     * @return
+     */
+    public int countBattleships(char[][] board) {
+        int ans = 0;
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[0].length; j++){
+                if(board[i][j] != 'X') continue;
+                if((i-1 < 0 || board[i - 1][j] != 'X' ) && (j - 1 < 0 || board[i][j-1] != 'X')){
+                    ans++;
+                }
+            }
+        }
+        return ans;
+    }
 }
 
 

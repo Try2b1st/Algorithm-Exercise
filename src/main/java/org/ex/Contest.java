@@ -867,6 +867,36 @@ public class Contest {
         return ans;
     }
 
+    // 06.09 周赛
+
+    /**
+     * 100325. 找出 K 秒后拿着球的孩子
+     *
+     * @param n
+     * @param k
+     * @return
+     */
+    public int numberOfChild(int n, int k) {
+        int m = k / (n - 1);
+        int mm = k % (n - 1);
+
+        if (m % 2 == 0) {
+            return mm;
+        }
+        return n - mm - 1;
+    }
+
+
+    /**
+     * 100305. K 秒后第 N 个元素的值
+     *
+     * @param n
+     * @param k
+     * @return
+     */
+    public int valueAfterKSeconds(int n, int k) {
+        return 0;
+    }
 }
 
 
