@@ -4359,14 +4359,26 @@ public class Daily {
     public int countBattleships(char[][] board) {
         int ans = 0;
         for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[0].length; j++){
-                if(board[i][j] != 'X') continue;
-                if((i-1 < 0 || board[i - 1][j] != 'X' ) && (j - 1 < 0 || board[i][j-1] != 'X')){
+            for (int j = 0; j < board[0].length; j++) {
+                if (board[i][j] != 'X') continue;
+                if ((i - 1 < 0 || board[i - 1][j] != 'X') && (j - 1 < 0 || board[i][j - 1] != 'X')) {
                     ans++;
                 }
             }
         }
         return ans;
+    }
+
+
+    /**
+     * 06.12
+     * 2806. 取整购买后的账户余额
+     *
+     * @param purchaseAmount
+     * @return
+     */
+    public int accountBalanceAfterPurchase(int purchaseAmount) {
+        return 100 - (((purchaseAmount / 10) * 10) + ((purchaseAmount % 10) > 4 ? 10 : 0));
     }
 }
 
