@@ -4380,6 +4380,81 @@ public class Daily {
     public int accountBalanceAfterPurchase(int purchaseAmount) {
         return 100 - (((purchaseAmount / 10) * 10) + ((purchaseAmount % 10) > 4 ? 10 : 0));
     }
+
+
+    /**
+     * 06.17
+     * 522. 最长特殊序列 II
+     *
+     * @param strs
+     * @return
+     */
+    public int findLUSlength(String[] strs) {
+        int n = strs.length;
+        Arrays.sort(strs, (a, b) -> b.length() - a.length());
+
+        next:
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (i != j && isSubString(strs[i], strs[j])) {
+                    continue next;
+                }
+            }
+            return strs[i].length();
+        }
+        return -1;
+    }
+
+    private boolean isSubString(String s, String t) {
+        int i = 0;
+        for (char c : t.toCharArray()) {
+            if (s.charAt(i) == c && ++i == s.length()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    /**
+     * 06.18
+     * 2288. 价格减免
+     *
+     * @param sentence
+     * @param discount
+     * @return
+     */
+    public String discountPrices(String sentence, int discount) {
+        String[] ss = sentence.split(" ");
+        double d = 1 - discount / 100.0;
+
+        for (int i = 0; i < ss.length; i++) {
+            String s = ss[i];
+            if (s.charAt(0) != '$' || !check(s.substring(1))) continue;
+            ss[i] = String.format("$%.2f", Long.parseLong(s.substring(1)) * d);
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (String s : ss) {
+            sb.append(s);
+            sb.append(" ");
+        }
+        sb.deleteCharAt(sb.length() - 1);
+
+        return sb.toString();
+    }
+
+    private boolean check(String s) {
+        if (s.isEmpty()) {
+            return false;
+        }
+        for (char c : s.toCharArray()) {
+            if (!Character.isDigit(c)) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
 
 

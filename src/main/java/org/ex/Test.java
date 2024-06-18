@@ -5,23 +5,9 @@ import java.util.*;
 public class Test {
 
     public static void main(String[] args) {
-        Flight flight =new Flight("国内", "经济", 1);
-        System.out.println(flight.watchMovie());
+
     }
 
-
-//    public static void main(String[] args) {
-//        Scanner scanner = new Scanner(System.in);
-//
-//        System.out.println("输入日期（格式为：yyyy:mm:dd）:");
-//        String s = scanner.nextLine();
-//
-//        String[] strings = s.split(":");
-//        int year = Integer.parseInt(strings[0]);
-//        int month = Integer.parseInt(strings[1]);
-//        int day = Integer.parseInt(strings[2]);
-//        nextDate(year, month, day);
-//    }
 
     static Map<Integer, Integer> map = new HashMap<>();
 
