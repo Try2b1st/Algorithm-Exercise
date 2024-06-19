@@ -4455,6 +4455,50 @@ public class Daily {
         }
         return true;
     }
+
+
+    /**
+     * 06.19
+     * 2713. 矩阵中严格递增的单元格数
+     *
+     * @param mat
+     * @return
+     */
+    public int maxIncreasingCells(int[][] mat) {
+        int m = mat.length;
+        int n = mat[0].length;
+
+        int[] rowMax = new int[m];
+        int[] colMax = new int[n];
+
+        Map<Integer, List<int[]>> g = new TreeMap<>();
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                g.computeIfAbsent(mat[i][j], k -> new ArrayList<>()).add(new int[]{i, j});
+            }
+        }
+
+        int ans = 0;
+        for (List<int[]> pos : g.values()) {
+            int[] mx = new int[pos.size()];
+            for (int k = 0; k < pos.size(); k++) {
+                int[] p = pos.get(k);
+                int i = p[0];
+                int j = p[1];
+                mx[k] = Math.max(rowMax[i], colMax[j]) + 1;
+                ans = Math.max(ans, mx[k]);
+            }
+            for (int k = 0; k < pos.size(); k++) {
+                int[] p = pos.get(k);
+                int i = p[0];
+                int j = p[1];
+                rowMax[i] = Math.max(rowMax[i],mx[k]);
+                colMax[i] = Math.max(colMax[j],mx[k]);
+            }
+        }
+        return ans;
+    }
 }
 
 
