@@ -1,6 +1,7 @@
 package org.ex;
 
 
+import java.math.BigInteger;
 import java.util.*;
 
 public class Daily {
@@ -4493,12 +4494,41 @@ public class Daily {
                 int[] p = pos.get(k);
                 int i = p[0];
                 int j = p[1];
-                rowMax[i] = Math.max(rowMax[i],mx[k]);
-                colMax[i] = Math.max(colMax[j],mx[k]);
+                rowMax[i] = Math.max(rowMax[i], mx[k]);
+                colMax[i] = Math.max(colMax[j], mx[k]);
             }
         }
         return ans;
     }
+
+
+    /**
+     * 06.20
+     * 2748. 美丽下标对的数目
+     *
+     * @param nums
+     * @return
+     */
+    public int countBeautifulPairs(int[] nums) {
+        int ans = 0;
+        int[] count = new int[10];
+
+        for (int x : nums) {
+            for (int z = 1; z < 10; z++) {
+                if (count[z] > 0 && gcd(z, x % 10) == 1) {
+                    ans++;
+                }
+            }
+            while (x >= 10) {
+                x /= 10;
+            }
+            count[x]++;
+        }
+
+        return ans;
+    }
+
+
 }
 
 
