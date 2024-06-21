@@ -4529,6 +4529,35 @@ public class Daily {
     }
 
 
+    /**
+     * 06.21
+     * LCP 61. 气温变化趋势
+     *
+     * @param temperatureA
+     * @param temperatureB
+     * @return
+     */
+    public int temperatureTrend(int[] temperatureA, int[] temperatureB) {
+        int ans = 0;
+        int start = 0;
+
+        for (int i = 1; i < temperatureA.length; i++) {
+            if (tab(temperatureA[i - 1], temperatureA[i]) != tab(temperatureB[i - 1], temperatureB[i])) {
+                ans = Math.max(ans, i - start - 1);
+                start = i;
+            }
+        }
+        if (start != temperatureA.length - 1) {
+            ans = Math.max(ans,temperatureA.length - start - 1);
+        }
+        return ans;
+    }
+
+    private int tab(int pre, int cur) {
+        if (cur - pre == 0) return 0;
+        if (cur - pre > 0) return 1;
+        return -1;
+    }
 }
 
 
