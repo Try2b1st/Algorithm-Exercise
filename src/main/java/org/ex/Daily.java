@@ -4548,7 +4548,7 @@ public class Daily {
             }
         }
         if (start != temperatureA.length - 1) {
-            ans = Math.max(ans,temperatureA.length - start - 1);
+            ans = Math.max(ans, temperatureA.length - start - 1);
         }
         return ans;
     }
@@ -4558,6 +4558,63 @@ public class Daily {
         if (cur - pre > 0) return 1;
         return -1;
     }
+
+
+    /**
+     * 07.15
+     * 721. 账户合并
+     *
+     * @param accounts
+     * @return
+     */
+    public List<List<String>> accountsMerge(List<List<String>> accounts) {
+        Map<String, List<Integer>> emailToIdx = new HashMap<>();
+
+        for (int i = 0; i < accounts.size(); i++) {
+            for (int j = 1; j < accounts.get(i).size(); j++) {
+                emailToIdx.computeIfAbsent(accounts.get(i).get(j), x -> new ArrayList<>()).add(i);
+            }
+        }
+
+        List<List<String>> ans = new ArrayList<>();
+        boolean[] vis = new boolean[accounts.size()];
+        Set<String> emailSet = new HashSet<>();
+        for (int i = 0; i < accounts.size(); i++) {
+            if (vis[i]) {
+                continue;
+            }
+            emailSet.clear();
+            dfs(i, accounts, emailToIdx, vis, emailSet);
+
+            List<String> list = new ArrayList<>(emailSet);
+            Collections.sort(list);
+            list.add(0, accounts.get(i).get(0));
+            ans.add(list);
+        }
+        return ans;
+    }
+
+    private void dfs(int i,
+                     List<List<String>> accounts,
+                     Map<String, List<Integer>> emailToIdx,
+                     boolean[] vis,
+                     Set<String> emailSet) {
+        vis[i] = true;
+
+        for (int k = 1; k < accounts.get(i).size(); k++) {
+            String email = accounts.get(i).get(k);
+            if (emailSet.contains(email)) {
+                continue;
+            }
+            emailSet.add(email);
+            for (int j : emailToIdx.get(email)) {
+                if (!vis[j]) {
+                    dfs(j, accounts, emailToIdx, vis, emailSet);
+                }
+            }
+        }
+    }
+
 }
 
 
