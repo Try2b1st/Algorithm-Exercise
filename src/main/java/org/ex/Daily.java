@@ -4615,6 +4615,39 @@ public class Daily {
         }
     }
 
+
+    /**
+     * 07.16
+     * 2956. 找到两个数组中的公共元素
+     *
+     * @param nums1
+     * @param nums2
+     * @return
+     */
+    public int[] findIntersectionValues(int[] nums1, int[] nums2) {
+        int[] ans = new int[2];
+        Set<Integer> set1 = new HashSet<>();
+        Set<Integer> set2 = new HashSet<>();
+
+        for (int j : nums1) {
+            set1.add(j);
+        }
+        for (int j : nums2) {
+            set2.add(j);
+        }
+        for (int j : nums1) {
+            if (set2.contains(j)) {
+                ans[0]++;
+            }
+        }
+        for (int j : nums2) {
+            if (set1.contains(j)) {
+                ans[1]++;
+            }
+        }
+
+        return ans;
+    }
 }
 
 
