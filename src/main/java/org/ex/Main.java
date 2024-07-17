@@ -16,6 +16,12 @@ import java.util.PriorityQueue;
  */
 public class Main {
     public static void main(String[] args) {
+        int n = 3;
+        for (int s = 1; s < (1 << n); s++) {
+            int k = Integer.numberOfTrailingZeros(s);
+            int t = s ^ (1 << k);
+            System.out.println(s + ","+k + "," + t);
+        }
     }
 
     int nodeId;
