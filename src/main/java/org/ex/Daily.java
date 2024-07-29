@@ -4700,6 +4700,40 @@ public class Daily {
 
         return ans;
     }
+
+
+    /**
+     * 07.29
+     * 682. 棒球比赛
+     *
+     * @param operations
+     * @return
+     */
+    public int calPoints(String[] operations) {
+        List<Integer> list = new ArrayList<>();
+
+        for (String s : operations) {
+            if (Objects.equals(s, "C")) {
+                list.remove(list.size() - 1);
+                continue;
+            }
+            if (Objects.equals(s, "D")) {
+                list.add(list.get(list.size() - 1) * 2);
+                continue;
+            }
+            if (Objects.equals(s, "+")) {
+                list.add(list.get(list.size() - 1) + list.get(list.size() - 2));
+                continue;
+            }
+            list.add(Integer.parseInt(s));
+        }
+
+        int ans = 0;
+        for (Integer i : list) {
+            ans += i;
+        }
+        return ans;
+    }
 }
 
 
