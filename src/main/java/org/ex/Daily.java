@@ -4734,6 +4734,51 @@ public class Daily {
         }
         return ans;
     }
+
+
+    public class ListNode {
+        int val;
+        ListNode next;
+
+        ListNode() {
+        }
+
+        ListNode(int val) {
+            this.val = val;
+        }
+
+        ListNode(int val, ListNode next) {
+            this.val = val;
+            this.next = next;
+        }
+    }
+
+    /**
+     * 2024.09.09
+     * 2181.合并零之间的节点
+     *
+     * @param head
+     * @return
+     */
+    public ListNode mergeNodes(ListNode head) {
+        ListNode current = new ListNode();
+        ListNode result = current;
+
+        int tempSum = -1;
+        while (head != null) {
+            if (head.val == 0 && tempSum >= 0) {
+                ListNode temp = new ListNode(tempSum);
+                current.next = temp;
+                current = current.next;
+            } else {
+                tempSum += head.val + (tempSum == -1 ? 1 : 0);
+            }
+
+            head = head.next;
+        }
+
+        return result.next;
+    }
 }
 
 
