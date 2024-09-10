@@ -16,12 +16,8 @@ import java.util.PriorityQueue;
  */
 public class Main {
     public static void main(String[] args) {
-        int n = 3;
-        for (int s = 1; s < (1 << n); s++) {
-            int k = Integer.numberOfTrailingZeros(s);
-            int t = s ^ (1 << k);
-            System.out.println(s + ","+k + "," + t);
-        }
+        Daily daily = new Daily();
+        daily.countQuadruplets(new int[]{1,3,2,4,5});
     }
 
     int nodeId;

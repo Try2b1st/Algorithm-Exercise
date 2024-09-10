@@ -4766,8 +4766,8 @@ public class Daily {
         while (current != null) {
             if (current.val != 0) {
                 head.val += current.val;
-            }else{
-                if(current.next != null ){
+            } else {
+                if (current.next != null) {
                     head.next = current;
 
                 }
@@ -4776,6 +4776,40 @@ public class Daily {
         }
         head.next = null;
         return result;
+    }
+
+    /**
+     * 2024.09.10
+     * 2552.统计上升四元组
+     *
+     * @param nums
+     * @return
+     */
+    public long countQuadruplets(int[] nums) {
+        int n = nums.length;
+        int[][] great = new int[n][n + 1];
+
+        for (int k = n - 2; k >= 2; k--) {
+            great[k] = great[k + 1].clone();
+            for (int x = 1; x < nums[k + 1]; x++) {
+                great[k][x]++;
+            }
+        }
+
+        long ans = 0;
+        int[] less = new int[n + 1];
+        for (int j = 1; j < n - 2; j++) {
+            for (int x = nums[j - 1]; x <= n; x++) {
+                less[x]++;
+            }
+
+            for (int k = j + 1; k < n - 1; k++) {
+                if (nums[j] > nums[k]) {
+                    ans += (long) less[nums[k]] * great[k][nums[j]];
+                }
+            }
+        }
+        return ans;
     }
 }
 
