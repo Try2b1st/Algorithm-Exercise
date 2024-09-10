@@ -4761,23 +4761,21 @@ public class Daily {
      * @return
      */
     public ListNode mergeNodes(ListNode head) {
-        ListNode current = new ListNode();
-        ListNode result = current;
+        ListNode result = head;
+        ListNode current = head.next;
+        while (current != null) {
+            if (current.val != 0) {
+                head.val += current.val;
+            }else{
+                if(current.next != null ){
+                    head.next = current;
 
-        int tempSum = -1;
-        while (head != null) {
-            if (head.val == 0 && tempSum >= 0) {
-                ListNode temp = new ListNode(tempSum);
-                current.next = temp;
-                current = current.next;
-            } else {
-                tempSum += head.val + (tempSum == -1 ? 1 : 0);
+                }
             }
-
-            head = head.next;
+            current = current.next;
         }
-
-        return result.next;
+        head.next = null;
+        return result;
     }
 }
 
