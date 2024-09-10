@@ -4786,30 +4786,25 @@ public class Daily {
      * @return
      */
     public long countQuadruplets(int[] nums) {
-        int n = nums.length;
-        int[][] great = new int[n][n + 1];
+        long cnt4 = 0;
 
-        for (int k = n - 2; k >= 2; k--) {
-            great[k] = great[k + 1].clone();
-            for (int x = 1; x < nums[k + 1]; x++) {
-                great[k][x]++;
-            }
-        }
+        long[] cnt3 = new long[nums.length];
+        for (int l = 2; l < nums.length; l++) {
+            int cnt2 = 0;
+            for (int j = 0; j < l; j++) {
+                if (nums[j] < nums[l]) {
+                    //记录 j < l && nums[j] < nums[l]
+                    cnt4 += cnt3[j];
 
-        long ans = 0;
-        int[] less = new int[n + 1];
-        for (int j = 1; j < n - 2; j++) {
-            for (int x = nums[j - 1]; x <= n; x++) {
-                less[x]++;
-            }
-
-            for (int k = j + 1; k < n - 1; k++) {
-                if (nums[j] > nums[k]) {
-                    ans += (long) less[nums[k]] * great[k][nums[j]];
+                    //记录 i < k && nums[i] < nums[k]
+                    cnt2++;
+                } else {
+                    //记录  j < k && nums[j] > nums[k]
+                    cnt3[j] += cnt2;
                 }
             }
         }
-        return ans;
+        return cnt4;
     }
 }
 
