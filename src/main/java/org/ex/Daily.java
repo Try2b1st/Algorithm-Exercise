@@ -4806,6 +4806,39 @@ public class Daily {
         }
         return cnt4;
     }
+
+
+    /**
+     * 2024.09.11
+     * 2555.两个线段获得的最多奖品
+     *
+     * @param prizePositions
+     * @param k
+     * @return
+     */
+    public int maximizeWin(int[] prizePositions, int k) {
+        int n = prizePositions.length;
+
+        if (k * 2 + 1 >= prizePositions[n - 1] - prizePositions[0]) {
+            return n;
+        }
+
+        int ans = 0;
+        int left = 0;
+        int[] mx = new int[n + 1];
+
+        for (int right = 0; right < n; right++) {
+            while (prizePositions[right] - prizePositions[left] > k) {
+                //缩小第二个线段的滑动窗口
+                left++;
+            }
+
+            ans = Math.max(ans, mx[left] + right - left + 1);
+            mx[right + 1] = Math.max(mx[right], right - left + 1);
+        }
+
+        return ans;
+    }
 }
 
 

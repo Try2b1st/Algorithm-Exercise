@@ -3,6 +3,7 @@ package org.ex;
 
 import Hot100.Dp;
 import Hot100.Skill;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.ex.graphTheory.Connection;
 import org.ex.graphTheory.Question;
 
@@ -16,8 +17,9 @@ import java.util.PriorityQueue;
  */
 public class Main {
     public static void main(String[] args) {
+//        System.out.println(DigestUtils.md5Hex("827ccb0eea8a706c4c34a16891f84e7b"));
         Daily daily = new Daily();
-        daily.countQuadruplets(new int[]{1,3,2,4,5});
+        daily.maximizeWin(new int[]{1,1,2,2,3,3,5},2);
     }
 
     int nodeId;
