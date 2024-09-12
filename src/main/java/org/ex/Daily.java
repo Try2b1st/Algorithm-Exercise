@@ -4839,6 +4839,26 @@ public class Daily {
 
         return ans;
     }
+
+    /**
+     * 2024.09.12
+     * 2576.求出最多标记下标
+     *
+     * @param nums
+     * @return
+     */
+    public int maxNumOfMarkedIndices(int[] nums) {
+        Arrays.sort(nums);
+        int i = 0;
+        int n = nums.length;
+
+        for (int j = (n + 1) / 2; j < n; j++) {
+            if (nums[i] * 2 <= nums[j]) {
+                i++;
+            }
+        }
+        return i * 2;
+    }
 }
 
 
