@@ -4859,6 +4859,28 @@ public class Daily {
         }
         return i * 2;
     }
+
+
+    /**
+     * 2024.09.14
+     * 2390.从字符串中移除星号
+     *
+     * @param s
+     * @return
+     */
+    public String removeStars(String s) {
+        char[] chars = s.toCharArray();
+        StringBuilder stringBuilder = new StringBuilder();
+        for (char c : chars) {
+            if (c == '*') {
+                stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+            } else {
+                stringBuilder.append(c);
+            }
+        }
+
+        return stringBuilder.toString();
+    }
 }
 
 
