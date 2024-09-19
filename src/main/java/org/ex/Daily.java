@@ -4881,6 +4881,35 @@ public class Daily {
 
         return stringBuilder.toString();
     }
+
+    /**
+     * 2024.09.19
+     * 2414. 最长的字母序连续子字符串的长度
+     *
+     * @param s
+     * @return
+     */
+    public int longestContinuousSubstring(String s) {
+        char[] chars = s.toCharArray();
+        int n = chars.length;
+
+        if (n == 1) {
+            return 1;
+        }
+        int left = 0;
+        int right = 1;
+        int result = 0;
+
+        while (right < n && left < n) {
+            if (chars[right] - chars[right - 1] != 1) {
+                result = Math.max(result, right - left);
+                left = right;
+            }
+            right++;
+        }
+        result = Math.max(result, right - left);
+        return result;
+    }
 }
 
 
