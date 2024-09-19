@@ -4910,6 +4910,51 @@ public class Daily {
         result = Math.max(result, right - left);
         return result;
     }
+
+    /**
+     * 2024/9/14晚上七点，美团第六场笔试第二题
+     * 链接：https://leetcode.cn/circle/discuss/2nbtCZ/
+     * 来源：力扣（LeetCode）
+     * 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+     *
+     * @param a
+     * @param b
+     * @param c
+     * @param x
+     * @param y
+     * @return
+     */
+    public int maxTao(int a, int b, int c, int x, int y) {
+        int left = 0;
+        int right = Math.max(a, Math.max(b, c));
+
+        while (left <= right) {
+            int mid = (left + right) / 2;
+
+            if (check(a, b, c, x, y, mid)) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+
+        return right;
+    }
+
+    private boolean check(int a, int b, int c, int x, int y, int mid) {
+        if (a < mid) {
+            return false;
+        }
+        int p1 = a - mid;
+        if (b + p1 / x < mid) {
+            return false;
+        }
+        int p2 = b + p1 / x - mid;
+        if (c + p2 / y < mid) {
+            return false;
+        }
+        return true;
+    }
 }
 
 
