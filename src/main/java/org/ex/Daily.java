@@ -4955,6 +4955,53 @@ public class Daily {
         }
         return true;
     }
+
+
+    /**
+     * 2024.09.20
+     * 2376. 统计特殊整数
+     *
+     * @param n
+     * @return
+     */
+    public int countSpecialNumbers(int n) {
+        char[] s = Integer.toString(n).toCharArray();
+        int[][] memo = new int[s.length][1 << 10];
+        for (int[] row : memo) {
+            Arrays.fill(row, 0);
+        }
+        return dfsToCountSpecialNumbers(0, 0, true, false, s, memo);
+    }
+
+    private int dfsToCountSpecialNumbers(int i, int mask, boolean isLimit, boolean isNum, char[] s, int[][] memo) {
+        if (i == s.length) {
+            return isNum ? 1 : 0;
+        }
+        if (!isLimit && isNum && memo[i][mask] != -1) {
+            return memo[i][mask];
+        }
+        int res = 0;
+
+        //跳过当前数位
+        if (!isNum) {
+            res = dfsToCountSpecialNumbers(i + 1, mask, false, false, s, memo);
+        }
+
+        //不跳过
+        int up = isLimit ? s[i] - '0' : 9;
+
+        for (int d = isNum ? 0 : 1; d <= up; d++) {
+            if(((mask >> d & 1) == 0)){
+                res += dfsToCountSpecialNumbers(i + 1,mask | (1 << d),isLimit && d == up,isNum,s,memo);
+            }
+        }
+
+        if(!isLimit && isNum){
+            memo[i][mask] = res;
+        }
+
+        return res;
+    }
 }
 
 
