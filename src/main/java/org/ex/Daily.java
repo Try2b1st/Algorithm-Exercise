@@ -4968,7 +4968,7 @@ public class Daily {
         char[] s = Integer.toString(n).toCharArray();
         int[][] memo = new int[s.length][1 << 10];
         for (int[] row : memo) {
-            Arrays.fill(row, 0);
+            Arrays.fill(row, -1);
         }
         return dfsToCountSpecialNumbers(0, 0, true, false, s, memo);
     }
@@ -4991,16 +4991,38 @@ public class Daily {
         int up = isLimit ? s[i] - '0' : 9;
 
         for (int d = isNum ? 0 : 1; d <= up; d++) {
-            if(((mask >> d & 1) == 0)){
-                res += dfsToCountSpecialNumbers(i + 1,mask | (1 << d),isLimit && d == up,isNum,s,memo);
+            if (((mask >> d & 1) == 0)) {
+                res += dfsToCountSpecialNumbers(i + 1, mask | (1 << d), isLimit && d == up, true, s, memo);
             }
         }
 
-        if(!isLimit && isNum){
+        if (!isLimit && isNum) {
             memo[i][mask] = res;
         }
 
         return res;
+    }
+
+    /**
+     * 2024.09.21
+     * 2374. 边积分最高的节点
+     *
+     * @param edges
+     * @return
+     */
+    public int edgeScore(int[] edges) {
+        int ans = 0;
+        long[] score = new long[edges.length];
+        for (int i = 0; i < edges.length; i++) {
+            int to = edges[i];
+            score[to] += i;
+
+            if (score[to] > score[ans] || (score[to] == score[ans] && to > ans)) {
+                ans = to;
+            }
+        }
+
+        return ans;
     }
 }
 

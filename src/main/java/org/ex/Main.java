@@ -19,8 +19,7 @@ public class Main {
     public static void main(String[] args) {
 //        System.out.println(DigestUtils.md5Hex("827ccb0eea8a706c4c34a16891f84e7b"));
         Daily daily = new Daily();
-        int ans = daily.maxTao(10,4,2,2,2);
-        System.out.println(ans);
+        daily.edgeScore(new int[]{1,0,0,0,0,7,7,5});
     }
 
     int nodeId;
