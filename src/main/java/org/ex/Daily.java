@@ -5004,6 +5004,48 @@ public class Daily {
     }
 
     /**
+     * 357. 统计各位数字都不同的数字个数
+     *
+     * @param n
+     * @return
+     */
+    public int countNumbersWithUniqueDigits(int n) {
+        int[][] memo = new int[n + 1][1 << 10];
+        for (int[] row : memo) {
+            Arrays.fill(row, -1);
+        }
+        return dfsToCountNumbersWithUniqueDigits(0, 0, n, false, memo);
+    }
+
+    private int dfsToCountNumbersWithUniqueDigits(int i, int mask, int n, boolean isNum, int[][] memo) {
+        if (i == n) {
+            return isNum ? 1 : 0;
+        }
+        if (isNum && memo[i][mask] != -1) {
+            return memo[i][mask];
+        }
+
+        int res = 0;
+        if (!isNum) {
+            res = dfsToCountNumbersWithUniqueDigits(i + 1, mask, n, false, memo);
+        }
+
+        for (int d = isNum || i == n - 1 ? 0 : 1; d <= 9; d++) {
+            if ((mask >> d & 1) == 0) {
+                res +=
+                        dfsToCountNumbersWithUniqueDigits(
+                                i + 1, mask | (d << 1), n, true, memo);
+            }
+        }
+
+        if (isNum) {
+            memo[i][mask] = res;
+        }
+
+        return res;
+    }
+
+    /**
      * 2024.09.21
      * 2374. 边积分最高的节点
      *
