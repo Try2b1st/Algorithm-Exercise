@@ -5066,6 +5066,48 @@ public class Daily {
 
         return ans;
     }
+
+    /**
+     * 1884. 鸡蛋掉落-两枚鸡蛋
+     *
+     * @param n
+     * @return
+     */
+    private static final int[] f1 = new int[1001];
+
+    static {
+        for (int i = 1; i < 1001; i++) {
+            f1[i] = Integer.MAX_VALUE;
+            for (int j = 1; j <= i; j++) {
+                f1[i] = Math.min(f1[i], Math.max(j, f1[i - j] + 1));
+            }
+        }
+    }
+
+    public int twoEggDrop(int n) {
+        return f1[n];
+    }
+
+    /**
+     * 2024.10.14
+     * 887. 鸡蛋掉落
+     *
+     * @param k
+     * @param n
+     * @return
+     */
+    public int superEggDrop(int k, int n) {
+        int[][] dp = new int[n + 1][k + 1];
+
+        for (int i = 1; ; i++) {
+            for (int j = 1; j <= k; j++) {
+                dp[i][j] = dp[i - 1][j] + dp[i - 1][j - 1] + 1;
+            }
+            if (dp[i][k] >= n) {
+                return i;
+            }
+        }
+    }
 }
 
 
