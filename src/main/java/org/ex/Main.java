@@ -14,11 +14,7 @@ import java.util.*;
  */
 public class Main {
     public static void main(String[] args) {
-        int[][] arrays = new int[][]{{1,2},{2,3},{3,4}};
-        String s = "ss ss";
-        s.split(" ");
-        Arrays.sort(arrays, (o1, o2) -> o2[1]-o1[1]);
-        System.out.println(Arrays.deepToString(arrays));
+
     }
 
 

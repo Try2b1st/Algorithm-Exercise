@@ -5108,6 +5108,26 @@ public class Daily {
             }
         }
     }
+
+    /**
+     * 2024.10.20
+     * 908. 最小差值 I
+     *
+     * @param nums
+     * @param k
+     * @return
+     */
+    public int smallestRangeI(int[] nums, int k) {
+        int max = -1;
+        int min = 10_001;
+
+        for (int x : nums) {
+            min = Math.min(min, x);
+            max = Math.max(max, x);
+        }
+
+        return Math.max(max - min - 2 * k, 0);
+    }
 }
 
 
