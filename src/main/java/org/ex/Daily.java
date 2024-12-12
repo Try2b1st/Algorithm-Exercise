@@ -5128,6 +5128,104 @@ public class Daily {
 
         return Math.max(max - min - 2 * k, 0);
     }
+
+    public int smallestRangeII(int[] nums, int k) {
+        int max = -1;
+        int min = 10_001;
+
+        for (int x : nums) {
+            max = Math.max(max, x);
+        }
+
+        for (int x : nums) {
+            if (x < max) {
+                max = Math.max(max, x + k);
+                min = Math.min(min, x + k);
+            } else {
+                max = Math.max(max, x - k);
+                min = Math.min(min, x - k);
+            }
+        }
+
+        return Math.max(max - min, 0);
+    }
+
+
+    /**
+     * 2024.12.10 每日一题
+     * 935. 骑士拨号器
+     *
+     * @param n
+     * @return
+     */
+    public int knightDialer(int n) {
+        int MOD = 1_000_000_007;
+        Map<Integer, int[]> map = new HashMap<>();
+        map.put(0, new int[]{4, 6});
+        map.put(1, new int[]{6, 8});
+        map.put(2, new int[]{7, 9});
+        map.put(3, new int[]{4, 8});
+        map.put(4, new int[]{0, 3, 9});
+        map.put(6, new int[]{0, 1, 7});
+        map.put(7, new int[]{2, 6});
+        map.put(8, new int[]{1, 3});
+        map.put(9, new int[]{2, 4});
+
+        long[][] dp = new long[n][10];
+
+        for (int i = 0; i < n; i++) {
+            Arrays.fill(dp[i], 0);
+        }
+        Arrays.fill(dp[0], 1);
+
+        for (int i = 1; i < n; i++) {
+            for (int j = 0; j < 10; j++) {
+                if (j == 5) continue;
+                int[] temp = map.get(j);
+                for (int x : temp) {
+                    dp[i][x] += dp[i - 1][j];
+                    dp[i][x] %= MOD;
+                }
+            }
+        }
+
+        long ans = 0;
+        for (int i = 0; i < 10; i++) {
+            ans += dp[n - 1][i];
+            ans %= MOD;
+        }
+        return (int) ans;
+    }
+
+    /**
+     * 2024.12.12
+     * 2931. 购买物品的最大开销
+     *
+     * @param values
+     * @return
+     */
+    public long maxSpending(int[][] values) {
+        int m = values.length;
+        int n = values[0].length;
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> values[a[0]][a[1]] - values[b[0]][b[1]]);
+
+        for (int i = 0; i < m; i++) {
+            pq.offer(new int[]{i, n - 1});
+        }
+
+        long ans = 0;
+        for (int d = 1; d <= m * n; d++) {
+            int[] p = pq.poll();
+            int i = p[0];
+            int j = p[1];
+
+            ans += (long) values[i][j] * d;
+
+            if(j > 0) pq.offer(new int[]{i, j - 1});
+        }
+
+        return ans;
+    }
 }
 
 
