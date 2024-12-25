@@ -5221,11 +5221,40 @@ public class Daily {
 
             ans += (long) values[i][j] * d;
 
-            if(j > 0) pq.offer(new int[]{i, j - 1});
+            if (j > 0) pq.offer(new int[]{i, j - 1});
         }
 
         return ans;
     }
+
+
+    /**
+     * 2024.12.13
+     * 3264. K 次乘运算后的最终数组 I
+     *
+     * @param nums
+     * @param k
+     * @param multiplier
+     * @return
+     */
+    public int[] getFinalState(int[] nums, int k, int multiplier) {
+        int index = -1;
+        int min = Integer.MAX_VALUE;
+
+        for (int i = 0; i < k; i++) {
+            for (int j = 0; j < nums.length; j++) {
+                if (min > nums[j]) {
+                    min = nums[j];
+                    index = j;
+                }
+            }
+            nums[index] *= multiplier;
+            min = Integer.MAX_VALUE;
+        }
+
+        return nums;
+    }
+
 }
 
 
