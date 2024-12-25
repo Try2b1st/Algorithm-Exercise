@@ -5255,6 +5255,67 @@ public class Daily {
         return nums;
     }
 
+
+    /**
+     * 2024.12.17
+     *
+     * @param words
+     * @param target
+     * @return
+     */
+    public int minValidStrings(String[] words, String target) {
+        char[] t = target.toCharArray();
+        int n = target.length();
+
+        // 多项式字符串哈希（方便计算子串哈希值）
+        // 哈希函数 hash(s) = s[0] * base^(n-1) + s[1] * base^(n-2) + ... + s[n-2] * base + s[n-1]
+        final int BASE = (int) 8e8 + new Random().nextInt((int) 1e8); // 随机 base，防止 hack
+        int[] powBase = new int[n + 1]; // powBase[i] = base^i
+        int[] preHash = new int[n + 1]; // 前缀哈希值 preHash[i] = hash(target[0] 到 target[i-1])
+        powBase[0] = 1;
+        for (int i = 0; i < n; i++) {
+            powBase[i + 1] = (int) ((long) powBase[i] * BASE % MOD);
+            preHash[i + 1] = (int) (((long) preHash[i] * BASE + t[i]) % MOD); // 秦九韶算法计算多项式哈希
+        }
+
+        int maxLen = 0;
+        for (String w : words) {
+            maxLen = Math.max(maxLen, w.length());
+        }
+        Set<Integer>[] sets = new HashSet[maxLen];
+        Arrays.setAll(sets, i -> new HashSet<>());
+        for (String w : words) {
+            long h = 0;
+            for (int j = 0; j < w.length(); j++) {
+                h = (h * BASE + w.charAt(j)) % MOD;
+                sets[j].add((int) h); // 注意 j 从 0 开始
+            }
+        }
+
+        int ans = 0;
+        int curR = 0; // 已建造的桥的右端点
+        int nxtR = 0; // 下一座桥的右端点的最大值
+        for (int i = 0; i < n; i++) {
+            while (nxtR < n && nxtR - i < maxLen && sets[nxtR - i].contains(subHash(i, nxtR + 1, powBase, preHash))) {
+                nxtR++;
+            }
+            if (i == curR) { // 到达已建造的桥的右端点
+                if (i == nxtR) { // 无论怎么造桥，都无法从 i 到 i+1
+                    return -1;
+                }
+                curR = nxtR; // 造一座桥
+                ans++;
+            }
+        }
+        return ans;
+    }
+
+    private int subHash(int l, int r, int[] powBase, int[] preHash) {
+        return (int) ((((long) preHash[r] - (long) preHash[l] * powBase[r - l]) % MOD + MOD) % MOD);
+    }
+
+
+
 }
 
 
