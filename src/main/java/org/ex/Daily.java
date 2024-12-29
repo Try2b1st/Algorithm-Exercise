@@ -5315,6 +5315,69 @@ public class Daily {
     }
 
 
+    /**
+     * 3218. 切蛋糕的最小总开销 I
+     *
+     * @param m
+     * @param n
+     * @param horizontalCut
+     * @param verticalCut
+     * @return
+     */
+    public int minimumCost(int m, int n, int[] horizontalCut, int[] verticalCut) {
+        int ans = 0;
+
+        PriorityQueue<Integer> horizontalCutQueue = new PriorityQueue<>((a, b) -> b - a);
+        PriorityQueue<Integer> verticalCutQueue = new PriorityQueue<>((a, b) -> b - a);
+        int horizontalSum = 0;
+        int verticalSum = 0;
+        for (int x : horizontalCut) {
+            horizontalCutQueue.offer(x);
+            horizontalSum += x;
+        }
+
+        for (int x : verticalCut) {
+            verticalCutQueue.offer(x);
+            verticalSum += x;
+        }
+
+        while (!(horizontalCutQueue.isEmpty() && verticalCutQueue.isEmpty())) {
+            if (horizontalCutQueue.isEmpty()) {
+                while (!verticalCutQueue.isEmpty()) {
+                    ans += verticalCutQueue.poll();
+                }
+                break;
+            }
+            if (verticalCutQueue.isEmpty()) {
+                while (!horizontalCutQueue.isEmpty()) {
+                    ans += horizontalCutQueue.poll();
+                }
+                break;
+            }
+            if (horizontalSum > verticalSum) {
+                ans += horizontalCutQueue.poll();
+                PriorityQueue<Integer> temp = new PriorityQueue<>((a, b) -> b - a);
+                horizontalSum = 0;
+                while (!verticalCutQueue.isEmpty()) {
+                    int x = verticalCutQueue.poll();
+                    temp.offer(x * 2);
+                    horizontalSum += x * 2;
+                }
+                verticalCutQueue = temp;
+            } else {
+                ans += verticalCutQueue.poll();
+                PriorityQueue<Integer> temp = new PriorityQueue<>((a, b) -> b - a);
+                verticalSum = 0;
+                while (!horizontalCutQueue.isEmpty()) {
+                    int x = horizontalCutQueue.poll();
+                    temp.offer(x * 2);
+                    verticalSum += x * 2;
+                }
+                horizontalCutQueue = temp;
+            }
+        }
+        return ans;
+    }
 
 }
 
