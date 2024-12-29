@@ -3,6 +3,7 @@ package org.ex;
 
 import java.math.BigInteger;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Daily {
 
@@ -5377,6 +5378,33 @@ public class Daily {
             }
         }
         return ans;
+    }
+
+
+    /**
+     * 2024.12.29
+     * 1366. 通过投票对团队排名
+     *
+     * @param votes
+     * @return
+     */
+    public String rankTeams(String[] votes) {
+        int m = votes[0].length();
+        int[][] cnts = new int[26][m];
+        for (String vote : votes) {
+            for (int i = 0; i < m; i++) {
+                cnts[vote.charAt(i) - 'A'][i]++;
+            }
+        }
+
+        return votes[0].chars()
+                .mapToObj(c -> (char) c)
+                .sorted((a, b) -> {
+                    int c = Arrays.compare(cnts[b - 'A'], cnts[a - 'A']);
+                    return c != 0 ? c : a - b;
+                })
+                .map(String::valueOf)
+                .collect(Collectors.joining());
     }
 
 }
