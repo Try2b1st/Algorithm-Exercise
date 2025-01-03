@@ -5407,6 +5407,35 @@ public class Daily {
                 .collect(Collectors.joining());
     }
 
+
+    /**
+     * 2024.12.30
+     * 1367. 二叉树中的链表
+     *
+     * @param head
+     * @param root
+     * @return
+     */
+    static ListNode tempHead;
+
+    public boolean isSubPath(ListNode head, TreeNode root) {
+        if (head == null) return true;
+        if (root == null) return false;
+        tempHead = head;
+        return dfs(head, root);
+    }
+
+    public boolean dfs(ListNode listNode, TreeNode root) {
+        if (listNode == null) {
+            return true;
+        }
+        if (root == null) {
+            return false;
+        }
+
+        return dfs(root.val != listNode.val ? tempHead : listNode.next, root.left) ||
+                dfs(root.val != listNode.val ? tempHead : listNode.next, root.right);
+    }
 }
 
 
