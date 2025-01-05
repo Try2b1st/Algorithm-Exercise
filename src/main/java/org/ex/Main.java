@@ -14,13 +14,6 @@ import java.util.*;
  */
 public class Main {
     public static void main(String[] args) {
-        PriorityQueue<Integer> horizontalCutQueue = new PriorityQueue<>((a, b) -> b - a);
-
-        horizontalCutQueue.offer(10);
-        horizontalCutQueue.offer(100);
-        horizontalCutQueue.offer(5);
-
-        System.out.println(horizontalCutQueue.poll());
     }
 
     public class ListNode {
