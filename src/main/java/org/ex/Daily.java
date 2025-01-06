@@ -5473,6 +5473,26 @@ public class Daily {
             return ans;
         }
     }
+
+    /**
+     * 2025.01.06
+     * 2274. 不含特殊楼层的最大连续楼层数
+     *
+     * @param bottom
+     * @param top
+     * @param special
+     * @return
+     */
+    public int maxConsecutive(int bottom, int top, int[] special) {
+        Arrays.sort(special);
+        int result = 0;
+        result = Math.max(special[0] - bottom, top - special[special.length - 1]);
+
+        for (int i = 1; i < special.length; i++) {
+            result = Math.max(special[i] - special[i - 1] - 1,result);
+        }
+        return result;
+    }
 }
 
 
