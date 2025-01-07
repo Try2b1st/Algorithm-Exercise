@@ -5489,9 +5489,29 @@ public class Daily {
         result = Math.max(special[0] - bottom, top - special[special.length - 1]);
 
         for (int i = 1; i < special.length; i++) {
-            result = Math.max(special[i] - special[i - 1] - 1,result);
+            result = Math.max(special[i] - special[i - 1] - 1, result);
         }
         return result;
+    }
+
+
+    /**
+     * 2025.01.07
+     * 3019. 按键变更的次数
+     *
+     * @param s
+     * @return
+     */
+    public int countKeyChanges(String s) {
+        int ans = 0;
+        char[] cs = s.toCharArray();
+        for (int i = 1; i < cs.length; i++) {
+            if (Character.toLowerCase(cs[i]) != Character.toLowerCase(cs[i - 1])) {
+                ans++;
+            }
+        }
+
+        return ans;
     }
 }
 
