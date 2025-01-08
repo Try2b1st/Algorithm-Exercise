@@ -5513,6 +5513,30 @@ public class Daily {
 
         return ans;
     }
+
+    /**
+     * 2025.01.08
+     * 2264. 字符串中最大的 3 位相同数字
+     *
+     * @param num
+     * @return
+     */
+    public String largestGoodInteger(String num) {
+        String result = "";
+        int max = -1;
+        for (int i = 0; i <= num.length() - 3; i++) {
+            String temp = num.substring(i, i + 3);
+            if (Objects.equals(temp.charAt(0), temp.charAt(1)) && Objects.equals(temp.charAt(0), temp.charAt(2)) && Objects.equals(temp.charAt(2), temp.charAt(1))) {
+                int x = (int) temp.charAt(0);
+                if (x > max) {
+                    result = temp;
+                    max = x;
+                }
+            }
+        }
+
+        return result;
+    }
 }
 
 
