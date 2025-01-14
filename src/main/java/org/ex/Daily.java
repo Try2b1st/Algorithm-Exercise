@@ -5588,6 +5588,27 @@ public class Daily {
         }
         return ans;
     }
+
+    /**
+     * 2025.01.14
+     * 3065. 超过阈值的最少操作数 I
+     *
+     * @param nums
+     * @param k
+     * @return
+     */
+    public int minOperations(int[] nums, int k) {
+        Arrays.sort(nums);
+
+        int ans = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] >= k) {
+                ans = i;
+                break;
+            }
+        }
+        return ans;
+    }
 }
 
 
