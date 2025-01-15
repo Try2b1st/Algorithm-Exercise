@@ -5609,6 +5609,31 @@ public class Daily {
         }
         return ans;
     }
+
+    /**
+     * 2025.01.15
+     * 3066. 超过阈值的最少操作数 II
+     *
+     * @param nums
+     * @param k
+     * @return
+     */
+    public int minOperationsII(int[] nums, int k) {
+        PriorityQueue<Long> priorityQueue = new PriorityQueue<>();
+        for (int x : nums) {
+            priorityQueue.offer((long) x);
+        }
+
+        int ans = 0;
+        while (priorityQueue.peek() < k) {
+            long x = priorityQueue.poll();
+            long y = priorityQueue.poll();
+
+            priorityQueue.offer(Math.min(x, y) * 2 + y);
+            ans++;
+        }
+        return ans;
+    }
 }
 
 
