@@ -5634,6 +5634,25 @@ public class Daily {
         }
         return ans;
     }
+
+    /**
+     * 2025.01.22
+     * 1561. 你可以获得的最大硬币数目
+     *
+     * @param piles
+     * @return
+     */
+    public int maxCoins(int[] piles) {
+        Arrays.sort(piles);
+        int ans = 0;
+        int count = piles.length / 3;
+        int j = piles.length - 2;
+        for (int i = 0; i < count; i++) {
+            ans += piles[j];
+            j -= 2;
+        }
+        return ans;
+    }
 }
 
 
