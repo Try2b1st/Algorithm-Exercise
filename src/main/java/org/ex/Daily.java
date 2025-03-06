@@ -5653,6 +5653,26 @@ public class Daily {
         }
         return ans;
     }
+
+    /**
+     * 2025.03.06
+     * 2588. 统计美丽子数组数目
+     *
+     * @param nums
+     * @return
+     */
+    public long beautifulSubarrays(int[] nums) {
+        int result = 0;
+        Map<Integer, Integer> map = new HashMap<>(nums.length + 1);
+        map.put(0, 1);
+        int cur = 0;
+        for (int num : nums) {
+            cur ^= num;
+            result += map.getOrDefault(cur, 0);
+            map.put(cur, map.getOrDefault(cur, 0) + 1);
+        }
+        return result;
+    }
 }
 
 
